@@ -5,7 +5,7 @@ import warlordstest.IWall;
 public class Wall implements IWall{
 
     private int xPos, yPos;
-    private boolean destroyed;
+    private boolean destroyed = false;
 
     public void setXPos(int x) {
         xPos = x;
@@ -26,5 +26,7 @@ public class Wall implements IWall{
     public boolean isDestroyed() {
         return destroyed;
     }
+
+    public void destroyWall() { destroyed = true; }
 
 }
