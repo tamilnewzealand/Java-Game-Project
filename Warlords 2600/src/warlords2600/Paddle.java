@@ -49,8 +49,8 @@ public class Paddle implements IPaddle {
 
     public void goRight() { x += speed; }
 
-    public void goDown() { x -= speed; }
+    public void goDown() { y -= speed; }
 
-    public void goUp() { x += speed; }
+    public void goUp() { y += speed; }
 
 }

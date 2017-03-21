@@ -3,26 +3,32 @@ package warlordstest;
 import junit.framework.TestSuite;
 import org.junit.Before;
 import org.junit.Test;
+import warlords2600.*;
 
-//import static com.sun.xml.internal.ws.dump.LoggingDumpTube.Position.Before;
+import static com.sun.xml.internal.ws.dump.LoggingDumpTube.Position.Before;
 import static org.junit.Assert.*;
-
 
 public class WarlordsTest extends TestSuite {
 
-    private IGame game;
-    private IBall ball;
-    private IPaddle paddle;
-    private IWall player1Wall;
-    private IWarlord player1;
-    private IWarlord player2;
+    // changed these types, need to do something about this
+    private Game game;
+    private Ball ball;
+    private Paddle paddle;
+    private Brick player1Wall;
+    private Warlord player1;
+    private Warlord player2;
 
     @Before
     public void setUp(){
-
         //Instantiate objects to initialise the fields - and preferably no other game objects, to minimise the possibility of conflicts
         //All game objects should be instantiated at coordinates (0,0) with zero velocity
-
+        this.ball = new Ball();
+        this.player1 = new Warlord();
+        this.paddle = new Paddle();
+        this.player1.paddle = this.paddle;
+        this.game = new Game(ball, player1, player2, player2, player2);
+        // don't really like what im doing here
+        // have any ideas ??
     }
 
     @Test

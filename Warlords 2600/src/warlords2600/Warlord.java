@@ -4,6 +4,7 @@ import warlordstest.IWarlord;
 
 public class Warlord implements IWarlord {
 
+    public Paddle paddle = new Paddle();
     private int xPos, yPos;
     private boolean dead = false, won = false;
 
