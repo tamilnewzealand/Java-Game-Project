@@ -2,7 +2,7 @@ package warlords2600;
 
 import warlordstest.IWall;
 
-public class Wall implements IWall{
+public class Brick implements IWall{
 
     private int xPos, yPos;
     private boolean destroyed = false;

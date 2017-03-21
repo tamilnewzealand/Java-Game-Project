@@ -2,9 +2,6 @@ package warlords2600;
 
 import warlordstest.IGame;
 
-/**
- * Created by adilb on 21/03/2017.
- */
 public class Game implements IGame{
 
     private boolean isFinished = false;
