@@ -1,16 +1,18 @@
 package warlords2600;
 
+import warlordstest.IPaddle;
+
 /**
  * Created by adilb on 21/03/2017.
  */
-public class Paddle {
+public class Paddle implements IPaddle {
     private int x, y, speed, width, height;
 
     public void setXPos(int x){
         this.x = x;
     }
 
-    public void setYPos(int y){
+    public void setYpos(int y){
         this.y = y;
     }
     public void  setSpeed(int speed){
@@ -30,7 +32,7 @@ public class Paddle {
         return x;
     }
 
-    public int getYPos(){
+    public int getYpos(){
         return y;
     }
 
