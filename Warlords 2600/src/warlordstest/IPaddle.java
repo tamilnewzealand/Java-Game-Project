@@ -15,5 +15,5 @@ public interface IPaddle {
      *  Set the vertical position of the paddle to the given value.
      * @param y
      */
-    void setYpos(int y);
+    void setYPos(int y);
 }
