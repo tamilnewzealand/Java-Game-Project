@@ -24,4 +24,25 @@ public class Paddle {
     public void setHeight(int height){
         this.height = height;
     }
+
+
+    public int getXPos(){
+        return x;
+    }
+
+    public int getYPos(){
+        return y;
+    }
+
+    public int getSpeed(){
+        return speed;
+    }
+
+    public int getWidth(){
+        return width;
+    }
+
+    public int getheight(){
+        return height;
+    }
 }
