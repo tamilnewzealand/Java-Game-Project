@@ -3,37 +3,37 @@ package warlords2600;
 import warlordstest.IBall;
 
 public class Ball implements IBall{
-    private int X, Y, XSpeed, YSpeed;
+    private int x, y, xSpeed, ySpeed;
 
     public void setXPos(int x) {
-        X = x;
+        this.x = x;
     }
 
     public void setYPos(int y) {
-        Y = y;
+        this.y = y;
     }
 
     public int getXPos() {
-        return X;
+        return this.x;
     }
 
     public int getYPos() {
-        return Y;
+        return this.y;
     }
 
     public void setXVelocity(int dX) {
-        XSpeed = dX;
+        xSpeed = dX;
     }
 
     public void setYVelocity(int dY) {
-        YSpeed = dY;
+        ySpeed = dY;
     }
 
     public int getXVelocity() {
-        return XSpeed;
+        return xSpeed;
     }
 
     public int getYVelocity() {
-        return YSpeed;
+        return ySpeed;
     }
 }
