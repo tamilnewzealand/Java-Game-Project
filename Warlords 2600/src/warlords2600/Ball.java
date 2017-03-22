@@ -37,22 +37,23 @@ public class Ball implements IBall{
         return ySpeed;
     }
 
-    public void processBall() {
+    public void processBallX() {
         x += xSpeed;
-        y += ySpeed;
-
         if(x <= 0) {
             x = -x;
             xSpeed = -xSpeed;
         }
-        if(y <= 0) {
-            y = -y;
-            ySpeed = -ySpeed;
-        }
-
         if(x >= 1024) {
             x = 1024 - (x - 1024);
             xSpeed = -xSpeed;
+        }
+    }
+
+    public void processBallY() {
+        y += ySpeed;
+        if(y <= 0) {
+            y = -y;
+            ySpeed = -ySpeed;
         }
         if(y >= 768) {
             y = 768 - (y - 768);

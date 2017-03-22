@@ -12,7 +12,7 @@ public class Warlord implements IWarlord {
         xPos = x;
     }
 
-    public void setYpos(int y) {
+    public void setYPos(int y) {
         yPos = y;
     }
 
@@ -20,7 +20,7 @@ public class Warlord implements IWarlord {
         return xPos;
     }
 
-    public int getYpos() {
+    public int getYPos() {
         return yPos;
     }
 

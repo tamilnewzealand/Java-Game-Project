@@ -19,7 +19,22 @@ public class Game implements IGame{
 
     public void tick(){
         timeElapsed++;
-        ball.processBall();
+        boolean hitPaddleX = false, hitPaddleY = false;
+
+        for (int i = 0; i < 1; i++) {
+            if ((ball.getXPos() < warlords[i].paddle.getXPos()) && ((ball.getXPos() + ball.getXVelocity()) > warlords[i].paddle.getXPos())) {
+                ball.setXPos(warlords[i].paddle.getXPos() - (ball.getXPos() + ball.getXVelocity() - warlords[i].paddle.getXPos()));
+                ball.setXVelocity(-ball.getXVelocity());
+                hitPaddleX = true;
+            }
+            if ((ball.getYPos() < warlords[i].paddle.getYPos()) && ((ball.getYPos() + ball.getYVelocity()) > warlords[i].paddle.getYPos())) {
+                ball.setYPos(warlords[i].paddle.getYPos() - (ball.getYPos() + ball.getYVelocity() - warlords[i].paddle.getYPos()));
+                ball.setYVelocity(-ball.getYVelocity());
+                hitPaddleY = true;
+            }
+        }
+        if (!hitPaddleX) ball.processBallX();
+        if (!hitPaddleY) ball.processBallY();
     }
 
     public boolean isFinished(){

@@ -11,7 +11,7 @@ public class Brick implements IWall{
         xPos = x;
     }
 
-    public void setYpos(int y) {
+    public void setYPos(int y) {
         yPos = y;
     }
 
@@ -19,7 +19,7 @@ public class Brick implements IWall{
         return xPos;
     }
 
-    public int getYpos() {
+    public int getYPos() {
         return yPos;
     }
 

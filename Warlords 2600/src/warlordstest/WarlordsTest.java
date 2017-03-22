@@ -74,6 +74,11 @@ public class WarlordsTest extends TestSuite {
 
         this.game.tick();
 
+        System.out.println(this.ball.getXPos());
+        System.out.println(this.ball.getYPos());
+        System.out.println(this.ball.getXVelocity());
+        System.out.println(this.ball.getYVelocity());
+
         assertTrue("The ball should not travel through the paddle", this.ball.getYPos() <= 500);
         assertTrue("The ball's velocity should be reversed in the direction of the collision", this.ball.getXVelocity() == 10 && this.ball.getYVelocity() == -10);
 

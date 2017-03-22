@@ -3,7 +3,12 @@
   <component name="ChangeListManager">
     <list default="true" id="13bb48f2-d7bb-4fab-9af3-e731517508f7" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/warlords2600/Ball.java" afterPath="$PROJECT_DIR$/src/warlords2600/Ball.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/warlords2600/Brick.java" afterPath="$PROJECT_DIR$/src/warlords2600/Brick.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/warlords2600/Game.java" afterPath="$PROJECT_DIR$/src/warlords2600/Game.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/warlords2600/Paddle.java" afterPath="$PROJECT_DIR$/src/warlords2600/Paddle.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/warlords2600/Warlord.java" afterPath="$PROJECT_DIR$/src/warlords2600/Warlord.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/warlordstest/WarlordsTest.java" afterPath="$PROJECT_DIR$/src/warlordstest/WarlordsTest.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -22,28 +27,31 @@
       <file leaf-file-name="Game.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/warlords2600/Game.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="8" column="48" lean-forward="true" selection-start-line="8" selection-start-column="48" selection-end-line="8" selection-end-column="48" />
-              <folding />
+            <state relative-caret-position="340">
+              <caret line="36" column="42" lean-forward="false" selection-start-line="36" selection-start-column="42" selection-end-line="36" selection-end-column="42" />
+              <folding>
+                <element signature="e#1557#1558#0" expanded="true" />
+                <element signature="e#1590#1591#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Ball.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Ball.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/warlords2600/Ball.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="612">
-              <caret line="52" column="23" lean-forward="true" selection-start-line="52" selection-start-column="23" selection-end-line="52" selection-end-column="23" />
+            <state relative-caret-position="261">
+              <caret line="53" column="20" lean-forward="true" selection-start-line="53" selection-start-column="20" selection-end-line="53" selection-end-column="20" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="WarlordsTest.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="WarlordsTest.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/warlordstest/WarlordsTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="357">
-              <caret line="21" column="24" lean-forward="true" selection-start-line="21" selection-start-column="24" selection-end-line="21" selection-end-column="24" />
+            <state relative-caret-position="240">
+              <caret line="78" column="33" lean-forward="false" selection-start-line="78" selection-start-column="33" selection-end-line="78" selection-end-column="33" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -51,21 +59,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Paddle.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/warlords2600/Paddle.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="155">
-              <caret line="49" column="16" lean-forward="false" selection-start-line="49" selection-start-column="16" selection-end-line="49" selection-end-column="16" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="Warlord.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/warlords2600/Warlord.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="21" column="0" lean-forward="true" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
+            <state relative-caret-position="102">
+              <caret line="6" column="24" lean-forward="true" selection-start-line="6" selection-start-column="24" selection-end-line="6" selection-end-column="40" />
               <folding />
             </state>
           </provider>
@@ -103,13 +101,13 @@
         <option value="$PROJECT_DIR$/src/Test.java" />
         <option value="$PROJECT_DIR$/src/warlordstest/WarlordsTestTest.java" />
         <option value="$PROJECT_DIR$/src/warlords2600/Wall.java" />
-        <option value="$PROJECT_DIR$/src/warlords2600/Brick.java" />
         <option value="$PROJECT_DIR$/src/warlords2600/FlamingArrow.java" />
-        <option value="$PROJECT_DIR$/src/warlords2600/Warlord.java" />
         <option value="$PROJECT_DIR$/src/warlords2600/Paddle.java" />
-        <option value="$PROJECT_DIR$/src/warlords2600/Ball.java" />
+        <option value="$PROJECT_DIR$/src/warlords2600/Warlord.java" />
+        <option value="$PROJECT_DIR$/src/warlords2600/Brick.java" />
         <option value="$PROJECT_DIR$/src/warlordstest/WarlordsTest.java" />
         <option value="$PROJECT_DIR$/src/warlords2600/Game.java" />
+        <option value="$PROJECT_DIR$/src/warlords2600/Ball.java" />
       </list>
     </option>
   </component>
@@ -282,6 +280,32 @@
       <option name="MAIN_CLASS_NAME" value="warlordstest.WarlordsTest" />
       <option name="METHOD_NAME" />
       <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <envs />
+      <patterns />
+      <method />
+    </configuration>
+    <configuration default="false" name="WarlordsTest.testBallCollisionWithPaddle" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="warlordstest.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <module name="Warlords 2600" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="warlordstest" />
+      <option name="MAIN_CLASS_NAME" value="warlordstest.WarlordsTest" />
+      <option name="METHOD_NAME" value="testBallCollisionWithPaddle" />
+      <option name="TEST_OBJECT" value="method" />
       <option name="VM_PARAMETERS" value="-ea" />
       <option name="PARAMETERS" />
       <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
@@ -674,16 +698,18 @@
     <configuration default="true" type="osgi.bnd.run" factoryName="Test Launcher (JUnit)">
       <method />
     </configuration>
-    <list size="3">
+    <list size="4">
       <item index="0" class="java.lang.String" itemvalue="JUnit.WarlordsTest.testBallMovement" />
       <item index="1" class="java.lang.String" itemvalue="JUnit.WarlordsTest.testBallCollisionWithBoundary" />
       <item index="2" class="java.lang.String" itemvalue="JUnit.WarlordsTest" />
+      <item index="3" class="java.lang.String" itemvalue="JUnit.WarlordsTest.testBallCollisionWithPaddle" />
     </list>
     <recent_temporary>
-      <list size="3">
+      <list size="4">
         <item index="0" class="java.lang.String" itemvalue="JUnit.WarlordsTest" />
-        <item index="1" class="java.lang.String" itemvalue="JUnit.WarlordsTest.testBallMovement" />
-        <item index="2" class="java.lang.String" itemvalue="JUnit.WarlordsTest.testBallCollisionWithBoundary" />
+        <item index="1" class="java.lang.String" itemvalue="JUnit.WarlordsTest.testBallCollisionWithPaddle" />
+        <item index="2" class="java.lang.String" itemvalue="JUnit.WarlordsTest.testBallMovement" />
+        <item index="3" class="java.lang.String" itemvalue="JUnit.WarlordsTest.testBallCollisionWithBoundary" />
       </list>
     </recent_temporary>
   </component>
@@ -700,48 +726,48 @@
       <workItem from="1490059978162" duration="5136000" />
       <workItem from="1490081366999" duration="5153000" />
       <workItem from="1490089240340" duration="1785000" />
-      <workItem from="1490126703402" duration="9628000" />
+      <workItem from="1490126703402" duration="18563000" />
     </task>
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="WarlordsTest - 2017.03.22 at 09h 17m 05s.xml">
+    <history-entry file="WarlordsTest - 2017.03.22 at 17h 39m 30s.xml">
       <configuration name="WarlordsTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="WarlordsTest - 2017.03.22 at 09h 28m 22s.xml">
+    <history-entry file="WarlordsTest - 2017.03.22 at 17h 41m 15s.xml">
       <configuration name="WarlordsTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="WarlordsTest - 2017.03.22 at 10h 24m 48s.xml">
+    <history-entry file="WarlordsTest - 2017.03.22 at 17h 41m 32s.xml">
       <configuration name="WarlordsTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="WarlordsTest - 2017.03.22 at 10h 34m 47s.xml">
+    <history-entry file="WarlordsTest - 2017.03.22 at 17h 42m 39s.xml">
       <configuration name="WarlordsTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="WarlordsTest - 2017.03.22 at 10h 55m 18s.xml">
+    <history-entry file="WarlordsTest - 2017.03.22 at 17h 44m 36s.xml">
       <configuration name="WarlordsTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="WarlordsTest - 2017.03.22 at 10h 58m 23s.xml">
+    <history-entry file="WarlordsTest - 2017.03.22 at 18h 33m 49s.xml">
       <configuration name="WarlordsTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="WarlordsTest - 2017.03.22 at 11h 03m 32s.xml">
+    <history-entry file="WarlordsTest - 2017.03.22 at 18h 36m 25s.xml">
       <configuration name="WarlordsTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="WarlordsTest - 2017.03.22 at 11h 04m 13s.xml">
+    <history-entry file="WarlordsTest - 2017.03.22 at 18h 36m 42s.xml">
       <configuration name="WarlordsTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="WarlordsTest - 2017.03.22 at 11h 04m 54s.xml">
+    <history-entry file="WarlordsTest - 2017.03.22 at 19h 19m 45s.xml">
       <configuration name="WarlordsTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="WarlordsTest - 2017.03.22 at 11h 06m 07s.xml">
-      <configuration name="WarlordsTest" configurationId="JUnit" />
+    <history-entry file="WarlordsTest_testBallCollisionWithPaddle - 2017.03.22 at 17h 39m 14s.xml">
+      <configuration name="WarlordsTest.testBallCollisionWithPaddle" configurationId="JUnit" />
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="21702000" />
+    <option name="totallyTimeSpent" value="30637000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -753,7 +779,7 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32176656" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.31388012" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -782,7 +808,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="2" />
+      <option name="time" value="3" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -795,7 +821,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="289">
           <caret line="17" column="5" lean-forward="true" selection-start-line="17" selection-start-column="5" selection-end-line="17" selection-end-column="5" />
-          <folding />
+          <folding>
+            <element signature="e#1557#1558#0" expanded="true" />
+            <element signature="e#1590#1591#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -821,7 +850,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="272">
           <caret line="16" column="27" lean-forward="false" selection-start-line="16" selection-start-column="27" selection-end-line="16" selection-end-column="27" />
-          <folding />
+          <folding>
+            <element signature="e#1557#1558#0" expanded="true" />
+            <element signature="e#1590#1591#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -893,14 +925,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/warlords2600/Brick.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="25" column="15" lean-forward="true" selection-start-line="25" selection-start-column="15" selection-end-line="25" selection-end-column="15" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/warlords2600/FlamingArrow.java" />
     <entry file="file://$PROJECT_DIR$/src/warlordstest/IBall.java">
       <provider selected="true" editor-type-id="text-editor">
@@ -934,45 +958,56 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/warlords2600/Warlord.java">
+    <entry file="file://$PROJECT_DIR$/src/warlords2600/Brick.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="21" column="0" lean-forward="true" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
+        <state relative-caret-position="374">
+          <caret line="32" column="0" lean-forward="true" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/warlords2600/Paddle.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="155">
-          <caret line="49" column="16" lean-forward="false" selection-start-line="49" selection-start-column="16" selection-end-line="49" selection-end-column="16" />
+        <state relative-caret-position="68">
+          <caret line="4" column="26" lean-forward="true" selection-start-line="4" selection-start-column="26" selection-end-line="4" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/warlords2600/Warlord.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="6" column="24" lean-forward="true" selection-start-line="6" selection-start-column="24" selection-end-line="6" selection-end-column="40" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/warlords2600/Game.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="36" column="42" lean-forward="false" selection-start-line="36" selection-start-column="42" selection-end-line="36" selection-end-column="42" />
+          <folding>
+            <element signature="e#1557#1558#0" expanded="true" />
+            <element signature="e#1590#1591#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/warlords2600/Ball.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="261">
+          <caret line="53" column="20" lean-forward="true" selection-start-line="53" selection-start-column="20" selection-end-line="53" selection-end-column="20" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/warlordstest/WarlordsTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="21" column="24" lean-forward="true" selection-start-line="21" selection-start-column="24" selection-end-line="21" selection-end-column="24" />
+        <state relative-caret-position="240">
+          <caret line="78" column="33" lean-forward="false" selection-start-line="78" selection-start-column="33" selection-end-line="78" selection-end-column="33" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/warlords2600/Game.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" column="48" lean-forward="true" selection-start-line="8" selection-start-column="48" selection-end-line="8" selection-end-column="48" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/warlords2600/Ball.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="612">
-          <caret line="52" column="23" lean-forward="true" selection-start-line="52" selection-start-column="23" selection-end-line="52" selection-end-column="23" />
-          <folding />
         </state>
       </provider>
     </entry>

@@ -9,7 +9,7 @@ public class Paddle implements IPaddle {
         this.x = x;
     }
 
-    public void setYpos(int y){
+    public void setYPos(int y){
         this.y = y;
     }
 
@@ -29,7 +29,7 @@ public class Paddle implements IPaddle {
         return x;
     }
 
-    public int getYpos(){
+    public int getYPos(){
         return y;
     }
 
