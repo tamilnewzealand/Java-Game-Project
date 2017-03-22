@@ -35,6 +35,13 @@ public class Game implements IGame{
         }
         if (!hitPaddleX) ball.processBallX();
         if (!hitPaddleY) ball.processBallY();
+
+        if (timeElapsed > 3600) {
+            isFinished = true;
+            // need to update this logic to better represent timeout wins
+            // rn warlord 0 wins automatically when timeout occurs
+            warlords[0].setWon(true);
+        }
     }
 
     public boolean isFinished(){
@@ -42,7 +49,7 @@ public class Game implements IGame{
     }
 
     public void setTimeRemaining(int seconds){
-        timeElapsed = (3600 - timeElapsed)/60;
+        timeElapsed = (120 - seconds) * 60;
     }
 
 }
