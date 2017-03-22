@@ -16,7 +16,7 @@ public interface IWall {
      *  Set the vertical position of the warlord to the given value.
      * @param y
      */
-    void setYpos(int y);
+    void setYPos(int y);
 
     /***
      * Determine if this wall has been destroyed.

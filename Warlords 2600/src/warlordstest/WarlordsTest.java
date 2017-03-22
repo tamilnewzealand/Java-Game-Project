@@ -5,7 +5,6 @@ import org.junit.Before;
 import org.junit.Test;
 import warlords2600.*;
 
-import static com.sun.xml.internal.ws.dump.LoggingDumpTube.Position.Before;
 import static org.junit.Assert.*;
 
 public class WarlordsTest extends TestSuite {
@@ -71,7 +70,7 @@ public class WarlordsTest extends TestSuite {
         this.ball.setYVelocity(10);
 
         this.paddle.setXPos(500);
-        this.paddle.setYpos(500);
+        this.paddle.setYPos(500);
 
         this.game.tick();
 
@@ -89,7 +88,7 @@ public class WarlordsTest extends TestSuite {
         this.ball.setYVelocity(10);
 
         this.player1Wall.setXPos(500);
-        this.player1Wall.setYpos(500);
+        this.player1Wall.setYPos(500);
 
         assertFalse("The wall should not be destroyed yet", this.player1Wall.isDestroyed());
 
@@ -110,7 +109,7 @@ public class WarlordsTest extends TestSuite {
         this.ball.setYVelocity(10);
 
         this.player1.setXPos(500);
-        this.player1.setYpos(500);
+        this.player1.setYPos(500);
 
         assertFalse("The warlord should not be dead yet", this.player1.isDead());
 
@@ -129,7 +128,7 @@ public class WarlordsTest extends TestSuite {
         this.ball.setYVelocity(300);
 
         this.paddle.setXPos(500);
-        this.paddle.setYpos(500);
+        this.paddle.setYPos(500);
 
         this.game.tick();
 
@@ -150,7 +149,7 @@ public class WarlordsTest extends TestSuite {
         this.ball.setYVelocity(10);
 
         this.player1.setXPos(500);
-        this.player1.setYpos(500);
+        this.player1.setYPos(500);
 
         this.game.tick();
 
