@@ -2,12 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="13bb48f2-d7bb-4fab-9af3-e731517508f7" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/warlords2600/Ball.java" afterPath="$PROJECT_DIR$/src/warlords2600/Ball.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/warlords2600/Brick.java" afterPath="$PROJECT_DIR$/src/warlords2600/Brick.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/warlords2600/Game.java" afterPath="$PROJECT_DIR$/src/warlords2600/Game.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/warlords2600/Paddle.java" afterPath="$PROJECT_DIR$/src/warlords2600/Paddle.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/warlords2600/Warlord.java" afterPath="$PROJECT_DIR$/src/warlords2600/Warlord.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/warlordstest/WarlordsTest.java" afterPath="$PROJECT_DIR$/src/warlordstest/WarlordsTest.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -24,14 +19,16 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="Game.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Game.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/warlords2600/Game.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="340">
-              <caret line="36" column="42" lean-forward="false" selection-start-line="36" selection-start-column="42" selection-end-line="36" selection-end-column="42" />
+            <state relative-caret-position="95">
+              <caret line="39" column="30" lean-forward="true" selection-start-line="39" selection-start-column="30" selection-end-line="39" selection-end-column="30" />
               <folding>
-                <element signature="e#1557#1558#0" expanded="true" />
-                <element signature="e#1590#1591#0" expanded="true" />
+                <element signature="e#1812#1813#0" expanded="true" />
+                <element signature="e#1845#1846#0" expanded="true" />
+                <element signature="e#1893#1894#0" expanded="true" />
+                <element signature="e#1943#1944#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -47,11 +44,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="WarlordsTest.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="WarlordsTest.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/warlordstest/WarlordsTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="240">
-              <caret line="78" column="33" lean-forward="false" selection-start-line="78" selection-start-column="33" selection-end-line="78" selection-end-column="33" />
+            <state relative-caret-position="272">
+              <caret line="16" column="23" lean-forward="true" selection-start-line="16" selection-start-column="23" selection-end-line="16" selection-end-column="23" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -62,7 +59,7 @@
       <file leaf-file-name="Warlord.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/warlords2600/Warlord.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="102">
+            <state relative-caret-position="41">
               <caret line="6" column="24" lean-forward="true" selection-start-line="6" selection-start-column="24" selection-end-line="6" selection-end-column="40" />
               <folding />
             </state>
@@ -105,9 +102,9 @@
         <option value="$PROJECT_DIR$/src/warlords2600/Paddle.java" />
         <option value="$PROJECT_DIR$/src/warlords2600/Warlord.java" />
         <option value="$PROJECT_DIR$/src/warlords2600/Brick.java" />
+        <option value="$PROJECT_DIR$/src/warlords2600/Ball.java" />
         <option value="$PROJECT_DIR$/src/warlordstest/WarlordsTest.java" />
         <option value="$PROJECT_DIR$/src/warlords2600/Game.java" />
-        <option value="$PROJECT_DIR$/src/warlords2600/Ball.java" />
       </list>
     </option>
   </component>
@@ -726,7 +723,7 @@
       <workItem from="1490059978162" duration="5136000" />
       <workItem from="1490081366999" duration="5153000" />
       <workItem from="1490089240340" duration="1785000" />
-      <workItem from="1490126703402" duration="18563000" />
+      <workItem from="1490126703402" duration="19746000" />
     </task>
     <servers />
   </component>
@@ -758,12 +755,12 @@
     <history-entry file="WarlordsTest - 2017.03.22 at 19h 19m 45s.xml">
       <configuration name="WarlordsTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="WarlordsTest_testBallCollisionWithPaddle - 2017.03.22 at 17h 39m 14s.xml">
-      <configuration name="WarlordsTest.testBallCollisionWithPaddle" configurationId="JUnit" />
+    <history-entry file="WarlordsTest - 2017.03.22 at 20h 28m 17s.xml">
+      <configuration name="WarlordsTest" configurationId="JUnit" />
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="30637000" />
+    <option name="totallyTimeSpent" value="31820000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -822,8 +819,10 @@
         <state relative-caret-position="289">
           <caret line="17" column="5" lean-forward="true" selection-start-line="17" selection-start-column="5" selection-end-line="17" selection-end-column="5" />
           <folding>
-            <element signature="e#1557#1558#0" expanded="true" />
-            <element signature="e#1590#1591#0" expanded="true" />
+            <element signature="e#1812#1813#0" expanded="true" />
+            <element signature="e#1845#1846#0" expanded="true" />
+            <element signature="e#1893#1894#0" expanded="true" />
+            <element signature="e#1943#1944#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -851,8 +850,10 @@
         <state relative-caret-position="272">
           <caret line="16" column="27" lean-forward="false" selection-start-line="16" selection-start-column="27" selection-end-line="16" selection-end-column="27" />
           <folding>
-            <element signature="e#1557#1558#0" expanded="true" />
-            <element signature="e#1590#1591#0" expanded="true" />
+            <element signature="e#1812#1813#0" expanded="true" />
+            <element signature="e#1845#1846#0" expanded="true" />
+            <element signature="e#1893#1894#0" expanded="true" />
+            <element signature="e#1943#1944#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -974,25 +975,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/warlords2600/Warlord.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="6" column="24" lean-forward="true" selection-start-line="6" selection-start-column="24" selection-end-line="6" selection-end-column="40" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/warlords2600/Game.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="36" column="42" lean-forward="false" selection-start-line="36" selection-start-column="42" selection-end-line="36" selection-end-column="42" />
-          <folding>
-            <element signature="e#1557#1558#0" expanded="true" />
-            <element signature="e#1590#1591#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/warlords2600/Ball.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="261">
@@ -1001,12 +983,33 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/warlords2600/Warlord.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="41">
+          <caret line="6" column="24" lean-forward="true" selection-start-line="6" selection-start-column="24" selection-end-line="6" selection-end-column="40" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/warlordstest/WarlordsTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="78" column="33" lean-forward="false" selection-start-line="78" selection-start-column="33" selection-end-line="78" selection-end-column="33" />
+        <state relative-caret-position="272">
+          <caret line="16" column="23" lean-forward="true" selection-start-line="16" selection-start-column="23" selection-end-line="16" selection-end-column="23" />
           <folding>
             <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/warlords2600/Game.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="95">
+          <caret line="39" column="30" lean-forward="true" selection-start-line="39" selection-start-column="30" selection-end-line="39" selection-end-column="30" />
+          <folding>
+            <element signature="e#1812#1813#0" expanded="true" />
+            <element signature="e#1845#1846#0" expanded="true" />
+            <element signature="e#1893#1894#0" expanded="true" />
+            <element signature="e#1943#1944#0" expanded="true" />
           </folding>
         </state>
       </provider>
