@@ -5,7 +5,7 @@ import warlordstest.IWarlord;
 public class Warlord implements IWarlord {
 
     public Paddle paddle = new Paddle();
-    private int xPos, yPos;
+    private int xPos = 0, yPos = 0, height = 5, width = 5;
     private boolean dead = false, won = false;
 
     public void setXPos(int x) {
@@ -16,6 +16,14 @@ public class Warlord implements IWarlord {
         yPos = y;
     }
 
+    public void setWidth(int width){
+        this.width = width;
+    }
+
+    public void setHeight(int height){
+        this.height = height;
+    }
+
     public int getXPos() {
         return xPos;
     }
@@ -24,11 +32,27 @@ public class Warlord implements IWarlord {
         return yPos;
     }
 
-    public boolean isDead() { return dead; }
+    public int getWidth(){
+        return width;
+    }
 
-    public void killWarlord() { dead = true; }
+    public int getHeight(){
+        return height;
+    }
 
-    public boolean hasWon() { return won; }
+    public boolean isDead() {
+        return dead;
+    }
 
-    public void setWon(boolean won) { this.won = won; }
+    public void killWarlord() {
+        dead = true;
+    }
+
+    public boolean hasWon() {
+        return won;
+    }
+
+    public void setWon() {
+        this.won = true;
+    }
 }

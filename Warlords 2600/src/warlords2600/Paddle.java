@@ -3,7 +3,7 @@ package warlords2600;
 import warlordstest.IPaddle;
 
 public class Paddle implements IPaddle {
-    private int x, y, speed, width, height;
+    private int x = 0, y = 0, speed, width = 5, height = 5;
 
     public void setXPos(int x){
         this.x = x;
@@ -45,12 +45,20 @@ public class Paddle implements IPaddle {
         return height;
     }
 
-    public void goLeft() { x -= speed; }
+    public void goLeft() {
+        x -= speed;
+    }
 
-    public void goRight() { x += speed; }
+    public void goRight() {
+        x += speed;
+    }
 
-    public void goDown() { y -= speed; }
+    public void goDown() {
+        y -= speed;
+    }
 
-    public void goUp() { y += speed; }
+    public void goUp() {
+        y += speed;
+    }
 
 }

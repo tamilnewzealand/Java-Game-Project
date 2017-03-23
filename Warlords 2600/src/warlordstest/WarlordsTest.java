@@ -23,9 +23,11 @@ public class WarlordsTest extends TestSuite {
         //All game objects should be instantiated at coordinates (0,0) with zero velocity
         this.ball = new Ball();
         this.player1 = new Warlord();
+        this.player2 = new Warlord();
         this.paddle = new Paddle();
         this.player1.paddle = this.paddle;
-        this.game = new Game(ball, player1, player2, player2, player2);
+        this.player1Wall = new Brick();
+        this.game = new Game(ball, player1, player2, player1Wall);
         // don't really like what im doing here
         // have any ideas ??
     }

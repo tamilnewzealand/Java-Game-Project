@@ -3,7 +3,7 @@ package warlords2600;
 import warlordstest.IBall;
 
 public class Ball implements IBall{
-    private int x = 0, y = 0, xSpeed = 0, ySpeed = 0;
+    private int x = 0, y = 0, xSpeed = 0, ySpeed = 0, width = 5, height = 5;
 
     public void setXPos(int x) {
         this.x = x;
@@ -37,26 +37,41 @@ public class Ball implements IBall{
         return ySpeed;
     }
 
-    public void processBallX() {
-        x += xSpeed;
-        if(x <= 0) {
-            x = -x;
-            xSpeed = -xSpeed;
-        }
-        if(x >= 1024) {
-            x = 1024 - (x - 1024);
-            xSpeed = -xSpeed;
-        }
+    public void setHeight(int height) {
+        this.height = height;
     }
 
-    public void processBallY() {
+    public void setWidth(int width) {
+        this.width = width;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public void processBall() {
+        x += xSpeed;
         y += ySpeed;
-        if(y <= 0) {
-            y = -y;
+
+        if (x <= (width / 2)) {
+            x = -x + 2 * width;
+            xSpeed = -xSpeed;
+        }
+        if (y <= (height / 2)) {
+            y = -y + 2 * height;
             ySpeed = -ySpeed;
         }
-        if(y >= 768) {
-            y = 768 - (y - 768);
+
+        if (x >= (Globals.WIDTH - width / 2)) {
+            x = Globals.WIDTH - (x - Globals.WIDTH) - 2 * width;
+            xSpeed = -xSpeed;
+        }
+        if (y >= (Globals.HEIGHT - height / 2)) {
+            y = Globals.HEIGHT - (y - Globals.HEIGHT) - 2 * height;
             ySpeed = -ySpeed;
         }
     }
