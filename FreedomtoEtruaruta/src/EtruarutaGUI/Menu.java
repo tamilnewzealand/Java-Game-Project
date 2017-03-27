@@ -6,12 +6,10 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.paint.Color;
-import javafx.scene.image.Image;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import javafx.scene.text.Font;
-import javafx.scene.text.TextAlignment;
 
 public class Menu implements SceneInterface {
     private SceneManager sceneManager;
@@ -38,17 +36,9 @@ public class Menu implements SceneInterface {
         root.getChildren().add( canvas );
 
         GraphicsContext gc = canvas.getGraphicsContext2D();
-        Image space = new Image( "space.png" );
-        gc.drawImage( space, 0, 0 );
-        gc.setFill( Color.WHITE );
-        gc.setStroke( Color.ORANGE );
-        gc.setLineWidth(2);
-        Font headingFont = Font.font( "Kavivanar", 54 );
-        gc.setTextAlign(TextAlignment.CENTER);
-        gc.setFont( headingFont );
-        gc.fillText( "Freedom to Etruaruta!", 512, 90 );
-        gc.strokeText( "Freedom to Etruaruta!", 512, 90 );
+        gc = UIGenerator.createAnimationBackground(gc);
 
+        addTitle();
         addStartButton();
         addMultiplayer2Button();
         addMultiplayer4Button();
@@ -59,6 +49,13 @@ public class Menu implements SceneInterface {
         addExitButton();
 
         return menuScene;
+    }
+
+
+    private void addTitle() {
+        Text titleText = UIGenerator.createText("Freedom to Etruaruta", 256, 90, 54);
+
+        root.getChildren().add(titleText);
     }
 
     private void addStartButton() {
@@ -145,7 +142,7 @@ public class Menu implements SceneInterface {
         settingsButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                sceneManager.goToInstructionsScene(sceneManager);
+                sceneManager.goToSettingsScene(sceneManager);
             }
         });
 

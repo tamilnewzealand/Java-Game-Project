@@ -1,11 +1,13 @@
 package EtruarutaGUI;
 
+import javafx.animation.AnimationTimer;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import javafx.scene.paint.Color;
 import javafx.scene.text.TextAlignment;
 
 public class UIGenerator {
@@ -92,4 +94,39 @@ public class UIGenerator {
 		
 		return rectangleUI;
 	}
+
+    /**
+     *
+     * @param gc GraphicsContext to draw animation onto
+     * @return GraphicsContext with the animation drawn
+     */
+	public static GraphicsContext createAnimationBackground(GraphicsContext gc) {
+        Image etruaruta = new Image( "etruaruta.png" );
+        Image star = new Image( "star.png" );
+        Image space = new Image( "space.png" );
+        gc.drawImage( space, 0, 0 );
+
+        final long startNanoTime = System.nanoTime();
+
+        new AnimationTimer()
+        {
+            public void handle(long currentNanoTime)
+            {
+                double t = (currentNanoTime - startNanoTime) / 1000000000.0;
+
+                double x = 232 + 128 * Math.cos(t);
+                double y = 232 + 128 * Math.sin(t);
+
+                // Clear the canvas
+                gc.clearRect(0, 0, 1024,768);
+
+                // background image clears canvas
+                gc.drawImage( space, 0, 0 );
+                gc.drawImage( etruaruta, x, y );
+                gc.drawImage( star, 196, 196 );
+            }
+        }.start();
+
+        return gc;
+    }
 }

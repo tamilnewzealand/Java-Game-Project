@@ -4,6 +4,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.scene.image.Image;
 
 public class SceneManager {
 
@@ -17,6 +18,7 @@ public class SceneManager {
     public SceneManager(Stage primaryStage) {
         this.stage = primaryStage;
         this.animation = new Timeline();
+        stage.getIcons().add(new Image("etruaruta.png"));
         stage.show();
     }
 
@@ -51,6 +53,17 @@ public class SceneManager {
         HiScore hiScore = new HiScore(sceneManager);
         Scene hiScoreScene = hiScore.init(Main.WIDTH, Main.HEIGHT);
         stage.setScene(hiScoreScene);
+    }
+
+    /**
+     * Sets the scene to be the High Score Scene
+     * @param sceneManager SceneManager currently being used
+     */
+    public void goToSettingsScene(SceneManager sceneManager) {
+        animation.stop();
+        Settings settings = new Settings(sceneManager);
+        Scene settingsScene = settings.init(Main.WIDTH, Main.HEIGHT);
+        stage.setScene(settingsScene);
     }
 
 

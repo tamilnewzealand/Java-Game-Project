@@ -7,7 +7,6 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
-import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 
@@ -36,8 +35,7 @@ public class Instructions implements SceneInterface {
         root.getChildren().add( canvas );
 
         GraphicsContext gc = canvas.getGraphicsContext2D();
-        Image space = new Image( "space.png" );
-        gc.drawImage( space, 0, 0 );
+        gc = UIGenerator.createAnimationBackground(gc);
 
         addTitle();
         addInstructionsText();
