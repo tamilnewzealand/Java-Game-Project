@@ -3,7 +3,17 @@ package warlords2600;
 import warlordstest.IBall;
 
 public class Ball implements IBall{
-    private int x = 0, y = 0, xSpeed = 0, ySpeed = 0, width = 5, height = 5;
+    private int x, y, xSpeed = 0, ySpeed = 0, width = 5, height = 5;
+
+    public Ball() {
+        x = 0;
+        y = 0;
+    }
+
+    public Ball(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
 
     public void setXPos(int x) {
         this.x = x;

@@ -11,25 +11,23 @@ public class WarlordsTest extends TestSuite {
 
     // changed these types, need to do something about this
     private Game game;
-    private Ball ball;
-    private Paddle paddle;
-    private Brick player1Wall;
-    private Warlord player1;
-    private Warlord player2;
+    private IBall ball;
+    private IPaddle paddle;
+    private IWall player1Wall;
+    private IWarlord player1;
+    private IWarlord player2;
 
     @Before
     public void setUp(){
         //Instantiate objects to initialise the fields - and preferably no other game objects, to minimise the possibility of conflicts
         //All game objects should be instantiated at coordinates (0,0) with zero velocity
-        this.ball = new Ball();
-        this.player1 = new Warlord();
-        this.player2 = new Warlord();
+        this.ball = new Ball(0,0);
         this.paddle = new Paddle();
-        this.player1.paddle = this.paddle;
+        this.player1 = new General(0,0,(Paddle) paddle);
+        Paddle paddle2 = new Paddle();
+        this.player2 = new General(0, 0, paddle2);
         this.player1Wall = new Brick();
-        this.game = new Game(ball, player1, player2, player1Wall);
-        // don't really like what im doing here
-        // have any ideas ??
+        this.game = new Game((Ball)ball, (General)player1, (General)player2, (Brick)player1Wall);
     }
 
     @Test

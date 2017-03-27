@@ -6,14 +6,14 @@ public class Game implements IGame{
 
     private boolean isFinished = false;
     private int timeElapsed = 0;
-    private Warlord[] warlords = new Warlord[2];
+    private General[] generals = new General[2];
     public Ball ball;
     public Brick brick1;
 
-    public Game(Ball ball, Warlord warlordA, Warlord warlordB, Brick brick) {
+    public Game(Ball ball, General generalA, General generalB, Brick brick) {
         this.ball = ball;
-        this.warlords[0] = warlordA;
-        this.warlords[1] = warlordB;
+        this.generals[0] = generalA;
+        this.generals[1] = generalB;
         this.brick1 = brick;
     }
 
@@ -22,7 +22,7 @@ public class Game implements IGame{
         boolean ballHit = false;
         int deadCount = 0;
 
-        for (int i = 0; i < warlords.length; i++) {
+        for (int i = 0; i < generals.length; i++) {
             if (((ball.getXPos() + ball.getWidth() / 2) < (brick1.getXPos() - brick1.getWidth() / 2)) && ((ball.getXPos() + ball.getXVelocity() + ball.getWidth() / 2) > (brick1.getXPos() - brick1.getWidth() / 2))) {
                 ball.setXPos(brick1.getXPos() - (ball.getXPos() + ball.getXVelocity() - brick1.getXPos()));
                 ball.setXVelocity(-ball.getXVelocity());
@@ -35,36 +35,36 @@ public class Game implements IGame{
                 ballHit = true;
                 brick1.destroyWall();
             }
-            if (((ball.getXPos() + ball.getWidth() / 2) < (warlords[i].paddle.getXPos() - warlords[i].paddle.getWidth() / 2)) && ((ball.getXPos() + ball.getXVelocity() + ball.getWidth() / 2) > (warlords[i].paddle.getXPos() - warlords[i].paddle.getWidth() / 2))) {
-                ball.setXPos(warlords[i].paddle.getXPos() - (ball.getXPos() + ball.getXVelocity() - warlords[i].paddle.getXPos()));
+            if (((ball.getXPos() + ball.getWidth() / 2) < (generals[i].paddle.getXPos() - generals[i].paddle.getWidth() / 2)) && ((ball.getXPos() + ball.getXVelocity() + ball.getWidth() / 2) > (generals[i].paddle.getXPos() - generals[i].paddle.getWidth() / 2))) {
+                ball.setXPos(generals[i].paddle.getXPos() - (ball.getXPos() + ball.getXVelocity() - generals[i].paddle.getXPos()));
                 ball.setXVelocity(-ball.getXVelocity());
                 ballHit = true;
             }
-            if (((ball.getYPos() + ball.getHeight() / 2) < (warlords[i].paddle.getYPos() - warlords[i].paddle.getHeight() / 2)) && ((ball.getYPos() + ball.getYVelocity() + ball.getHeight() / 2) > (warlords[i].paddle.getYPos() - warlords[i].paddle.getHeight() / 2))) {
-                ball.setYPos(warlords[i].paddle.getYPos() - (ball.getYPos() + ball.getYVelocity() - warlords[i].paddle.getYPos()));
+            if (((ball.getYPos() + ball.getHeight() / 2) < (generals[i].paddle.getYPos() - generals[i].paddle.getHeight() / 2)) && ((ball.getYPos() + ball.getYVelocity() + ball.getHeight() / 2) > (generals[i].paddle.getYPos() - generals[i].paddle.getHeight() / 2))) {
+                ball.setYPos(generals[i].paddle.getYPos() - (ball.getYPos() + ball.getYVelocity() - generals[i].paddle.getYPos()));
                 ball.setYVelocity(-ball.getYVelocity());
                 ballHit = true;
             }
-            if (((ball.getXPos() + ball.getWidth() / 2) < (warlords[i].getXPos() - warlords[i].getWidth() / 2)) && ((ball.getXPos() + ball.getXVelocity() + ball.getWidth() / 2) > (warlords[i].getXPos() - warlords[i].getWidth() / 2))) {
-                ball.setXPos(warlords[i].getXPos() - (ball.getXPos() + ball.getXVelocity() - warlords[i].getXPos()));
+            if (((ball.getXPos() + ball.getWidth() / 2) < (generals[i].getXPos() - generals[i].getWidth() / 2)) && ((ball.getXPos() + ball.getXVelocity() + ball.getWidth() / 2) > (generals[i].getXPos() - generals[i].getWidth() / 2))) {
+                ball.setXPos(generals[i].getXPos() - (ball.getXPos() + ball.getXVelocity() - generals[i].getXPos()));
                 ball.setXVelocity(-ball.getXVelocity());
                 ballHit = true;
-                warlords[i].killWarlord();
+                generals[i].killGeneral();
             }
-            if (((ball.getYPos() + ball.getHeight() / 2) < (warlords[i].getYPos() - warlords[i].getHeight() / 2)) && ((ball.getYPos() + ball.getYVelocity() + ball.getHeight() / 2) > (warlords[i].getYPos() - warlords[i].getHeight() / 2))) {
-                ball.setYPos(warlords[i].getYPos() - (ball.getYPos() + ball.getYVelocity() - warlords[i].getYPos()));
+            if (((ball.getYPos() + ball.getHeight() / 2) < (generals[i].getYPos() - generals[i].getHeight() / 2)) && ((ball.getYPos() + ball.getYVelocity() + ball.getHeight() / 2) > (generals[i].getYPos() - generals[i].getHeight() / 2))) {
+                ball.setYPos(generals[i].getYPos() - (ball.getYPos() + ball.getYVelocity() - generals[i].getYPos()));
                 ball.setYVelocity(-ball.getYVelocity());
                 ballHit = true;
-                warlords[i].killWarlord();
+                generals[i].killGeneral();
             }
 
-            if (warlords[i].isDead()) deadCount++;
+            if (generals[i].isDead()) deadCount++;
         }
 
-        if (deadCount + 1 == warlords.length) {
-            for (int i = 0; i < warlords.length; i++) {
-                if (!warlords[i].isDead()) {
-                    warlords[i].setWon();
+        if (deadCount + 1 == generals.length) {
+            for (int i = 0; i < generals.length; i++) {
+                if (!generals[i].isDead()) {
+                    generals[i].setWon();
                     isFinished = true;
                 }
             }
@@ -76,7 +76,7 @@ public class Game implements IGame{
             isFinished = true;
             // need to update this logic to better represent timeout wins
             // rn warlord 0 wins automatically when timeout occurs
-            warlords[0].setWon();
+            generals[0].setWon();
         }
     }
 

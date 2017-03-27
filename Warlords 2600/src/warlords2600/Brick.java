@@ -4,7 +4,18 @@ import warlordstest.IWall;
 
 public class Brick implements IWall{
 
-    private int xPos = 0, yPos = 0, height = 5, width = 5;
+    private int xPos, yPos, height = 5, width = 5;
+
+    public Brick() {
+        xPos = 0;
+        yPos = 0;
+    }
+
+    public Brick(int xPos, int yPos) {
+        this.xPos = xPos;
+        this.yPos = yPos;
+    }
+
     private boolean destroyed = false;
 
     public void setXPos(int x) {
