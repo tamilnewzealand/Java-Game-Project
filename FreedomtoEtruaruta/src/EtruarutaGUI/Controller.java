@@ -1,4 +1,4 @@
-package sample;
+package EtruarutaGUI;
 
 public class Controller {
 }
