@@ -138,11 +138,12 @@ public class UIGenerator {
      */
     public static GraphicsContext renderGame(GraphicsContext gc) {
         Image ballImage = new Image( "ball.png" );
+        Image paddleImage = new Image( "ball.png" );
         Image space = new Image( "space.png" );
         gc.drawImage( space, 0, 0 );
 
         Ball ball = new Ball(0,0);
-        Paddle paddleA = new Paddle();
+        Paddle paddleA = new Paddle(50,50);
         General generalA = new General(0,0, paddleA);
         Paddle paddleB = new Paddle();
         General generalB = new General(0, 0, paddleB);
@@ -164,6 +165,7 @@ public class UIGenerator {
                 // background image clears canvas
                 gc.drawImage( space, 0, 0 );
                 gc.drawImage( ballImage, ball.getXPos(), ball.getYPos() );
+                gc.drawImage( paddleImage, generalA.paddle.getXPos(), generalA.paddle.getYPos());
                 game.tick();
             }
         }.start();
