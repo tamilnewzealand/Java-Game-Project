@@ -54,7 +54,7 @@ public class Brick implements IWall{
         return destroyed;
     }
 
-    public void destroyWall() {
+    public void destroyBrick() {
         destroyed = true;
     }
 

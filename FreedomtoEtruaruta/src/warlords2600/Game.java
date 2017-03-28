@@ -27,13 +27,13 @@ public class Game implements IGame{
                 ball.setXPos(brick1.getXPos() - (ball.getXPos() + ball.getXVelocity() - brick1.getXPos()));
                 ball.setXVelocity(-ball.getXVelocity());
                 ballHit = true;
-                brick1.destroyWall();
+                brick1.destroyBrick();
             }
             if (((ball.getYPos() + ball.getHeight() / 2) < (brick1.getYPos() - brick1.getHeight() / 2)) && ((ball.getYPos() + ball.getYVelocity() + ball.getHeight() / 2) > (brick1.getYPos() - brick1.getHeight() / 2))) {
                 ball.setYPos(brick1.getYPos() - (ball.getYPos() + ball.getYVelocity() - brick1.getYPos()));
                 ball.setYVelocity(-ball.getYVelocity());
                 ballHit = true;
-                brick1.destroyWall();
+                brick1.destroyBrick();
             }
             if (((ball.getXPos() + ball.getWidth() / 2) < (generals[i].paddle.getXPos() - generals[i].paddle.getWidth() / 2)) && ((ball.getXPos() + ball.getXVelocity() + ball.getWidth() / 2) > (generals[i].paddle.getXPos() - generals[i].paddle.getWidth() / 2))) {
                 ball.setXPos(generals[i].paddle.getXPos() - (ball.getXPos() + ball.getXVelocity() - generals[i].paddle.getXPos()));
