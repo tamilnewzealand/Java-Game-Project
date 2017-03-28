@@ -52,17 +52,12 @@ public class PlayNow implements SceneInterface {
              @Override
              public void handle(KeyEvent keyEvent) {
                  switch(keyEvent.getCode()) {
-                     case UP:
-                         game.generals[0].paddle.goUp();
-                         break;
-                     case DOWN:
-                         game.generals[0].paddle.goDown();
-                         break;
                      case LEFT:
-                         game.generals[0].paddle.goLeft();
+                         game.generals[0].paddle.moveLeft();
                          break;
                      case RIGHT:
-                         game.generals[0].paddle.goRight();
+                         game.generals[0].paddle.moveRight();
+                         break;
                  }
              }
 
@@ -76,24 +71,26 @@ public class PlayNow implements SceneInterface {
      */
     public GraphicsContext renderGame(GraphicsContext gc) {
         Image ballImage = new Image( "ball.png" );
-        Image paddleAImage = new Image( "paddleA.png" );
-        Image paddleBImage = new Image( "paddleB.png" );
-        Image paddleCImage = new Image( "paddleC.png" );
-        Image paddleDImage = new Image( "paddleD.png" );
+        Image paddleImages[] = new Image[4];
+        paddleImages[0] = new Image( "paddleA.png" );
+        paddleImages[1] = new Image( "paddleB.png" );
+        paddleImages[2] = new Image( "paddleC.png" );
+        paddleImages[3] = new Image( "paddleD.png" );
 
         Image space = new Image( "space.png" );
         gc.drawImage( space, 0, 0, Main.WIDTH, Main.HEIGHT);
 
         Ball ball = new Ball(50,50);
-        Paddle paddleA = new Paddle(50,50);
-        General generalA = new General(0,0, paddleA);
-        Paddle paddleB = new Paddle(Main.WIDTH - 100, 50);
+        Paddle paddleA = new Paddle();
+        General generalA = new General(0, 0, paddleA);
+        Paddle paddleB = new Paddle();
         General generalB = new General(0, 0, paddleB);
-        Paddle paddleC = new Paddle(Main.WIDTH - 100, Main.HEIGHT - 75);
+        Paddle paddleC = new Paddle();
         General generalC = new General(0, 0, paddleC);
-        Paddle paddleD = new Paddle(50, Main.HEIGHT - 75);
+        Paddle paddleD = new Paddle();
         General generalD = new General(0, 0, paddleD);
         Brick brick = new Brick();
+
         ball.setXVelocity(5);
         ball.setYVelocity(0);
 
@@ -109,10 +106,10 @@ public class PlayNow implements SceneInterface {
                 // background image clears canvas
                 gc.drawImage( space, 0, 0 );
                 gc.drawImage( ballImage, game.ball.getXPos(), game.ball.getYPos(), game.ball.getWidth(), game.ball.getHeight() );
-                gc.drawImage( paddleAImage, game.generals[0].paddle.getXPos(), game.generals[0].paddle.getYPos(), game.generals[0].paddle.getWidth(), game.generals[0].paddle.getHeight());
-                gc.drawImage( paddleBImage, game.generals[1].paddle.getXPos(), game.generals[1].paddle.getYPos(), game.generals[1].paddle.getWidth(), game.generals[1].paddle.getHeight());
-                gc.drawImage( paddleCImage, game.generals[2].paddle.getXPos(), game.generals[2].paddle.getYPos(), game.generals[2].paddle.getWidth(), game.generals[2].paddle.getHeight());
-                gc.drawImage( paddleDImage, game.generals[3].paddle.getXPos(), game.generals[3].paddle.getYPos(), game.generals[3].paddle.getWidth(), game.generals[3].paddle.getHeight());
+                gc.drawImage( paddleImages[0], game.generals[0].paddle.calcXPos(), game.generals[0].paddle.calcYPos(), game.generals[0].paddle.getWidth(), game.generals[0].paddle.getHeight());
+                gc.drawImage( paddleImages[1], Main.WIDTH  - game.generals[1].paddle.calcXPos(), game.generals[1].paddle.calcYPos(), game.generals[1].paddle.getWidth(), game.generals[1].paddle.getHeight());
+                gc.drawImage( paddleImages[2], Main.WIDTH - game.generals[2].paddle.calcXPos(), Main.HEIGHT - game.generals[2].paddle.calcYPos(), game.generals[2].paddle.getWidth(), game.generals[2].paddle.getHeight());
+                gc.drawImage( paddleImages[3], game.generals[3].paddle.calcXPos(), Main.HEIGHT - game.generals[3].paddle.calcYPos(), game.generals[3].paddle.getWidth(), game.generals[3].paddle.getHeight());
                 game.tick();
             }
         }.start();
