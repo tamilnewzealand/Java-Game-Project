@@ -53,10 +53,10 @@ public class PlayNow implements SceneInterface {
              public void handle(KeyEvent keyEvent) {
                  switch(keyEvent.getCode()) {
                      case UP:
-                         game.generals[0].paddle.goDown();
+                         game.generals[0].paddle.goUp();
                          break;
                      case DOWN:
-                         game.generals[0].paddle.goUp();
+                         game.generals[0].paddle.goDown();
                          break;
                      case LEFT:
                          game.generals[0].paddle.goLeft();
