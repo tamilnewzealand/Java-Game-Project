@@ -35,10 +35,18 @@ public class Game implements IGame{
                 ballHit = true;
                 brick1.destroyBrick();
             }
-            if (((ball.getXPos() + ball.getWidth() / 2) < (generals[i].paddle.getXPos() - generals[i].paddle.getWidth() / 2)) && ((ball.getXPos() + ball.getXVelocity() + ball.getWidth() / 2) > (generals[i].paddle.getXPos() - generals[i].paddle.getWidth() / 2))) {
-                ball.setXPos(generals[i].paddle.getXPos() - (ball.getXPos() + ball.getXVelocity() - generals[i].paddle.getXPos()));
-                ball.setXVelocity(-ball.getXVelocity());
-                ballHit = true;
+            System.out.println(ball.getYPos());
+            if ((ball.getYPos() < (generals[i].paddle.getYPos() + generals[i].paddle.getHeight())) && (ball.getYPos() > (generals[i].paddle.getYPos() - generals[i].paddle.getHeight()))) {
+                if((ball.getXPos() - ball.getWidth()) < (generals[i].paddle.getXPos() + generals[i].paddle.getWidth()/2) && (ball.getXPos()) > (generals[i].paddle.getXPos() - generals[i].paddle.getWidth()/2)) {
+                    ballHit = true;
+                    if (ball.getXVelocity() < 0) {
+                        ball.setXPos(generals[i].paddle.getXPos() + generals[i].paddle.getWidth()/2 + ball.getWidth());
+                    }
+                    else {
+                        ball.setXPos(generals[i].paddle.getXPos() - generals[i].paddle.getWidth()/2 - ball.getWidth()/2);
+                    }
+                    ball.setXVelocity(-ball.getXVelocity());
+                }
             }
             if (((ball.getYPos() + ball.getHeight() / 2) < (generals[i].paddle.getYPos() - generals[i].paddle.getHeight() / 2)) && ((ball.getYPos() + ball.getYVelocity() + ball.getHeight() / 2) > (generals[i].paddle.getYPos() - generals[i].paddle.getHeight() / 2))) {
                 ball.setYPos(generals[i].paddle.getYPos() - (ball.getYPos() + ball.getYVelocity() - generals[i].paddle.getYPos()));

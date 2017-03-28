@@ -69,11 +69,11 @@ public class Ball implements IBall{
         y += ySpeed;
 
         if (x <= (width / 2)) {
-            x = -x + 2 * width;
+            x = width / 2;
             xSpeed = -xSpeed;
         }
         if (y <= (height / 2)) {
-            y = -y + 2 * height;
+            y = height / 2;
             ySpeed = -ySpeed;
         }
 

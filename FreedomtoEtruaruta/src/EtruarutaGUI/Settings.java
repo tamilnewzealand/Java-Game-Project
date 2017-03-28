@@ -64,7 +64,7 @@ public class Settings implements SceneInterface {
         opacityLevel.valueProperty().addListener(new ChangeListener<Number>() {
             public void changed(ObservableValue<? extends Number> ov,
                                 Number old_val, Number new_val) {
-                System.out.println(new_val.doubleValue());
+                //System.out.println(new_val.doubleValue());
                 opacityValue.setText(String.format("%.2f", new_val));
             }
         });
