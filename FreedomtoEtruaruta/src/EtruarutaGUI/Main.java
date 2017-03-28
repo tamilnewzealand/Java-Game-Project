@@ -7,7 +7,7 @@ public class Main extends Application {
 
     public static final String TITLE = "Freedom to Etruaruta";
     public static final int WIDTH = 1024;
-    public static final int HEIGHT = 764;
+    public static final int HEIGHT = 768;
 
     @Override
     public void start(Stage primaryStage) {

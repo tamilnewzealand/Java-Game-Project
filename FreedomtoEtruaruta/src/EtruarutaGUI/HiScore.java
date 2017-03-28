@@ -31,7 +31,7 @@ public class HiScore implements SceneInterface {
         root = new Group();
         hiScoreScene = new Scene(root, width, height, Color.AZURE);
 
-        Canvas canvas = new Canvas( 1024, 768 );
+        Canvas canvas = new Canvas( Main.WIDTH, Main.HEIGHT );
         root.getChildren().add( canvas );
 
         GraphicsContext gc = canvas.getGraphicsContext2D();

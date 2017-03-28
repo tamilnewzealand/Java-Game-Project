@@ -118,7 +118,7 @@ public class UIGenerator {
                 double y = 232 + 128 * Math.sin(t);
 
                 // Clear the canvas
-                gc.clearRect(0, 0, 1024,768);
+                gc.clearRect(0, 0, Main.WIDTH, Main.HEIGHT);
 
                 // background image clears canvas
                 gc.drawImage( space, 0, 0 );

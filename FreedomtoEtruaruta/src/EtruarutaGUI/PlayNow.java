@@ -37,7 +37,7 @@ public class PlayNow implements SceneInterface {
         root = new Group();
         playNowScene = new Scene(root, width, height, Color.ORANGE);
 
-        Canvas canvas = new Canvas( 1024, 768 );
+        Canvas canvas = new Canvas( Main.WIDTH, Main.HEIGHT );
         root.getChildren().add( canvas );
 
         GraphicsContext gc = canvas.getGraphicsContext2D();
@@ -76,32 +76,43 @@ public class PlayNow implements SceneInterface {
      */
     public GraphicsContext renderGame(GraphicsContext gc) {
         Image ballImage = new Image( "ball.png" );
-        Image paddleImage = new Image( "paddleA.png" );
+        Image paddleAImage = new Image( "paddleA.png" );
+        Image paddleBImage = new Image( "paddleB.png" );
+        Image paddleCImage = new Image( "paddleC.png" );
+        Image paddleDImage = new Image( "paddleD.png" );
+
         Image space = new Image( "space.png" );
-        gc.drawImage( space, 0, 0 );
+        gc.drawImage( space, 0, 0, Main.WIDTH, Main.HEIGHT);
 
         Ball ball = new Ball(50,50);
-        Paddle paddleA = new Paddle(0,0);
+        Paddle paddleA = new Paddle(50,50);
         General generalA = new General(0,0, paddleA);
-        Paddle paddleB = new Paddle();
+        Paddle paddleB = new Paddle(Main.WIDTH - 100, 50);
         General generalB = new General(0, 0, paddleB);
+        Paddle paddleC = new Paddle(Main.WIDTH - 100, Main.HEIGHT - 75);
+        General generalC = new General(0, 0, paddleC);
+        Paddle paddleD = new Paddle(50, Main.HEIGHT - 75);
+        General generalD = new General(0, 0, paddleD);
         Brick brick = new Brick();
         ball.setXVelocity(5);
         ball.setYVelocity(0);
 
-        game = new Game(ball, generalA, generalB, brick);
+        game = new Game(ball, generalA, generalB, generalC, generalD, brick);
 
         new AnimationTimer()
         {
             public void handle(long currentNanoTime)
             {
                 // Clear the canvas
-                gc.clearRect(0, 0, 1024,768);
+                gc.clearRect(0, 0, Main.WIDTH, Main.WIDTH);
 
                 // background image clears canvas
                 gc.drawImage( space, 0, 0 );
                 gc.drawImage( ballImage, game.ball.getXPos(), game.ball.getYPos(), game.ball.getWidth(), game.ball.getHeight() );
-                gc.drawImage( paddleImage, game.generals[0].paddle.getXPos(), game.generals[0].paddle.getYPos(), game.generals[0].paddle.getWidth(), game.generals[0].paddle.getHeight());
+                gc.drawImage( paddleAImage, game.generals[0].paddle.getXPos(), game.generals[0].paddle.getYPos(), game.generals[0].paddle.getWidth(), game.generals[0].paddle.getHeight());
+                gc.drawImage( paddleBImage, game.generals[1].paddle.getXPos(), game.generals[1].paddle.getYPos(), game.generals[1].paddle.getWidth(), game.generals[1].paddle.getHeight());
+                gc.drawImage( paddleCImage, game.generals[2].paddle.getXPos(), game.generals[2].paddle.getYPos(), game.generals[2].paddle.getWidth(), game.generals[2].paddle.getHeight());
+                gc.drawImage( paddleDImage, game.generals[3].paddle.getXPos(), game.generals[3].paddle.getYPos(), game.generals[3].paddle.getWidth(), game.generals[3].paddle.getHeight());
                 game.tick();
             }
         }.start();

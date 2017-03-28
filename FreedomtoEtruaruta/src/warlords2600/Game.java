@@ -6,14 +6,25 @@ public class Game implements IGame{
 
     private boolean isFinished = false;
     private int timeElapsed = 0;
-    public General[] generals = new General[2];
+    public General[] generals;
     public Ball ball;
     public Brick brick1;
 
     public Game(Ball ball, General generalA, General generalB, Brick brick) {
         this.ball = ball;
+        this.generals = new General[2];
         this.generals[0] = generalA;
         this.generals[1] = generalB;
+        this.brick1 = brick;
+    }
+
+    public Game(Ball ball, General generalA, General generalB, General generalC, General generalD, Brick brick) {
+        this.ball = ball;
+        this.generals = new General[4];
+        this.generals[0] = generalA;
+        this.generals[1] = generalB;
+        this.generals[2] = generalC;
+        this.generals[3] = generalD;
         this.brick1 = brick;
     }
 
@@ -35,7 +46,6 @@ public class Game implements IGame{
                 ballHit = true;
                 brick1.destroyBrick();
             }
-            System.out.println(ball.getYPos());
             if ((ball.getYPos() < (generals[i].paddle.getYPos() + generals[i].paddle.getHeight())) && (ball.getYPos() > (generals[i].paddle.getYPos() - generals[i].paddle.getHeight()))) {
                 if((ball.getXPos() - ball.getWidth()) < (generals[i].paddle.getXPos() + generals[i].paddle.getWidth()/2) && (ball.getXPos()) > (generals[i].paddle.getXPos() - generals[i].paddle.getWidth()/2)) {
                     ballHit = true;
