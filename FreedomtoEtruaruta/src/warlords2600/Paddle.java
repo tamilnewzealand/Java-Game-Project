@@ -3,7 +3,7 @@ package warlords2600;
 import warlordstest.IPaddle;
 
 public class Paddle implements IPaddle {
-    private int x, y, speed, width = 5, height = 5;
+    private int x, y, speed, width = 50, height = 25;
 
     public Paddle() {
         x = 0;

@@ -1,9 +1,10 @@
 package warlords2600;
 
+import EtruarutaGUI.Main;
 import warlordstest.IBall;
 
 public class Ball implements IBall{
-    private int x, y, xSpeed = 0, ySpeed = 0, width = 5, height = 5;
+    private int x, y, xSpeed = 0, ySpeed = 0, width = 25, height = 25;
 
     public Ball() {
         x = 0;
@@ -76,12 +77,12 @@ public class Ball implements IBall{
             ySpeed = -ySpeed;
         }
 
-        if (x >= (Globals.WIDTH - width / 2)) {
-            x = Globals.WIDTH - (x - Globals.WIDTH) - 2 * width;
+        if (x >= (Main.WIDTH - width / 2)) {
+            x = Main.WIDTH - (x - Main.WIDTH) - 2 * width;
             xSpeed = -xSpeed;
         }
-        if (y >= (Globals.HEIGHT - height / 2)) {
-            y = Globals.HEIGHT - (y - Globals.HEIGHT) - 2 * height;
+        if (y >= (Main.HEIGHT - height / 2)) {
+            y = Main.HEIGHT - (y - Main.HEIGHT) - 2 * height;
             ySpeed = -ySpeed;
         }
     }

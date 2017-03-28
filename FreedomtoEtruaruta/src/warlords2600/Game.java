@@ -6,7 +6,7 @@ public class Game implements IGame{
 
     private boolean isFinished = false;
     private int timeElapsed = 0;
-    private General[] generals = new General[2];
+    public General[] generals = new General[2];
     public Ball ball;
     public Brick brick1;
 
