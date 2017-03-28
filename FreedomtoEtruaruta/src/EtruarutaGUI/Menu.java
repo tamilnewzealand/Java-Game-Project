@@ -64,7 +64,7 @@ public class Menu implements SceneInterface {
         startButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                sceneManager.goToInstructionsScene(sceneManager);
+                sceneManager.goToPlayNowScene(sceneManager);
             }
         });
 

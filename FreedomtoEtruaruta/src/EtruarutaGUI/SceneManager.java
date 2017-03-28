@@ -34,6 +34,17 @@ public class SceneManager {
     }
 
     /**
+     * Sets the scene to be the Play Now Scene
+     * @param sceneManager SceneManager currently being used
+     */
+    public void goToPlayNowScene(SceneManager sceneManager) {
+        animation.stop();
+        PlayNow playNow = new PlayNow(sceneManager);
+        Scene playNowScene = playNow.init(Main.WIDTH, Main.HEIGHT);
+        stage.setScene(playNowScene);
+    }
+
+    /**
      * Sets the scene to be the Instructions Scene
      * @param sceneManager SceneManager currently being used
      */

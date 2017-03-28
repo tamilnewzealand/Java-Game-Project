@@ -9,6 +9,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
+import warlords2600.*;
 
 public class UIGenerator {
 	public static final String DEFAULT_FONT_FAMILY = "Kavivanar";
@@ -124,6 +125,46 @@ public class UIGenerator {
                 gc.drawImage( space, 0, 0 );
                 gc.drawImage( etruaruta, x, y );
                 gc.drawImage( star, 196, 196 );
+            }
+        }.start();
+
+        return gc;
+    }
+
+    /**
+     *
+     * @param gc GraphicsContext to draw animation onto
+     * @return GraphicsContext with the animation for the game drawn on to
+     */
+    public static GraphicsContext renderGame(GraphicsContext gc) {
+        Image ballImage = new Image( "ball.png" );
+        Image space = new Image( "space.png" );
+        gc.drawImage( space, 0, 0 );
+
+        Ball ball = new Ball(0,0);
+        Paddle paddleA = new Paddle();
+        General generalA = new General(0,0, paddleA);
+        Paddle paddleB = new Paddle();
+        General generalB = new General(0, 0, paddleB);
+        Brick brick = new Brick();
+        ball.setXVelocity(10);
+        ball.setYVelocity(10);
+
+        Game game = new Game(ball, generalA, generalB, brick);
+
+        final long startNanoTime = System.nanoTime();
+
+        new AnimationTimer()
+        {
+            public void handle(long currentNanoTime)
+            {
+                // Clear the canvas
+                gc.clearRect(0, 0, 1024,768);
+
+                // background image clears canvas
+                gc.drawImage( space, 0, 0 );
+                gc.drawImage( ballImage, ball.getXPos(), ball.getYPos() );
+                game.tick();
             }
         }.start();
 
