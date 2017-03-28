@@ -1,5 +1,6 @@
 package warlords2600;
 
+import EtruarutaGUI.Main;
 import warlordstest.IPaddle;
 
 public class Paddle implements IPaddle {
@@ -56,19 +57,19 @@ public class Paddle implements IPaddle {
     }
 
     public void goLeft() {
-        x -= speed;
+        if (x >= speed) x -= speed;
     }
 
     public void goRight() {
-        x += speed;
+        if (x < Main.WIDTH - speed - width/2)x += speed;
     }
 
     public void goDown() {
-        y -= speed;
+        if (y < Main.HEIGHT - speed - 1.5*height) y += speed;
     }
 
     public void goUp() {
-        y += speed;
+        if (y >= speed) y -= speed;
     }
 
 }
