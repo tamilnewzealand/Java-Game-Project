@@ -48,19 +48,24 @@ public class PlayNow implements SceneInterface {
     }
 
     public void HandleInputs() {
-        playNowScene.addEventHandler(KeyEvent.KEY_PRESSED, (key) -> {
-            if(key.getCode()== KeyCode.LEFT) {
-                game.generals[0].paddle.goLeft();
-            }
-            if(key.getCode()== KeyCode.RIGHT) {
-                game.generals[0].paddle.goRight();
-            }
-            if(key.getCode()== KeyCode.UP) {
-                game.generals[0].paddle.goUp();
-            }
-            if(key.getCode()== KeyCode.DOWN) {
-                game.generals[0].paddle.goDown();
-            }
+        playNowScene.setOnKeyPressed(new EventHandler<KeyEvent>(){
+             @Override
+             public void handle(KeyEvent keyEvent) {
+                 switch(keyEvent.getCode()) {
+                     case UP:
+                         game.generals[0].paddle.goDown();
+                         break;
+                     case DOWN:
+                         game.generals[0].paddle.goUp();
+                         break;
+                     case LEFT:
+                         game.generals[0].paddle.goLeft();
+                         break;
+                     case RIGHT:
+                         game.generals[0].paddle.goRight();
+                 }
+             }
+
         });
     }
 
@@ -97,7 +102,7 @@ public class PlayNow implements SceneInterface {
                 gc.drawImage( space, 0, 0 );
                 gc.drawImage( ballImage, game.ball.getXPos(), game.ball.getYPos(), game.ball.getWidth(), game.ball.getHeight() );
                 gc.drawImage( paddleImage, game.generals[0].paddle.getXPos(), game.generals[0].paddle.getYPos(), game.generals[0].paddle.getWidth(), game.generals[0].paddle.getHeight());
-                System.out.println(game.generals[0].paddle.getXPos());
+                System.out.println(game.generals[0].paddle.getYPos());
                 game.tick();
             }
         }.start();

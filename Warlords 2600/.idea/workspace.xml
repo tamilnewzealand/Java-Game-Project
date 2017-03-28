@@ -2,13 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="13bb48f2-d7bb-4fab-9af3-e731517508f7" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../FreedomtoEtruaruta/src/warlords2600/Globals.java" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../FreedomtoEtruaruta/out/production/FreedomtoEtruaruta/ball.png" afterPath="$PROJECT_DIR$/../FreedomtoEtruaruta/out/production/FreedomtoEtruaruta/ball.png" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../FreedomtoEtruaruta/src/EtruarutaGUI/PlayNow.java" afterPath="$PROJECT_DIR$/../FreedomtoEtruaruta/src/EtruarutaGUI/PlayNow.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../FreedomtoEtruaruta/src/EtruarutaGUI/UIGenerator.java" afterPath="$PROJECT_DIR$/../FreedomtoEtruaruta/src/EtruarutaGUI/UIGenerator.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../FreedomtoEtruaruta/src/warlords2600/Ball.java" afterPath="$PROJECT_DIR$/../FreedomtoEtruaruta/src/warlords2600/Ball.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../FreedomtoEtruaruta/src/warlords2600/Game.java" afterPath="$PROJECT_DIR$/../FreedomtoEtruaruta/src/warlords2600/Game.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../FreedomtoEtruaruta/src/warlords2600/Paddle.java" afterPath="$PROJECT_DIR$/../FreedomtoEtruaruta/src/warlords2600/Paddle.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
