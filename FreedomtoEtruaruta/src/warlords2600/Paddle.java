@@ -94,12 +94,12 @@ public class Paddle implements IPaddle {
     }
 
     public int calcXPos() {
-        x =  (int)(r * Math.cos(theta));
+        x = (int)(r * Math.cos(theta));
         return x;
     }
 
     public int calcYPos() {
-        y =  (int)(r * Math.sin(theta));
+        y = (int)(r * Math.sin(theta));
         return y;
     }
 
@@ -108,7 +108,7 @@ public class Paddle implements IPaddle {
     }
 
     public int getR () {
-        return r/4;
+        return r;
     }
 
 }

@@ -72,6 +72,7 @@ public class PlayNow implements SceneInterface {
     public GraphicsContext renderGame(GraphicsContext gc) {
         Image ballImage = new Image( "ball.png" );
         Image paddleImages[] = new Image[4];
+        Image brickImage = new Image ( "ball.png" );
         paddleImages[0] = new Image( "paddleA.png" );
         paddleImages[1] = new Image( "paddleB.png" );
         paddleImages[2] = new Image( "paddleC.png" );
@@ -81,20 +82,33 @@ public class PlayNow implements SceneInterface {
         gc.drawImage( space, 0, 0, Main.WIDTH, Main.HEIGHT);
 
         Ball ball = new Ball(50,50);
+
+        Brick[][] wallA = new Brick[3][5];
+        Brick[][] wallB = new Brick[3][5];
+        Brick[][] wallC = new Brick[3][5];
+        Brick[][] wallD = new Brick[3][5];
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 5; j++) {
+                wallA[i][j] = new Brick(100 + 35*i, 0.3*(j + 1) - 0.15);
+                wallB[i][j] = new Brick(100 + 35*i, 0.3*(j + 1) - 0.15);
+                wallC[i][j] = new Brick(100 + 35*i, 0.3*(j + 1) - 0.15);
+                wallD[i][j] = new Brick(100 + 35*i, 0.3*(j + 1) - 0.15);
+            }
+        }
+
         Paddle paddleA = new Paddle();
-        General generalA = new General(0, 0, paddleA);
+        General generalA = new General(0, 0, paddleA, wallA);
         Paddle paddleB = new Paddle();
-        General generalB = new General(0, 0, paddleB);
+        General generalB = new General(0, 0, paddleB, wallB);
         Paddle paddleC = new Paddle();
-        General generalC = new General(0, 0, paddleC);
+        General generalC = new General(0, 0, paddleC, wallC);
         Paddle paddleD = new Paddle();
-        General generalD = new General(0, 0, paddleD);
-        Brick brick = new Brick();
+        General generalD = new General(0, 0, paddleD, wallD);
 
         ball.setXVelocity(5);
         ball.setYVelocity(0);
 
-        game = new Game(ball, generalA, generalB, generalC, generalD, brick);
+        game = new Game(ball, generalA, generalB, generalC, generalD, wallA[0][0]);
 
         new AnimationTimer()
         {
@@ -105,11 +119,20 @@ public class PlayNow implements SceneInterface {
 
                 // background image clears canvas
                 gc.drawImage( space, 0, 0 );
-                gc.drawImage( ballImage, game.ball.getXPos(), game.ball.getYPos(), game.ball.getWidth(), game.ball.getHeight() );
+                //gc.drawImage( ballImage, game.ball.getXPos(), game.ball.getYPos(), game.ball.getWidth(), game.ball.getHeight() );
                 gc.drawImage( paddleImages[0], game.generals[0].paddle.calcXPos(), game.generals[0].paddle.calcYPos(), game.generals[0].paddle.getWidth(), game.generals[0].paddle.getHeight());
                 gc.drawImage( paddleImages[1], Main.WIDTH  - game.generals[1].paddle.calcXPos(), game.generals[1].paddle.calcYPos(), game.generals[1].paddle.getWidth(), game.generals[1].paddle.getHeight());
                 gc.drawImage( paddleImages[2], Main.WIDTH - game.generals[2].paddle.calcXPos(), Main.HEIGHT - game.generals[2].paddle.calcYPos(), game.generals[2].paddle.getWidth(), game.generals[2].paddle.getHeight());
                 gc.drawImage( paddleImages[3], game.generals[3].paddle.calcXPos(), Main.HEIGHT - game.generals[3].paddle.calcYPos(), game.generals[3].paddle.getWidth(), game.generals[3].paddle.getHeight());
+                for (int i = 0; i < 3; i++) {
+                    for (int j = 0; j < 5; j++) {
+                        gc.drawImage( brickImage, game.generals[0].wall[i][j].calcXPos(), game.generals[0].wall[i][j].calcYPos(), game.generals[0].wall[i][j].getWidth(), game.generals[0].wall[i][j].getHeight());
+                        gc.drawImage( brickImage, Main.WIDTH - game.generals[1].wall[i][j].calcXPos(), game.generals[1].wall[i][j].calcYPos(), game.generals[1].wall[i][j].getWidth(), game.generals[1].wall[i][j].getHeight());
+                        gc.drawImage( brickImage, Main.WIDTH - game.generals[2].wall[i][j].calcXPos(), Main.HEIGHT - game.generals[2].wall[i][j].calcYPos(), game.generals[2].wall[i][j].getWidth(), game.generals[2].wall[i][j].getHeight());
+                        gc.drawImage( brickImage, game.generals[3].wall[i][j].calcXPos(), Main.HEIGHT - game.generals[3].wall[i][j].calcYPos(), game.generals[3].wall[i][j].getWidth(), game.generals[3].wall[i][j].getHeight());
+                    }
+                }
+
                 game.tick();
             }
         }.start();

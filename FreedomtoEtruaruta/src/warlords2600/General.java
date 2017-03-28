@@ -5,30 +5,28 @@ import warlordstest.IWarlord;
 public class General implements IWarlord {
 
     public Paddle paddle = new Paddle();
-    public Brick[][] wall = new Brick[3][7];
+    public Brick[][] wall;
     private int xPos, yPos, height = 5, width = 5;
 
     public General() {
         xPos = 0;
         yPos = 0;
         this.paddle = new Paddle();
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 7; j++) {
-                wall[i][j] = new Brick((2 + 5*i), (2 + 5*j));
-            }
-        }
     }
 
     public General(int xPos, int yPos, Paddle paddle) {
         this.xPos = xPos;
         this.yPos = yPos;
         this.paddle = paddle;
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 7; j++) {
-                wall[i][j] = new Brick((2 + 5*i), (2 + 5*j));
-            }
-        }
     }
+
+    public General(int xPos, int yPos, Paddle paddle, Brick[][] wall) {
+        this.xPos = xPos;
+        this.yPos = yPos;
+        this.paddle = paddle;
+        this.wall = wall;
+    }
+
 
     private boolean dead = false, won = false;
 
