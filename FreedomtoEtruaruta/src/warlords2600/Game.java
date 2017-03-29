@@ -31,7 +31,7 @@ public class Game implements IGame{
         boolean ballHit = false;
         int deadCount = 0;
 
-        for (int i = 0; i < generals.length; i++) {
+        for (int i = 0; i < 1; i++) {
             if (ball.getXVelocity() > 0) {
                 if (ball.getYVelocity() == 0) {
                     boolean yIntersects = false;
@@ -45,6 +45,36 @@ public class Game implements IGame{
                             ball.setXPos(generals[i].paddle.calcXPos() - ball.getWidth());
                             ball.setXVelocity(-ball.getXVelocity());
                             ballHit = true;
+                        }
+                    }
+                }
+                if (ball.getYVelocity() > 0) {
+                    if ((ball.getXPos() + ball.getWidth()) < generals[i].paddle.calcXPos()) {
+                        if ((ball.getYPos() + ball.getHeight()) < generals[i].paddle.calcYPos()) {
+                            if ((ball.getXPos() + ball.getXVelocity() + ball.getWidth()) >= generals[i].paddle.calcXPos()) {
+                                if ((ball.getYPos() + ball.getYVelocity() + ball.getHeight()) >= generals[i].paddle.calcYPos()) {
+                                    ball.setXPos(generals[i].paddle.calcXPos() - ball.getWidth());
+                                    ball.setYPos(generals[i].paddle.calcYPos() - ball.getHeight());
+                                    ball.setXVelocity(-ball.getXVelocity());
+                                    ball.setYVelocity(-ball.getYVelocity());
+                                    ballHit = true;
+                                }
+                            }
+                        }
+                    }
+                }
+                if (ball.getYVelocity() < 0) {
+                    if ((ball.getXPos() + ball.getWidth()) < generals[i].paddle.calcXPos()) {
+                        if (ball.getYPos() > (generals[i].paddle.calcYPos() + generals[i].paddle.getHeight())) {
+                            if ((ball.getXPos() + ball.getXVelocity() + ball.getWidth()) >= generals[i].paddle.calcXPos()) {
+                                if ((ball.getYPos() + ball.getYVelocity()) <= (generals[i].paddle.calcYPos() + generals[i].paddle.getHeight())) {
+                                    ball.setXPos(generals[i].paddle.calcXPos() - ball.getWidth());
+                                    ball.setYPos(generals[i].paddle.calcYPos() - ball.getHeight());
+                                    ball.setXVelocity(-ball.getXVelocity());
+                                    ball.setYVelocity(-ball.getYVelocity());
+                                    ballHit = true;
+                                }
+                            }
                         }
                     }
                 }
@@ -65,9 +95,39 @@ public class Game implements IGame{
                         }
                     }
                 }
+                if (ball.getYVelocity() > 0) {
+                    if (ball.getXPos() > (generals[i].paddle.calcXPos() + generals[i].paddle.getWidth())) {
+                        if ((ball.getYPos() + ball.getHeight()) < generals[i].paddle.calcYPos()) {
+                            if ((ball.getXPos() + ball.getXVelocity()) <= (generals[i].paddle.calcXPos() + generals[i].paddle.getWidth())) {
+                                if ((ball.getYPos() + ball.getYVelocity() + ball.getHeight()) >= generals[i].paddle.calcYPos()) {
+                                    ball.setXPos(generals[i].paddle.calcXPos() + generals[i].paddle.getWidth());
+                                    ball.setYPos(generals[i].paddle.calcYPos() - ball.getHeight());
+                                    ball.setXVelocity(-ball.getXVelocity());
+                                    ball.setYVelocity(-ball.getYVelocity());
+                                    ballHit = true;
+                                }
+                            }
+                        }
+                    }
+                }
+                if (ball.getYVelocity() < 0) {
+                    if (ball.getXPos() > (generals[i].paddle.calcXPos() + generals[i].paddle.getWidth())) {
+                        if (ball.getYPos() > (generals[i].paddle.calcYPos() + generals[i].paddle.getHeight())) {
+                            if ((ball.getXPos() + ball.getXVelocity()) <= (generals[i].paddle.calcXPos() + generals[i].paddle.getWidth())) {
+                                if ((ball.getYPos() + ball.getYVelocity()) <= (generals[i].paddle.calcYPos() + generals[i].paddle.getHeight())) {
+                                    ball.setXPos(generals[i].paddle.calcXPos() - ball.getWidth());
+                                    ball.setYPos(generals[i].paddle.calcYPos() - ball.getHeight());
+                                    ball.setXVelocity(-ball.getXVelocity());
+                                    ball.setYVelocity(-ball.getYVelocity());
+                                    ballHit = true;
+                                }
+                            }
+                        }
+                    }
+                }
             }
-            if (ball.getYVelocity() > 0) {
-                if (ball.getXVelocity() == 0) {
+            if (ball.getXVelocity() == 0) {
+                if (ball.getYVelocity() > 0) {
                     boolean xIntersects = false;
                     for (int j = ball.getXPos(); j < (ball.getXPos() + ball.getWidth()); j++) {
                         for (int k = generals[i].paddle.getXPos(); k < (generals[i].paddle.getXPos() + generals[i].paddle.getWidth()); k++) {
@@ -82,9 +142,7 @@ public class Game implements IGame{
                         }
                     }
                 }
-            }
-            if (ball.getYVelocity() < 0) {
-                if (ball.getXVelocity() == 0) {
+                if (ball.getYVelocity() < 0) {
                     boolean xIntersects = false;
                     for (int j = ball.getXPos(); j < (ball.getXPos() + ball.getWidth()); j++) {
                         for (int k = generals[i].paddle.getXPos(); k < (generals[i].paddle.getXPos() + generals[i].paddle.getWidth()); k++) {
@@ -99,7 +157,7 @@ public class Game implements IGame{
                         }
                     }
                 }
-            }
+            }  
             if (generals[i].isDead()) deadCount++;
         }
 
