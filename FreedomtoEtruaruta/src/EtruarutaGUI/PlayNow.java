@@ -81,7 +81,7 @@ public class PlayNow implements SceneInterface {
         Image space = new Image( "space.png" );
         gc.drawImage( space, 0, 0, Main.WIDTH, Main.HEIGHT);
 
-        Ball ball = new Ball(Main.WIDTH/2,Main.HEIGHT/2);
+        Ball ball = new Ball(0,0);
 
         Brick[][] wallA = new Brick[3][5];
         Brick[][] wallB = new Brick[3][5];
@@ -106,9 +106,9 @@ public class PlayNow implements SceneInterface {
         General generalD = new General(0, 0, paddles[3], wallD);
 
         ball.setXVelocity(5);
-        ball.setYVelocity(5);
+        ball.setYVelocity(0);
 
-        game = new Game(ball, generalA, generalB, generalC, generalD, wallA[0][0]);
+        game = new Game(ball, generalA, generalB, generalC, generalD);
 
         new AnimationTimer()
         {
