@@ -31,7 +31,7 @@ public class Game implements IGame{
         boolean ballHit = false;
         int deadCount = 0;
 
-        for (int i = 0; i < 1; i++) {
+        for (int i = 0; i < generals.length; i++) {
             for (int x = generals[i].paddle.calcXPos(); x < (generals[i].paddle.calcXPos() + generals[i].paddle.getWidth()); x++) {
                 for (int y = generals[i].paddle.calcYPos(); y < (generals[i].paddle.calcYPos() + generals[i].paddle.getHeight()); y++) {
                     if (x == generals[i].paddle.calcXPos() || y == generals[i].paddle.calcYPos() || x == (generals[i].paddle.calcXPos() + generals[i].paddle.getWidth()) || y == (generals[i].paddle.calcYPos() + generals[i].paddle.getHeight())) {

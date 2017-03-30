@@ -6,7 +6,7 @@ import static java.lang.Math.cos;
 import static java.lang.Math.multiplyExact;
 
 public class Paddle implements IPaddle {
-    private int x, y, r = 300, speed = 5, width = 50, height = 25;
+    private int x, y, r = 300, speed = 5, width = 50, height = 25, pos = 0;
     double theta, polarSpeed = 0.1;
 
     public Paddle() {
@@ -15,8 +15,9 @@ public class Paddle implements IPaddle {
         this.y = 0;
     }
 
-    public Paddle(double theta) {
+    public Paddle(double theta, int pos) {
         this.theta = theta;
+        this.pos = pos;
     }
 
     public Paddle(int x, int y) {
@@ -95,12 +96,24 @@ public class Paddle implements IPaddle {
 
     public int calcXPos() {
         x = (int)(r * Math.cos(theta));
-        return x;
+        switch (pos) {
+            case 0: return x;
+            case 1: return (Main.WIDTH - x);
+            case 2: return (Main.WIDTH - x);
+            case 3: return x;
+            default: return x;
+        }
     }
 
     public int calcYPos() {
         y = (int)(r * Math.sin(theta));
-        return y;
+        switch (pos) {
+            case 0: return y;
+            case 1: return y;
+            case 2: return (Main.HEIGHT - y);
+            case 3: return (Main.HEIGHT - y);
+            default: return y;
+        }
     }
 
     public double getTheta () {
