@@ -12,7 +12,7 @@ import warlordstest.IWarlord;
 
 public class General implements IWarlord {
 
-    public Paddle paddle = new Paddle(0,0);
+    public Paddle paddle = new Paddle();
     public Brick[][] wall = new Brick[3][7];
     private int xPos, yPos, height = 5, width = 5;
     private boolean dead = false, won = false;
@@ -23,6 +23,17 @@ public class General implements IWarlord {
      * @param yPos Position on the Cartesian Coordinate Y plane
      * @param paddle Paddle that this general is associated with
      */
+    public General() {
+        xPos = 0;
+        yPos = 0;
+        this.paddle = new Paddle();
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 7; j++) {
+                wall[i][j] = new Brick((2 + 5*i), (2 + 5*j));
+            }
+        }
+    }
+
     public General(int xPos, int yPos, Paddle paddle) {
         this.xPos = xPos;
         this.yPos = yPos;
@@ -38,6 +49,8 @@ public class General implements IWarlord {
      *
      * @param x sets the new X position
      */
+    private boolean dead = false, won = false;
+
     public void setXPos(int x) {
         xPos = x;
     }
@@ -54,6 +67,14 @@ public class General implements IWarlord {
      *
      * @return returns the current X position
      */
+    public void setWidth(int width){
+        this.width = width;
+    }
+
+    public void setHeight(int height){
+        this.height = height;
+    }
+
     public int getXPos() {
         return xPos;
     }

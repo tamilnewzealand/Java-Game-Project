@@ -11,7 +11,12 @@ import warlordstest.IPaddle;
  */
 
 public class Paddle implements IPaddle {
-    private int x, y, speed = 1, width = 50, height = 25;
+    private int x, y, speed, width = 5, height = 5;
+
+    public Paddle() {
+        x = 0;
+        y = 0;
+    }
 
     /**
      * Constructor class for the paddle
@@ -43,6 +48,18 @@ public class Paddle implements IPaddle {
      *
      * @return current X position of the paddle
      */
+    public void setSpeed(int speed){
+        this.speed = speed;
+    }
+
+    public void setWidth(int width){
+        this.width = width;
+    }
+
+    public void setHeight(int height){
+        this.height = height;
+    }
+
     public int getXPos(){
         return x;
     }
@@ -59,6 +76,10 @@ public class Paddle implements IPaddle {
      *
      * @return width of the paddle
      */
+    public int getSpeed(){
+        return speed;
+    }
+
     public int getWidth(){
         return width;
     }
@@ -92,7 +113,7 @@ public class Paddle implements IPaddle {
      * Called when the down key button is pressed
      */
     public void goDown() {
-        y += speed;
+        y -= speed;
     }
 
     /**
@@ -100,7 +121,7 @@ public class Paddle implements IPaddle {
      * Called when the up key button is pressed
      */
     public void goUp() {
-        y -= speed;
+        y += speed;
     }
 
 }

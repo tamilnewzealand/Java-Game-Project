@@ -13,13 +13,17 @@ import warlordstest.IWall;
 public class Brick implements IWall{
 
     private int xPos, yPos, height = 5, width = 5;
-    private boolean destroyed = false;
 
     /**
      * Constructor for the Brick class
      * @param xPos Position of the brick on the X plane of the cartesian coordinate system
      * @param yPos Position of the brick on the Y plane of the cartesian coordinate system
      */
+    public Brick() {
+        xPos = 0;
+        yPos = 0;
+    }
+
     public Brick(int xPos, int yPos) {
         this.xPos = xPos;
         this.yPos = yPos;
@@ -29,6 +33,8 @@ public class Brick implements IWall{
      *
      * @param x setting X position
      */
+    private boolean destroyed = false;
+
     public void setXPos(int x) {
         xPos = x;
     }
@@ -45,6 +51,14 @@ public class Brick implements IWall{
      *
      * @return returns current x position of the brick
      */
+    public void setWidth(int width){
+        this.width = width;
+    }
+
+    public void setHeight(int height){
+        this.height = height;
+    }
+
     public int getXPos() {
         return xPos;
     }
