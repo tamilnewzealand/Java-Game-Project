@@ -76,7 +76,7 @@ public class PlayNow implements SceneInterface {
     public GraphicsContext renderGame(GraphicsContext gc) {
         Image ballImage = new Image( "ball.png" );
         Image paddleImages[] = new Image[4];
-        Image brickImage = new Image ( "ball.png" );
+        Image brickImage = new Image ( "brick.png" );
         paddleImages[0] = new Image( "paddleA.png" );
         paddleImages[1] = new Image( "paddleB.png" );
         paddleImages[2] = new Image( "paddleC.png" );
