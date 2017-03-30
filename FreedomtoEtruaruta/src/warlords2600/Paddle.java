@@ -11,7 +11,7 @@ import warlordstest.IPaddle;
  */
 
 public class Paddle implements IPaddle {
-    private int x, y, speed = 10, width = 50, height = 25;
+    private int x, y, speed = 1, width = 50, height = 25;
 
     /**
      * Constructor class for the paddle
