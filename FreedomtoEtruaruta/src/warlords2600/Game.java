@@ -1,5 +1,9 @@
 package warlords2600;
 
+import EtruarutaGUI.SceneManager;
+import javafx.event.EventHandler;
+import javafx.scene.Scene;
+import javafx.scene.input.KeyEvent;
 import warlordstest.IGame;
 
 public class Game implements IGame{
@@ -150,4 +154,24 @@ public class Game implements IGame{
         isFinished = finished;
     }
 
+    public void HandleInputs(Scene playNowScene, SceneManager sceneManager) {
+        playNowScene.setOnKeyPressed(new EventHandler<KeyEvent>(){
+            @Override
+            public void handle(KeyEvent keyEvent) {
+                switch(keyEvent.getCode()) {
+                    case LEFT:
+                        generals[0].paddle.moveLeft();
+                        break;
+                    case RIGHT:
+                        generals[0].paddle.moveRight();
+                        break;
+                    case ESCAPE:
+                        setFinished(true);
+                        sceneManager.goToMenuScene(sceneManager);
+                        break;
+                }
+            }
+
+        });
+    }
 }

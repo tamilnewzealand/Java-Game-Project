@@ -42,31 +42,11 @@ public class PlayNow implements SceneInterface {
 
         GraphicsContext gc = canvas.getGraphicsContext2D();
         gc = renderGame(gc);
-        HandleInputs();
+        game.HandleInputs(playNowScene,sceneManager);
 
         return playNowScene;
     }
 
-    public void HandleInputs() {
-        playNowScene.setOnKeyPressed(new EventHandler<KeyEvent>(){
-             @Override
-             public void handle(KeyEvent keyEvent) {
-                 switch(keyEvent.getCode()) {
-                     case LEFT:
-                         game.generals[0].paddle.moveLeft();
-                         break;
-                     case RIGHT:
-                         game.generals[0].paddle.moveRight();
-                         break;
-                     case ESCAPE:
-                         game.setFinished(true);
-                         sceneManager.goToMenuScene(sceneManager);
-                         break;
-                 }
-             }
-
-        });
-    }
 
     /**
      *
@@ -85,7 +65,8 @@ public class PlayNow implements SceneInterface {
         Image space = new Image( "space.png" );
         gc.drawImage( space, 0, 0, Main.WIDTH, Main.HEIGHT);
 
-        Ball ball = new Ball(10,0);
+        Ball ball = new Ball(Main.WIDTH - 15,Main.HEIGHT-15);
+        Ball otherBall = new Ball (0,0);
 
         Brick[][] wallA = new Brick[3][5];
         Brick[][] wallB = new Brick[3][5];
@@ -112,6 +93,8 @@ public class PlayNow implements SceneInterface {
         ball.setXVelocity(5);
         ball.setYVelocity(5);
 
+        otherBall.setXVelocity(0);
+        otherBall.setYVelocity(0);
         game = new Game(ball, generalA, generalB, generalC, generalD);
         //game.ball.setYPos(game.generals[1].paddle.calcYPos());
 
@@ -125,6 +108,7 @@ public class PlayNow implements SceneInterface {
                 // background image clears canvas
                 gc.drawImage( space, 0, 0 );
                 gc.drawImage( ballImage, game.ball.getXPos(), game.ball.getYPos(), game.ball.getWidth(), game.ball.getHeight() );
+                gc.drawImage( ballImage, 0, 0, game.ball.getWidth(), game.ball.getHeight() );
                 gc.drawImage( paddleImages[0], game.generals[0].paddle.calcXPos(), game.generals[0].paddle.calcYPos(), game.generals[0].paddle.getWidth(), game.generals[0].paddle.getHeight());
                 gc.drawImage( paddleImages[1], game.generals[1].paddle.calcXPos(), game.generals[1].paddle.calcYPos(), game.generals[1].paddle.getWidth(), game.generals[1].paddle.getHeight());
                 gc.drawImage( paddleImages[2], game.generals[2].paddle.calcXPos(), game.generals[2].paddle.calcYPos(), game.generals[2].paddle.getWidth(), game.generals[2].paddle.getHeight());
