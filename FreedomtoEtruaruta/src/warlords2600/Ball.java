@@ -5,6 +5,7 @@ import warlordstest.IBall;
 
 public class Ball implements IBall{
     private int x, y, xSpeed = 0, ySpeed = 0, width = 15, height = 15;
+    private boolean hitLastTick = false;
 
     public Ball() {
         x = 0;
@@ -64,6 +65,13 @@ public class Ball implements IBall{
         return height;
     }
 
+    public void setHitLastTick(boolean hit){
+        hitLastTick = hit;
+    }
+
+    public boolean getHitLastTick(){
+        return hitLastTick;
+    }
     public void processBall() {
         x += xSpeed;
         y += ySpeed;

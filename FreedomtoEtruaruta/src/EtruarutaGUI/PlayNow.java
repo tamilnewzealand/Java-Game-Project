@@ -109,8 +109,8 @@ public class PlayNow implements SceneInterface {
         General generalC = new General(0, 0, paddles[2], wallC);
         General generalD = new General(0, 0, paddles[3], wallD);
 
-        ball.setXVelocity(1);
-        ball.setYVelocity(1);
+        ball.setXVelocity(5);
+        ball.setYVelocity(5);
 
         game = new Game(ball, generalA, generalB, generalC, generalD);
         //game.ball.setYPos(game.generals[1].paddle.calcYPos());

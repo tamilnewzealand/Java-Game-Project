@@ -6,7 +6,7 @@ import static java.lang.Math.cos;
 import static java.lang.Math.multiplyExact;
 
 public class Paddle implements IPaddle {
-    private int x, y, r = 300, speed = 5, width = 50, height = 25, pos = 0;
+    private int x, y, r = 300, speed = 5, width = 50, height = 10, pos = 0;
     double theta, polarSpeed = 0.1;
 
     public Paddle() {
