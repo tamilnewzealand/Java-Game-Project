@@ -114,8 +114,8 @@ public class UIGenerator {
             {
                 double t = (currentNanoTime - startNanoTime) / 1000000000.0;
 
-                double x = 232 + 128 * Math.cos(t);
-                double y = 232 + 128 * Math.sin(t);
+                double x = 192 + 128 * Math.cos(t);
+                double y = 400 + 128 * Math.sin(t);
 
                 // Clear the canvas
                 gc.clearRect(0, 0, Main.WIDTH, Main.HEIGHT);
@@ -123,7 +123,7 @@ public class UIGenerator {
                 // background image clears canvas
                 gc.drawImage( space, 0, 0 );
                 gc.drawImage( etruaruta, x, y );
-                gc.drawImage( star, 196, 196 );
+                gc.drawImage( star, 156, 356 );
             }
         }.start();
 

@@ -40,12 +40,11 @@ public class Instructions implements SceneInterface {
         addTitle();
         addInstructionsText();
         addMenuButton();
-
         return instructionsScene;
     }
 
     private void addTitle() {
-        Text titleText = UIGenerator.createText("Instructions", 392, 90, 54);
+        Text titleText = UIGenerator.createText("Instructions", 392, 85, 54);
 
         root.getChildren().add(titleText);
     }
@@ -65,13 +64,14 @@ public class Instructions implements SceneInterface {
                 "galaxy is now dependent on. The Galactic Empire, Martians & the Earthlings have just\n" +
                 "landed on Etruaruta. The story of who gains control of this now valuable planet forms the\n" +
                 "plotline of this game.\n";
-        Text instructionsText = UIGenerator.createText(text, 232, 150, 15);
+        Text instructionsText = UIGenerator.createText(text, 232, 135, 15);
 
         root.getChildren().add(instructionsText);
     }
 
     private void addMenuButton() {
-        Button menuButton = UIGenerator.createButton("Back to Menu", 244, 580);
+
+        Button menuButton = UIGenerator.createButton("Back to Menu", 475, 580);
 
         menuButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override

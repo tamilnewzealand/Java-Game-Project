@@ -58,6 +58,10 @@ public class PlayNow implements SceneInterface {
                      case RIGHT:
                          game.generals[0].paddle.moveRight();
                          break;
+                     case ESCAPE:
+                         game.setFinished(true);
+                         sceneManager.goToMenuScene(sceneManager);
+                         break;
                  }
              }
 

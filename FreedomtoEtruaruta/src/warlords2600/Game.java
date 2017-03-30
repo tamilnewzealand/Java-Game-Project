@@ -141,4 +141,8 @@ public class Game implements IGame{
         timeElapsed = (120 - seconds) * 60;
     }
 
+    public void setFinished(boolean finished){
+        isFinished = finished;
+    }
+
 }
