@@ -38,27 +38,38 @@ public class Game implements IGame{
                         if (inBallPath(x, y)) {
                             if (x == generals[i].paddle.calcXPos()) {
                                 ball.setYVelocity(-ball.getYVelocity());
+                                System.out.println(x);
                                 ball.setXPos(x + ball.getXVelocity());
                                 ball.setYPos(y + ball.getYVelocity());
+                                System.out.println("A , X: " + ball.getXPos() + " Y: " + ball.getYPos() + "Y Velocity: " + ball.getYVelocity() + " X Velocity: " + ball.getXVelocity());
                                 ballHit = true;
+                                break;
                             }
                             else if (y == generals[i].paddle.calcYPos()) {
                                 ball.setYVelocity(-ball.getYVelocity());
-                                ball.setXPos(x + ball.getXVelocity());
+                                //ball.setXPos(x + ball.getXVelocity());
+                                System.out.println(y);
                                 ball.setYPos(y + ball.getYVelocity());
+                                System.out.println("B , X: " + ball.getXPos() + " Y: " + ball.getYPos() + "Y Velocity: " + ball.getYVelocity() + " X Velocity: " + ball.getXVelocity());
+
                                 ballHit = true;
+                                break;
                             }
                             else if (x == (generals[i].paddle.calcXPos() + generals[i].paddle.getWidth())) {
                                 ball.setYVelocity(-ball.getYVelocity());
                                 ball.setXPos(x - ball.getXVelocity());
                                 ball.setYPos(y - ball.getYVelocity());
+                                System.out.println("C");
                                 ballHit = true;
+                                break;
                             }
                             else if (y == (generals[i].paddle.calcYPos() + generals[i].paddle.getHeight())) {
                                 ball.setYVelocity(-ball.getYVelocity());
                                 ball.setXPos(x - ball.getXVelocity());
                                 ball.setYPos(y - ball.getYVelocity());
+                                System.out.println("D");
                                 ballHit = true;
+                                break;
                             }
                         }
                     }

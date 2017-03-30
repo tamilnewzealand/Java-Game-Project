@@ -4,7 +4,7 @@ import EtruarutaGUI.Main;
 import warlordstest.IBall;
 
 public class Ball implements IBall{
-    private int x, y, xSpeed = 0, ySpeed = 0, width = 25, height = 25;
+    private int x, y, xSpeed = 0, ySpeed = 0, width = 15, height = 15;
 
     public Ball() {
         x = 0;
