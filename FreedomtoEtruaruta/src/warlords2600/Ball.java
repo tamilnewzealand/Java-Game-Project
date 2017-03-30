@@ -14,11 +14,6 @@ import warlordstest.IBall;
 public class Ball implements IBall{
     private int x, y, xSpeed = 0, ySpeed = 0, width = 5, height = 5;
 
-    public Ball() {
-        x = 0;
-        y = 0;
-    }
-
     /**
      * Constructor for the ball class
      * @param x X position of ball in cartesian plane

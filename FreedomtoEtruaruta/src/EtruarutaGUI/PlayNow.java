@@ -112,6 +112,15 @@ public class PlayNow implements SceneInterface {
 
         game = new Game(ball, generalA, generalB, brick);
 
+        game.ball.setHeight(25);
+        game.ball.setWidth(25);
+        game.generals[0].paddle.setSpeed(10);
+
+        game.generals[0].paddle.setHeight(25);
+        game.generals[1].paddle.setHeight(25);
+        game.generals[0].paddle.setWidth(50);
+        game.generals[1].paddle.setWidth(50);
+
         new AnimationTimer()
         {
             public void handle(long currentNanoTime)
