@@ -1,11 +1,14 @@
 package warlords2600;
 
+import EtruarutaGUI.AIController;
 import EtruarutaGUI.SceneManager;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyEvent;
 import warlordstest.IGame;
 import EtruarutaGUI.PlayNow;
+
+import java.util.ArrayList;
 
 public class Game implements IGame{
 
@@ -14,6 +17,7 @@ public class Game implements IGame{
     private boolean paused = false;
     public General[] generals;
     public Ball ball;
+    public ArrayList<AIController> AIs = new ArrayList<AIController>();
 
     public Game(Ball ball, General generalA, General generalB, Brick brick) {
         this.ball = ball;
@@ -30,6 +34,17 @@ public class Game implements IGame{
         this.generals[1] = generalB;
         this.generals[2] = generalC;
         this.generals[3] = generalD;
+
+        this.AIs.add(new AIController());
+        this.AIs.get(0).setGeneral(generalB);
+
+        this.AIs.add(new AIController());
+        this.AIs.get(1).setGeneral(generalC);
+
+        this.AIs.add(new AIController());
+        this.AIs.get(2).setGeneral(generalD);
+;
+
     }
 
     public void tick(){
@@ -108,6 +123,10 @@ public class Game implements IGame{
                 // rn warlord 0 wins automatically when timeout occurs
                 generals[0].setWon();
             }
+
+            for (int i = 0; i < AIs.size();i++){
+                AIs.get(i).movePaddle(ball.getXPos(),ball.getYPos());
+            }
         }
     }
 
@@ -181,12 +200,12 @@ public class Game implements IGame{
                 switch(keyEvent.getCode()) {
                     case LEFT:
                         if (!paused) {
-                            generals[3].paddle.moveLeft();
+                            generals[0].paddle.moveLeft();
                         }
                         break;
                     case RIGHT:
                         if (!paused){
-                            generals[3].paddle.moveRight();
+                            generals[0].paddle.moveRight();
                         }
                         break;
                     case ESCAPE:

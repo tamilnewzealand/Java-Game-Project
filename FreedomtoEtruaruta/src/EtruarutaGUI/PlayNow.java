@@ -17,6 +17,8 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import warlords2600.*;
 
+import java.util.Random;
+
 public class PlayNow implements SceneInterface {
     private SceneManager sceneManager;
     private Scene playNowScene;
@@ -66,7 +68,7 @@ public class PlayNow implements SceneInterface {
         Image space = new Image( "space.png" );
         gc.drawImage( space, 0, 0, Main.WIDTH, Main.HEIGHT);
 
-        Ball ball = new Ball(Main.WIDTH - 15,Main.HEIGHT-15);
+        Ball ball = new Ball(Main.WIDTH/2,Main.HEIGHT/2);
 
         Brick[][] wallA = new Brick[3][5];
         Brick[][] wallB = new Brick[3][5];
@@ -90,8 +92,25 @@ public class PlayNow implements SceneInterface {
         General generalC = new General(0, 0, paddles[2], wallC);
         General generalD = new General(0, 0, paddles[3], wallD);
 
-        ball.setXVelocity(5);
-        ball.setYVelocity(5);
+        double randomX = Math.random() * 10 - 5;//Random speed generation
+        double randomY = Math.random() * 10 - 5;
+
+        if (randomX > 0){ //Speed boost for ball
+            randomX += 3;
+        }
+        else{
+            randomX -= 3;
+        }
+
+        if (randomY > 0){
+            randomY += 3;
+        }
+        else{
+            randomY -= 3;
+        }
+
+        ball.setXVelocity((int)randomX);
+        ball.setYVelocity((int)randomY);
 
         gc.setFill( Color.WHITE );
         gc.setLineWidth(2);
