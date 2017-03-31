@@ -1,6 +1,7 @@
 package EtruarutaGUI;
 
 
+import warlords2600.Ball;
 import warlords2600.General;
 
 /**
@@ -8,7 +9,7 @@ import warlords2600.General;
  */
 public class AIController {
     private General general;
-    private int tickCOunter = 0;
+    private int tickCounter = 0;
 
     public void AIController(){
 
@@ -18,30 +19,36 @@ public class AIController {
         this.general = general;
     }
 
-    public void movePaddle(int ballXPos, int ballYPos){
-            if (tickCOunter <= 0) {
-                double distanceBefore = calculateDistance(ballXPos, ballYPos);
-                if (distanceBefore > 25) {
-                    tickCOunter = 5;
+    public void movePaddle(Ball ball){
+
+            if (tickCounter <= 0) {//Make sure that movement occurs only every 5th tick or so
+                double distanceBefore = calculateDistance(ball);
+                if (distanceBefore > 75) {//Stops paddle moving when close to ball
+                    System.out.println(distanceBefore);
+                    tickCounter = 5;
                     general.paddle.moveLeft();
 
-                    double distanceAfter = calculateDistance(ballXPos, ballYPos);
+                    double distanceAfter = calculateDistance(ball);
 
                     if (distanceAfter < distanceBefore) {
                         //Do Nothing our move made it get closer to ball in y axis. No further action required.
                     } else {
                         general.paddle.moveRight();
-                        general.paddle.moveRight();//Move left twice to compensate for wrong right turn initially
+                        general.paddle.moveRight();//Move right twice to compensate for wrong left turn initially
                     }
                 }
             }else{
-                tickCOunter--;
+                tickCounter--;
             }
     }
 
-    private double calculateDistance(int ballXPos, int ballYPos){
-        int yDistanceBefore = Math.abs(general.paddle.calcYPos() - ballYPos);
-        int XDistanceBefore = Math.abs(general.paddle.calcXPos() - ballXPos);
+    private double calculateDistance(Ball ball){
+        int ballXPos = ball.getXPos();
+        int ballYPos = ball.getYPos();
+        int ballXVelocity = ball.getXVelocity();
+        int ballYVelocity = ball.getYVelocity();
+        int yDistanceBefore = Math.abs(general.paddle.calcYPos() - (ballYPos+ballYVelocity*5));//Guess where ball will be by looking at current location and velocity
+        int XDistanceBefore = Math.abs(general.paddle.calcXPos() - (ballXPos+ballXVelocity*5));
         return Math.sqrt(Math.pow(XDistanceBefore,2)+Math.pow(yDistanceBefore,2));
     }
 }

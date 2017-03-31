@@ -125,7 +125,7 @@ public class Game implements IGame{
             }
 
             for (int i = 0; i < AIs.size();i++){
-                AIs.get(i).movePaddle(ball.getXPos(),ball.getYPos());
+                AIs.get(i).movePaddle(ball);
             }
         }
     }
