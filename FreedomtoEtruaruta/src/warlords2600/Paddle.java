@@ -83,11 +83,19 @@ public class Paddle implements IPaddle {
     }
 
     public void moveRight() {
-        if (theta > polarSpeed) theta -= polarSpeed;
+        if (pos == 0 || pos == 3) {
+            if (theta > polarSpeed) theta -= polarSpeed;
+        }else{
+            if (theta < Math.PI / 2 - polarSpeed) theta += polarSpeed;
+        }
     }
 
     public void moveLeft() {
-        if (theta < Math.PI / 2 - polarSpeed) theta += polarSpeed;
+        if (pos == 0 || pos == 3) {
+            if (theta < Math.PI / 2 - polarSpeed) theta += polarSpeed;
+        }else{
+            if (theta > polarSpeed) theta -= polarSpeed;
+        }
     }
 
     public void setTheta(double theta) {

@@ -155,7 +155,7 @@ public class Game implements IGame{
         int time = (120 - (timeElapsed / 30));
         if (time == 120) return "2:00";
         if (time > 59) return "1:" + String.format("%02d",time-60);
-        else return "0:" + String.valueOf(time);
+        else return "0:" + String.format("%02d",time);
     }
 
     public void setTimeRemaining(int seconds){
@@ -181,12 +181,12 @@ public class Game implements IGame{
                 switch(keyEvent.getCode()) {
                     case LEFT:
                         if (!paused) {
-                            generals[0].paddle.moveLeft();
+                            generals[3].paddle.moveLeft();
                         }
                         break;
                     case RIGHT:
                         if (!paused){
-                            generals[0].paddle.moveRight();
+                            generals[3].paddle.moveRight();
                         }
                         break;
                     case ESCAPE:
