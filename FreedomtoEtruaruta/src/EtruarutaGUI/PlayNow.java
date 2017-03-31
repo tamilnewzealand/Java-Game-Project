@@ -104,32 +104,44 @@ public class PlayNow implements SceneInterface {
 
         new AnimationTimer()
         {
+            private long lastUpdate = 0;
+
             public void handle(long currentNanoTime)
             {
-                // Clear the canvas
-                gc.clearRect(0, 0, Main.WIDTH, Main.WIDTH);
+                if (currentNanoTime - lastUpdate >= 16666666) {
+                    lastUpdate = currentNanoTime;
+                    // Clear the canvas
+                    gc.clearRect(0, 0, Main.WIDTH, Main.WIDTH);
 
-                // background image clears canvas
-                gc.drawImage( space, 0, 0 );
-                gc.drawImage( ballImage, game.ball.getXPos(), game.ball.getYPos(), game.ball.getWidth(), game.ball.getHeight() );
-                gc.drawImage( paddleImages[0], game.generals[0].paddle.calcXPos(), game.generals[0].paddle.calcYPos(), game.generals[0].paddle.getWidth(), game.generals[0].paddle.getHeight());
-                gc.drawImage( paddleImages[1], game.generals[1].paddle.calcXPos(), game.generals[1].paddle.calcYPos(), game.generals[1].paddle.getWidth(), game.generals[1].paddle.getHeight());
-                gc.drawImage( paddleImages[2], game.generals[2].paddle.calcXPos(), game.generals[2].paddle.calcYPos(), game.generals[2].paddle.getWidth(), game.generals[2].paddle.getHeight());
-                gc.drawImage( paddleImages[3], game.generals[3].paddle.calcXPos(), game.generals[3].paddle.calcYPos(), game.generals[3].paddle.getWidth(), game.generals[3].paddle.getHeight());
-                for (int i = 0; i < 3; i++) {
-                    for (int j = 0; j < 5; j++) {
-                        gc.drawImage( brickImage, game.generals[0].wall[i][j].calcXPos(), game.generals[0].wall[i][j].calcYPos(), game.generals[0].wall[i][j].getWidth(), game.generals[0].wall[i][j].getHeight());
-                        gc.drawImage( brickImage, Main.WIDTH - game.generals[1].wall[i][j].calcXPos(), game.generals[1].wall[i][j].calcYPos(), game.generals[1].wall[i][j].getWidth(), game.generals[1].wall[i][j].getHeight());
-                        gc.drawImage( brickImage, Main.WIDTH - game.generals[2].wall[i][j].calcXPos(), Main.HEIGHT - game.generals[2].wall[i][j].calcYPos(), game.generals[2].wall[i][j].getWidth(), game.generals[2].wall[i][j].getHeight());
-                        gc.drawImage( brickImage, game.generals[3].wall[i][j].calcXPos(), Main.HEIGHT - game.generals[3].wall[i][j].calcYPos(), game.generals[3].wall[i][j].getWidth(), game.generals[3].wall[i][j].getHeight());
+                    // background image clears canvas
+                    gc.drawImage( space, 0, 0 );
+                    gc.drawImage( ballImage, game.ball.getXPos(), game.ball.getYPos(), game.ball.getWidth(), game.ball.getHeight() );
+                    gc.drawImage( paddleImages[0], game.generals[0].paddle.calcXPos(), game.generals[0].paddle.calcYPos(), game.generals[0].paddle.getWidth(), game.generals[0].paddle.getHeight());
+                    gc.drawImage( paddleImages[1], game.generals[1].paddle.calcXPos(), game.generals[1].paddle.calcYPos(), game.generals[1].paddle.getWidth(), game.generals[1].paddle.getHeight());
+                    gc.drawImage( paddleImages[2], game.generals[2].paddle.calcXPos(), game.generals[2].paddle.calcYPos(), game.generals[2].paddle.getWidth(), game.generals[2].paddle.getHeight());
+                    gc.drawImage( paddleImages[3], game.generals[3].paddle.calcXPos(), game.generals[3].paddle.calcYPos(), game.generals[3].paddle.getWidth(), game.generals[3].paddle.getHeight());
+                    for (int i = 0; i < 3; i++) {
+                        for (int j = 0; j < 5; j++) {
+                            gc.drawImage( brickImage, game.generals[0].wall[i][j].calcXPos(), game.generals[0].wall[i][j].calcYPos(), game.generals[0].wall[i][j].getWidth(), game.generals[0].wall[i][j].getHeight());
+                            gc.drawImage( brickImage, Main.WIDTH - game.generals[1].wall[i][j].calcXPos(), game.generals[1].wall[i][j].calcYPos(), game.generals[1].wall[i][j].getWidth(), game.generals[1].wall[i][j].getHeight());
+                            gc.drawImage( brickImage, Main.WIDTH - game.generals[2].wall[i][j].calcXPos(), Main.HEIGHT - game.generals[2].wall[i][j].calcYPos(), game.generals[2].wall[i][j].getWidth(), game.generals[2].wall[i][j].getHeight());
+                            gc.drawImage( brickImage, game.generals[3].wall[i][j].calcXPos(), Main.HEIGHT - game.generals[3].wall[i][j].calcYPos(), game.generals[3].wall[i][j].getWidth(), game.generals[3].wall[i][j].getHeight());
+                        }
+                    }
+
+                    game.tick();
+
+                    gc.fillText(game.getTimeRemaining(), Main.WIDTH/2, 60);
+
+                    if (game.getFinished()) {
+                        sceneManager.goToMenuScene(sceneManager);
+                    }
+
+                    if (game.getPaused())
+                        gc.fillText("Paused", Main.WIDTH/2, Main.HEIGHT/2);
                     }
                 }
 
-                game.tick();
-
-                if (game.getPaused())
-                    gc.fillText("Paused", Main.WIDTH/2, Main.HEIGHT/2);
-                }
         }.start();
 
         return gc;

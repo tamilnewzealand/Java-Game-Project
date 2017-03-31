@@ -151,12 +151,23 @@ public class Game implements IGame{
         return isFinished;
     }
 
+    public String getTimeRemaining() {
+        int time = (120 - (timeElapsed / 30));
+        if (time == 120) return "2:00";
+        if (time > 59) return "1:" + String.valueOf(time-60);
+        else return "0:" + String.valueOf(time);
+    }
+
     public void setTimeRemaining(int seconds){
         timeElapsed = (120 - seconds) * 60;
     }
 
     public void setFinished(boolean finished){
         isFinished = finished;
+    }
+
+    public boolean getFinished() {
+        return isFinished;
     }
 
     public boolean getPaused() {
