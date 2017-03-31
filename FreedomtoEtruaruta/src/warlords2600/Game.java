@@ -149,7 +149,7 @@ public class Game implements IGame{
         }
         return false;
     }
-    
+
     public boolean isFinished(){
         return isFinished;
     }
@@ -178,10 +178,8 @@ public class Game implements IGame{
                         }
                         break;
                     case ESCAPE:
-                        if (!paused) {
                             setFinished(true);
                             sceneManager.goToMenuScene(sceneManager);
-                        }
                         break;
                     case P:
                         if (paused) {
