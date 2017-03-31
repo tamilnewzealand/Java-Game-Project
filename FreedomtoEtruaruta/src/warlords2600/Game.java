@@ -154,7 +154,7 @@ public class Game implements IGame{
     public String getTimeRemaining() {
         int time = (120 - (timeElapsed / 30));
         if (time == 120) return "2:00";
-        if (time > 59) return "1:" + String.valueOf(time-60);
+        if (time > 59) return "1:" + String.format("%02d",time-60);
         else return "0:" + String.valueOf(time);
     }
 
