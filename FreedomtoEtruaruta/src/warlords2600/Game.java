@@ -109,9 +109,6 @@ public class Game implements IGame{
                 generals[0].setWon();
             }
         }
-        else{
-            //Code to show some text to the user indicating game is paused goes here?
-        }
     }
 
     /* Bresenham Line Drawing Algorithm */
@@ -160,6 +157,10 @@ public class Game implements IGame{
 
     public void setFinished(boolean finished){
         isFinished = finished;
+    }
+
+    public boolean getPaused() {
+        return paused;
     }
 
     public void HandleInputs(Scene playNowScene, SceneManager sceneManager) {

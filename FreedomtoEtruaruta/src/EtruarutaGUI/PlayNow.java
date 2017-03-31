@@ -12,7 +12,9 @@ import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 import warlords2600.*;
 
 public class PlayNow implements SceneInterface {
@@ -47,12 +49,6 @@ public class PlayNow implements SceneInterface {
         return playNowScene;
     }
 
-
-    public void showPaused(){
-        String text = "Paused";
-        Text pausedText = UIGenerator.createText(text, Main.WIDTH/2, Main.HEIGHT/2, 25);
-        root.getChildren().add(pausedText);
-    }
     /**
      *
      * @param gc GraphicsContext to draw animation onto
@@ -97,6 +93,12 @@ public class PlayNow implements SceneInterface {
         ball.setXVelocity(5);
         ball.setYVelocity(5);
 
+        gc.setFill( Color.WHITE );
+        gc.setLineWidth(2);
+        Font theFont = Font.font( "Kavivanar", 54 );
+        gc.setTextAlign(TextAlignment.CENTER);
+        gc.setFont( theFont );
+
         game = new Game(ball, generalA, generalB, generalC, generalD);
         //game.ball.setYPos(game.generals[1].paddle.calcYPos());
 
@@ -122,8 +124,12 @@ public class PlayNow implements SceneInterface {
                         gc.drawImage( brickImage, game.generals[3].wall[i][j].calcXPos(), Main.HEIGHT - game.generals[3].wall[i][j].calcYPos(), game.generals[3].wall[i][j].getWidth(), game.generals[3].wall[i][j].getHeight());
                     }
                 }
+
                 game.tick();
-            }
+
+                if (game.getPaused())
+                    gc.fillText("Paused", Main.WIDTH/2, Main.HEIGHT/2);
+                }
         }.start();
 
         return gc;
