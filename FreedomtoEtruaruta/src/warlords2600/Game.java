@@ -34,8 +34,8 @@ public class Game implements IGame{
         timeElapsed++;
         boolean ballHit = false;
         int deadCount = 0;
-        System.out.println("Tick");
-        if (!ball.getHitLastTick()){
+        //System.out.println("Tick");
+        if (!ball.getHitLastTick() && ball.getCollisionCounter() <= 0){
             outerLoop:
             for (int i = 0; i < generals.length; i++) {
                 for (int x = generals[i].paddle.calcXPos(); x < (generals[i].paddle.calcXPos() + generals[i].paddle.getWidth()); x++) {
@@ -96,6 +96,7 @@ public class Game implements IGame{
         if (!ballHit){
             ball.processBall();
             ball.setHitLastTick(false);
+            ball.decrementCounter();
         }
 
         if (timeElapsed > 3600) {

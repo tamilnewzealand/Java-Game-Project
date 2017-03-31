@@ -6,6 +6,7 @@ import warlordstest.IBall;
 public class Ball implements IBall{
     private int x, y, xSpeed = 0, ySpeed = 0, width = 15, height = 15;
     private boolean hitLastTick = false;
+    private int collisionCounter = 0;
 
     public Ball() {
         x = 0;
@@ -65,7 +66,14 @@ public class Ball implements IBall{
         return height;
     }
 
+    public int getCollisionCounter(){
+        return collisionCounter;
+    }
+
     public void setHitLastTick(boolean hit){
+        if (hit) {
+            collisionCounter = 5;
+        }
         hitLastTick = hit;
     }
 
@@ -92,6 +100,12 @@ public class Ball implements IBall{
         if (y >= (Main.HEIGHT - height / 2)) {
             y = Main.HEIGHT - (y - Main.HEIGHT) - 2 * height;
             ySpeed = -ySpeed;
+        }
+    }
+
+    public void decrementCounter(){
+        if (collisionCounter > 0) {
+            collisionCounter = collisionCounter - 1;
         }
     }
 }
