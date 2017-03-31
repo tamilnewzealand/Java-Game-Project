@@ -48,6 +48,11 @@ public class PlayNow implements SceneInterface {
     }
 
 
+    public void showPaused(){
+        String text = "Paused";
+        Text pausedText = UIGenerator.createText(text, Main.WIDTH/2, Main.HEIGHT/2, 25);
+        root.getChildren().add(pausedText);
+    }
     /**
      *
      * @param gc GraphicsContext to draw animation onto
@@ -117,7 +122,6 @@ public class PlayNow implements SceneInterface {
                         gc.drawImage( brickImage, game.generals[3].wall[i][j].calcXPos(), Main.HEIGHT - game.generals[3].wall[i][j].calcYPos(), game.generals[3].wall[i][j].getWidth(), game.generals[3].wall[i][j].getHeight());
                     }
                 }
-
                 game.tick();
             }
         }.start();
