@@ -37,6 +37,7 @@ public class Menu implements SceneInterface {
 
         GraphicsContext gc = canvas.getGraphicsContext2D();
         gc = UIGenerator.createAnimationBackground(gc);
+        SoundManager.playBackground();
 
         addTitle();
         addStartButton();

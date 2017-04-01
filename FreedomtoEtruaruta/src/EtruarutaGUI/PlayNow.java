@@ -120,6 +120,8 @@ public class PlayNow implements SceneInterface {
         gc.setFont( theFont );
 
         game = new Game(ball, generalA, generalB, generalC, generalD);
+
+        SoundManager.playBackground();
         //game.ball.setYPos(game.generals[1].paddle.calcYPos());
 
         new AnimationTimer()

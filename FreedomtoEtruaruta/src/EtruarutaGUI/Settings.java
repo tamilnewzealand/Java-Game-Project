@@ -47,6 +47,7 @@ public class Settings implements SceneInterface {
         GraphicsContext gc = canvas.getGraphicsContext2D();
         Image space = new Image( "space.png" );
         gc.drawImage( space, 0, 0 );
+        SoundManager.playBackground();
 
         Slider sliderA = new Slider(0, 1, 0.5);
 

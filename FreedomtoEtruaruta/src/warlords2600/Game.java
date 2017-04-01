@@ -2,6 +2,7 @@ package warlords2600;
 
 import EtruarutaGUI.AIController;
 import EtruarutaGUI.SceneManager;
+import EtruarutaGUI.SoundManager;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyEvent;
@@ -74,6 +75,8 @@ public class Game{
 
                 }
             }
+
+            if (ballHit) SoundManager.playCollision();
 
             for (int i = 0; i < generals.length; i++) {
                 if (generals[i].isDead()) deadCount++;
