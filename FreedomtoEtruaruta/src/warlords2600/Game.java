@@ -121,7 +121,7 @@ public class Game{
                 AIs.get(i).movePaddle(ball);
             }
 
-            if (timeElapsed % 100 == 0){
+            if (timeElapsed % 900 == 0){
                 this.speedUps.add(new SpeedUp());
                 generatePowerUp(speedUps.size()-1);
                 System.out.println(speedUps.size());
