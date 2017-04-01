@@ -23,5 +23,11 @@ public class SoundManager {
         ac.play();
     }
 
+    public static void playGeneralDeath() {
+        String url = new File("death.wav").toURI().toString();
+        AudioClip ac = new AudioClip(url);
+        ac.play();
+    }
+
 
 }

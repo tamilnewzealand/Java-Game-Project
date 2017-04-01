@@ -55,6 +55,7 @@ public class Game{
         if (!paused) {
             timeElapsed++;
             boolean ballHit = false;
+            boolean generalHit = false;
             int deadCount = 0;
             //System.out.println("Tick");
             if (!ball.getHitLastTick() && ball.getCollisionCounter() <= 0) {
@@ -75,7 +76,11 @@ public class Game{
                     if (!ballHit && (!generals[i].isDead())) ballHit = objectCollision(generals[i].paddle, ballHit);
                     if (!ballHit && (!generals[i].isDead())) {
                         ballHit = objectCollision(generals[i], ballHit);
-                        if (ballHit) generals[i].killGeneral();
+                        if (ballHit){
+                            generals[i].killGeneral();
+                            generalHit = true;
+                            SoundManager.playGeneralDeath();
+                        }
                     }
                     if (!ballHit) {
                         for (int j = 0; j < generals[i].wall.length; j++) {
@@ -94,7 +99,7 @@ public class Game{
                 }
             }
 
-            if (ballHit) SoundManager.playCollision();
+            if (ballHit && !generalHit) SoundManager.playCollision();
 
             for (int i = 0; i < generals.length; i++) {
                 if (generals[i].isDead()) deadCount++;
