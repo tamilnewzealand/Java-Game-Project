@@ -9,7 +9,6 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 import warlords2600.*;
 
@@ -51,36 +50,10 @@ public class PlayNow implements SceneInterface {
 
         GraphicsContext gc = canvas.getGraphicsContext2D();
         gc = renderGame(gc);
-        HandleInputs();
+        game.HandleInputs(playNowScene,sceneManager);
         addMenuButton();
 
         return playNowScene;
-    }
-
-    /**
-     * Handles keyboard inputs and moves the paddle appropriately.
-     */
-    public void HandleInputs() {
-        playNowScene.setOnKeyPressed(new EventHandler<KeyEvent>(){
-             @Override
-             public void handle(KeyEvent keyEvent) {
-                 switch(keyEvent.getCode()) {
-                     case LEFT:
-                         game.generals[0].paddle.goLeft();
-                         break;
-                     case RIGHT:
-                         game.generals[0].paddle.goRight();
-                         break;
-                     case UP:
-                         game.generals[0].paddle.goUp();
-                         break;
-                     case DOWN:
-                         game.generals[0].paddle.goDown();
-                         break;
-                 }
-             }
-
-        });
     }
 
     /**

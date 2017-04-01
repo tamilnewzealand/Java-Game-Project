@@ -1,6 +1,11 @@
 package warlords2600;
 
 import warlordstest.IGame;
+import EtruarutaGUI.SceneManager;
+import javafx.event.EventHandler;
+import javafx.scene.Scene;
+import javafx.scene.input.KeyEvent;
+import EtruarutaGUI.PlayNow;
 
 /**
  * This is the controller class that processes all
@@ -116,6 +121,32 @@ public class Game implements IGame{
      */
     public void setTimeRemaining(int seconds){
         timeElapsed = (120 - seconds) * 60;
+    }
+
+    /**
+     * Handles keyboard inputs and moves the paddle appropriately.
+     */
+    public void HandleInputs(Scene playNowScene, SceneManager sceneManager) {
+        playNowScene.setOnKeyPressed(new EventHandler<KeyEvent>(){
+             @Override
+             public void handle(KeyEvent keyEvent) {
+                 switch(keyEvent.getCode()) {
+                     case LEFT:
+                         generals[0].paddle.goLeft();
+                         break;
+                     case RIGHT:
+                         generals[0].paddle.goRight();
+                         break;
+                     case UP:
+                         generals[0].paddle.goUp();
+                         break;
+                     case DOWN:
+                         generals[0].paddle.goDown();
+                         break;
+                 }
+             }
+
+        });
     }
 
 }
