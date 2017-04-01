@@ -17,4 +17,11 @@ public class SoundManager {
         ac.play();
     }
 
+    public static void playSpeedUp() {
+        String url = new File("167563__benboncan__jet-whoosh.wav").toURI().toString();
+        AudioClip ac = new AudioClip(url);
+        ac.play();
+    }
+
+
 }
