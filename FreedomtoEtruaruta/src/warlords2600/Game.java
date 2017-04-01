@@ -1,13 +1,11 @@
 package warlords2600;
 
 import EtruarutaGUI.AIController;
-import EtruarutaGUI.Main;
 import EtruarutaGUI.SceneManager;
 import EtruarutaGUI.SoundManager;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyEvent;
-import EtruarutaGUI.PlayNow;
 
 import java.util.ArrayList;
 
@@ -18,6 +16,7 @@ public class Game{
     private boolean paused = false;
     public General[] generals;
     public Ball ball;
+    public ArrayList<SpeedUp> speedUps = new ArrayList<SpeedUp>();
     public SpeedUp speedUp;
     public ArrayList<AIController> AIs = new ArrayList<AIController>();
 
@@ -31,7 +30,8 @@ public class Game{
 
     public Game(Ball ball, General generalA, General generalB, General generalC, General generalD) {
         this.speedUp = new SpeedUp();
-        this.speedUp.setPos(512,500);
+        this.speedUps.add(this.speedUp);
+        generatePowerUp(0);
         this.ball = ball;
         this.generals = new General[4];
         this.generals[0] = generalA;
@@ -56,10 +56,12 @@ public class Game{
             int deadCount = 0;
             //System.out.println("Tick");
             if (!ball.getHitLastTick() && ball.getCollisionCounter() <= 0) {
-                if (!ballHit && (!speedUp.isHit())) {
-                    if (objectCollision(speedUp, ballHit, false)) {
-                        speedUp.setHit(true);
-                        speedUp.activateEffect(ball);
+                for (int i = 0; i < speedUps.size(); i++) {
+                    if (!ballHit && (!speedUps.get(i).isHit())) {
+                        if (objectCollision(speedUps.get(i), ballHit, false)) {
+                            speedUps.get(i).setHit(true);
+                            speedUps.get(i).activateEffect(ball);
+                        }
                     }
                 }
                 outerLoop:
@@ -116,8 +118,15 @@ public class Game{
             for (int i = 0; i < AIs.size();i++){
                 AIs.get(i).movePaddle(ball);
             }
+
+            if (timeElapsed % 900 == 0){
+                this.speedUps.add(new SpeedUp());
+                generatePowerUp(speedUps.size()-1);
+                System.out.println(speedUps.size());
+            }
         }
     }
+
 
     private boolean objectCollision (IObject object, boolean ballHit) {
         for (int x = object.calcXPos(); x < (object.calcXPos() + object.getWidth()); x++) {
@@ -244,6 +253,12 @@ public class Game{
 
     public boolean getPaused() {
         return paused;
+    }
+
+    private void generatePowerUp(int i){
+            double xPos = Math.random() * 424 + 350;
+            double yPos = Math.random() * 608 + 50;
+            speedUps.get(i).setPos((int) xPos, (int) yPos);
     }
 
     public void HandleInputs(Scene playNowScene, SceneManager sceneManager) {

@@ -5,7 +5,7 @@ package warlords2600;
  */
 public class SpeedUp implements IObject {
     private int xPos, yPos;
-    private int width = 35,height = 35;
+    private int width = 25,height = 25;
     private boolean hit = false;
 
     public void SpeedUp(){

@@ -114,9 +114,6 @@ public class PlayNow implements SceneInterface {
         ball.setXVelocity((int)randomX);
         ball.setYVelocity((int)randomY);
 
-        ball.setXVelocity(0);
-        ball.setYVelocity(7);
-
         gc.setFill( Color.WHITE );
         gc.setLineWidth(2);
         Font theFont = Font.font( "Kavivanar", 54 );
@@ -141,7 +138,12 @@ public class PlayNow implements SceneInterface {
 
                     // background image clears canvas
                     gc.drawImage( space, 0, 0 );
-                    if(!game.speedUp.isHit()) gc.drawImage(speedImage, game.speedUp.calcXPos(),game.speedUp.calcYPos(),game.speedUp.getWidth(),game.speedUp.getHeight());
+
+                    for (int i = 0; i < game.speedUps.size(); i++) {
+                        if(!game.speedUps.get(i).isHit()) {
+                            gc.drawImage(speedImage, game.speedUps.get(i).calcXPos(), game.speedUps.get(i).calcYPos(), game.speedUps.get(i).getWidth(), game.speedUps.get(i).getHeight());
+                        }
+                    }
                     gc.drawImage( ballImage, game.ball.getXPos(), game.ball.getYPos(), game.ball.getWidth(), game.ball.getHeight() );
                     for (int k = 0; k < game.generals.length; k++) {
                         if (!game.generals[k].isDead()) gc.drawImage( paddleImages[k], game.generals[k].paddle.calcXPos(), game.generals[k].paddle.calcYPos(), game.generals[k].paddle.getWidth(), game.generals[k].paddle.getHeight());
