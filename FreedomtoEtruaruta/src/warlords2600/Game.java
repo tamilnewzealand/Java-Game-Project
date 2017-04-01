@@ -61,11 +61,13 @@ public class Game{
                     if (!ballHit) {
                         for (int j = 0; j < generals[i].wall.length; j++) {
                             for (int k = 0; k < generals[i].wall[j].length; k++) {
-                                if (!ballHit) ballHit = objectCollision(generals[i].wall[j][k], ballHit);
-                                if (ballHit) {
-                                    generals[i].wall[j][k].destroyBrick();
-                                    System.out.println("BRICK DESTROYED !!!!");
-                                    break outerLoop;
+                                if (!generals[i].wall[j][k].isDestroyed()){
+                                    if (!ballHit) ballHit = objectCollision(generals[i].wall[j][k], ballHit);
+                                    if (ballHit) {
+                                        generals[i].wall[j][k].destroyBrick();
+                                        System.out.println("BRICK DESTROYED !!!!");
+                                        break outerLoop;
+                                    }
                                 }
                             }
                         }

@@ -6,6 +6,7 @@ public class Brick implements IObject{
 
     private int xPos, yPos, height = 25, width = 25, r, pos = 0;
     private double theta;
+    private boolean destroyed = false;
 
     public Brick() {
         xPos = 0;
@@ -25,7 +26,6 @@ public class Brick implements IObject{
         this.pos = pos;
     }
 
-    private boolean destroyed = false;
 
     public void setXPos(int x) {
         xPos = x;
