@@ -24,7 +24,7 @@ public class AIController {
             if (tickCounter <= 0) {//Make sure that movement occurs only every 5th tick or so
                 double distanceBefore = calculateDistance(ball);
                 if (distanceBefore > 75) {//Stops paddle moving when close to ball
-                    System.out.println(distanceBefore);
+                    //System.out.println(distanceBefore);
                     tickCounter = 5;
                     general.paddle.moveLeft();
 

@@ -51,6 +51,7 @@ public class Game{
             int deadCount = 0;
             //System.out.println("Tick");
             if (!ball.getHitLastTick() && ball.getCollisionCounter() <= 0) {
+                outerLoop:
                 for (int i = 0; i < generals.length; i++) {
                     if (!ballHit) ballHit = objectCollision(generals[i].paddle, ballHit);
                     if (!ballHit) {
@@ -64,6 +65,7 @@ public class Game{
                                 if (ballHit) {
                                     generals[i].wall[j][k].destroyBrick();
                                     System.out.println("BRICK DESTROYED !!!!");
+                                    break outerLoop;
                                 }
                             }
                         }

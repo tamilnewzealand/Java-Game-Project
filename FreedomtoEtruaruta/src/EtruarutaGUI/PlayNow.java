@@ -97,17 +97,17 @@ public class PlayNow implements SceneInterface {
         double randomY = Math.random() * 10 - 5;
 
         if (randomX > 0){ //Speed boost for ball
-            randomX += 3;
+            randomX += 8;
         }
         else{
-            randomX -= 3;
+            randomX -= 8;
         }
 
         if (randomY > 0){
-            randomY += 3;
+            randomY += 8;
         }
         else{
-            randomY -= 3;
+            randomY -= 8;
         }
 
         ball.setXVelocity((int)randomX);
