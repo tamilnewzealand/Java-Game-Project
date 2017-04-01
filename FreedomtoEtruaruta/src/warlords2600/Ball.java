@@ -3,9 +3,12 @@ package warlords2600;
 import EtruarutaGUI.Main;
 
 public class Ball{
-    private int x, y, xSpeed = 0, ySpeed = 0, width = 15, height = 15;
+    private int x, y, xSpeed = 0, ySpeed = 0, width = 15, height = 15, maxSpeed = 25;
     private boolean hitLastTick = false;
     private int collisionCounter = 0;
+    private boolean spedup = false;
+    private int spedUpCounter = 0;
+    private int previousXSpeed, previousYSpeed;
 
     public Ball() {
         x = 0;
@@ -34,11 +37,15 @@ public class Ball{
     }
 
     public void setXVelocity(int dX) {
-        xSpeed = dX;
+        if (Math.abs(dX) <= maxSpeed){
+            xSpeed = dX;
+        }
     }
 
     public void setYVelocity(int dY) {
-        ySpeed = dY;
+        if (Math.abs(dY) <= maxSpeed){
+            ySpeed = dY;
+        }
     }
 
     public int getXVelocity() {
@@ -67,6 +74,17 @@ public class Ball{
 
     public int getCollisionCounter(){
         return collisionCounter;
+    }
+
+    public boolean getSpedUp(){
+        return spedup;
+    }
+
+    public void setSpedUp(boolean spedUp){
+            if (spedUpCounter <= 0) {
+                spedup = spedUp;
+                spedUpCounter = 150;
+            }
     }
 
     public void setHitLastTick(boolean hit){
@@ -105,6 +123,36 @@ public class Ball{
     public void decrementCounter(){
         if (collisionCounter > 0) {
             collisionCounter = collisionCounter - 1;
+        }
+    }
+
+    public void checkIncreaseSpeed(int x, int y){
+        if (!spedup) {
+            if (Math.abs(x) <= maxSpeed && Math.abs(y) <= maxSpeed) {
+                previousYSpeed = Math.abs(ySpeed);
+                previousXSpeed = Math.abs(xSpeed);
+                ySpeed = y;
+                xSpeed = x;
+            }
+        }
+    }
+    public void checkReduceSpeed(){
+        if (spedup) {
+            if (spedUpCounter > 0) {
+                spedUpCounter--;
+            } else {
+                spedup = false;
+                if (xSpeed > 0) {
+                    xSpeed = previousXSpeed;
+                }else{
+                    xSpeed = -1 * previousXSpeed;
+                }
+                if (ySpeed > 0) {
+                    ySpeed = previousYSpeed;
+                }else{
+                    ySpeed = -1 * previousYSpeed;
+                }
+            }
         }
     }
 }

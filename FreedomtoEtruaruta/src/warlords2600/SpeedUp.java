@@ -41,7 +41,6 @@ public class SpeedUp implements IObject {
     }
 
     public void activateEffect(Ball ball){
-        ball.setYVelocity(ball.getYVelocity()*2);
-        ball.setXVelocity(ball.getXVelocity()*2);
+        ball.checkIncreaseSpeed(ball.getXVelocity()*2,ball.getYVelocity()*2);
     }
 }

@@ -58,6 +58,7 @@ public class PlayNow implements SceneInterface {
      */
     public GraphicsContext renderGame(GraphicsContext gc) {
         Image ballImage = new Image( "ball.png" );
+        Image spedUpBall = new Image( "fastBall.png");
         Image paddleImages[] = new Image[4];
         Image brickImage = new Image ( "brick.png" );
         Image generalImage = new Image ( "general.png" );
@@ -144,7 +145,12 @@ public class PlayNow implements SceneInterface {
                             gc.drawImage(speedImage, game.speedUps.get(i).calcXPos(), game.speedUps.get(i).calcYPos(), game.speedUps.get(i).getWidth(), game.speedUps.get(i).getHeight());
                         }
                     }
-                    gc.drawImage( ballImage, game.ball.getXPos(), game.ball.getYPos(), game.ball.getWidth(), game.ball.getHeight() );
+                    if (!game.ball.getSpedUp()) {
+                        gc.drawImage(ballImage, game.ball.getXPos(), game.ball.getYPos(), game.ball.getWidth(), game.ball.getHeight());
+                    }else{
+                        gc.drawImage(spedUpBall, game.ball.getXPos(), game.ball.getYPos(), game.ball.getWidth(), game.ball.getHeight());
+
+                    }
                     for (int k = 0; k < game.generals.length; k++) {
                         if (!game.generals[k].isDead()) gc.drawImage( paddleImages[k], game.generals[k].paddle.calcXPos(), game.generals[k].paddle.calcYPos(), game.generals[k].paddle.getWidth(), game.generals[k].paddle.getHeight());
                         for (int i = 0; i < 3; i++) {
