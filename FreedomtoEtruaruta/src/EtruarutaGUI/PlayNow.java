@@ -137,13 +137,13 @@ public class PlayNow implements SceneInterface {
                     gc.drawImage( space, 0, 0 );
                     gc.drawImage( ballImage, game.ball.getXPos(), game.ball.getYPos(), game.ball.getWidth(), game.ball.getHeight() );
                     for (int k = 0; k < game.generals.length; k++) {
-                        gc.drawImage( paddleImages[k], game.generals[k].paddle.calcXPos(), game.generals[k].paddle.calcYPos(), game.generals[k].paddle.getWidth(), game.generals[k].paddle.getHeight());
+                        if (!game.generals[k].isDead()) gc.drawImage( paddleImages[k], game.generals[k].paddle.calcXPos(), game.generals[k].paddle.calcYPos(), game.generals[k].paddle.getWidth(), game.generals[k].paddle.getHeight());
                         for (int i = 0; i < 3; i++) {
                             for (int j = 0; j < 5; j++) {
                                 if (!game.generals[k].wall[i][j].isDestroyed()) gc.drawImage( brickImage, game.generals[k].wall[i][j].calcXPos(), game.generals[k].wall[i][j].calcYPos(), game.generals[k].wall[i][j].getWidth(), game.generals[k].wall[i][j].getHeight());
                             }
                         }
-                        gc.drawImage(generalImage, game.generals[k].calcXPos(), game.generals[k].calcYPos(), game.generals[k].getWidth(), game.generals[k].getHeight());
+                        if (!game.generals[k].isDead()) gc.drawImage(generalImage, game.generals[k].calcXPos(), game.generals[k].calcYPos(), game.generals[k].getWidth(), game.generals[k].getHeight());
                     }
 
 

@@ -53,7 +53,7 @@ public class Game{
             if (!ball.getHitLastTick() && ball.getCollisionCounter() <= 0) {
                 outerLoop:
                 for (int i = 0; i < generals.length; i++) {
-                    if (!ballHit) ballHit = objectCollision(generals[i].paddle, ballHit);
+                    if (!ballHit && (!generals[i].isDead())) ballHit = objectCollision(generals[i].paddle, ballHit);
                     if (!ballHit) {
                         ballHit = objectCollision(generals[i], ballHit);
                         if (ballHit) generals[i].killGeneral();
@@ -65,7 +65,6 @@ public class Game{
                                     if (!ballHit) ballHit = objectCollision(generals[i].wall[j][k], ballHit);
                                     if (ballHit) {
                                         generals[i].wall[j][k].destroyBrick();
-                                        System.out.println("BRICK DESTROYED !!!!");
                                         break outerLoop;
                                     }
                                 }
