@@ -1,6 +1,7 @@
 package warlords2600;
 
 import EtruarutaGUI.AIController;
+import EtruarutaGUI.Main;
 import EtruarutaGUI.SceneManager;
 import EtruarutaGUI.SoundManager;
 import javafx.event.EventHandler;
@@ -17,6 +18,7 @@ public class Game{
     private boolean paused = false;
     public General[] generals;
     public Ball ball;
+    public SpeedUp speedUp;
     public ArrayList<AIController> AIs = new ArrayList<AIController>();
 
     public Game(Ball ball, General generalA, General generalB, Brick brick) {
@@ -28,6 +30,8 @@ public class Game{
     }
 
     public Game(Ball ball, General generalA, General generalB, General generalC, General generalD) {
+        this.speedUp = new SpeedUp();
+        this.speedUp.setPos(512,500);
         this.ball = ball;
         this.generals = new General[4];
         this.generals[0] = generalA;
@@ -52,10 +56,16 @@ public class Game{
             int deadCount = 0;
             //System.out.println("Tick");
             if (!ball.getHitLastTick() && ball.getCollisionCounter() <= 0) {
+                if (!ballHit && (!speedUp.isHit())) {
+                    if (objectCollision(speedUp, ballHit, false)) {
+                        speedUp.setHit(true);
+                        speedUp.activateEffect(ball);
+                    }
+                }
                 outerLoop:
                 for (int i = 0; i < generals.length; i++) {
                     if (!ballHit && (!generals[i].isDead())) ballHit = objectCollision(generals[i].paddle, ballHit);
-                    if (!ballHit) {
+                    if (!ballHit && (!generals[i].isDead())) {
                         ballHit = objectCollision(generals[i], ballHit);
                         if (ballHit) generals[i].killGeneral();
                     }
@@ -143,6 +153,27 @@ public class Game{
                             ball.setYPos(ball.getYPos() - ball.getYVelocity());
                             System.out.println("D");
                             ball.setHitLastTick(true);
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+        return ballHit;
+    }
+
+    private boolean objectCollision (IObject object, boolean ballHit, boolean bounce) {
+        for (int x = object.calcXPos(); x < (object.calcXPos() + object.getWidth()); x++) {
+            for (int y = object.calcYPos(); y < (object.calcYPos() + object.getHeight()); y++) {
+                if (x == object.calcXPos() || y == object.calcYPos() || x == (object.calcXPos() + object.getWidth()) || y == (object.calcYPos() + object.getHeight())) {
+                    if (inBallPath(x, y)) {
+                        if (x == object.calcXPos()) {
+                            return true;
+                        } else if (y == object.calcYPos()) {
+                            return true;
+                        } else if (x == (object.calcXPos() + object.getWidth())) {
+                            return true;
+                        } else if (y == (object.calcYPos() + object.getHeight())) {
                             return true;
                         }
                     }
