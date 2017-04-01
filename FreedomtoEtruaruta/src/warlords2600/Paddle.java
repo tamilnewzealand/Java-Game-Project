@@ -1,11 +1,8 @@
 package warlords2600;
 
 import EtruarutaGUI.Main;
-import warlordstest.IPaddle;
-import static java.lang.Math.cos;
-import static java.lang.Math.multiplyExact;
 
-public class Paddle implements IPaddle {
+public class Paddle implements IObject {
     private int x, y, r = 300, speed = 5, width = 50, height = 10, pos = 0;
     double theta, polarSpeed = 0.1;
 

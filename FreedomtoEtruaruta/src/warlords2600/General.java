@@ -1,12 +1,13 @@
 package warlords2600;
 
-import warlordstest.IWarlord;
+import EtruarutaGUI.Main;
 
-public class General implements IWarlord {
+public class General implements IObject {
 
-    public Paddle paddle = new Paddle();
+    public Paddle paddle;
     public Brick[][] wall;
-    private int xPos, yPos, height = 5, width = 5;
+    private int xPos, yPos, height = 25, width = 25, r, pos = 0;
+    private double theta;
 
     public General() {
         xPos = 0;
@@ -14,19 +15,19 @@ public class General implements IWarlord {
         this.paddle = new Paddle();
     }
 
+    public General(int r, double theta, Paddle paddle, Brick[][] wall, int pos) {
+        this.r = r;
+        this.theta = theta;
+        this.paddle = paddle;
+        this.wall = wall;
+        this.pos = pos;
+    }
+
     public General(int xPos, int yPos, Paddle paddle) {
         this.xPos = xPos;
         this.yPos = yPos;
         this.paddle = paddle;
     }
-
-    public General(int xPos, int yPos, Paddle paddle, Brick[][] wall) {
-        this.xPos = xPos;
-        this.yPos = yPos;
-        this.paddle = paddle;
-        this.wall = wall;
-    }
-
 
     private boolean dead = false, won = false;
 
@@ -76,5 +77,35 @@ public class General implements IWarlord {
 
     public void setWon() {
         this.won = true;
+    }
+
+    public int calcXPos() {
+        xPos = (int)(r * Math.cos(theta));
+        switch (pos) {
+            case 0: return xPos;
+            case 1: return (Main.WIDTH - xPos);
+            case 2: return (Main.WIDTH - xPos);
+            case 3: return xPos;
+            default: return xPos;
+        }
+    }
+
+    public int calcYPos() {
+        yPos = (int)(r * Math.sin(theta));
+        switch (pos) {
+            case 0: return yPos;
+            case 1: return yPos;
+            case 2: return (Main.HEIGHT - yPos);
+            case 3: return (Main.HEIGHT - yPos);
+            default: return yPos;
+        }
+    }
+
+    public double getTheta () {
+        return theta;
+    }
+
+    public int getR () {
+        return r;
     }
 }

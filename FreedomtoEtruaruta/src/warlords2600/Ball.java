@@ -1,9 +1,8 @@
 package warlords2600;
 
 import EtruarutaGUI.Main;
-import warlordstest.IBall;
 
-public class Ball implements IBall{
+public class Ball{
     private int x, y, xSpeed = 0, ySpeed = 0, width = 15, height = 15;
     private boolean hitLastTick = false;
     private int collisionCounter = 0;

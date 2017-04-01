@@ -1,10 +1,10 @@
 package warlords2600;
 
-import warlordstest.IWall;
+import EtruarutaGUI.Main;
 
-public class Brick implements IWall{
+public class Brick implements IObject{
 
-    private int xPos, yPos, height = 25, width = 25, r;
+    private int xPos, yPos, height = 25, width = 25, r, pos = 0;
     private double theta;
 
     public Brick() {
@@ -19,9 +19,10 @@ public class Brick implements IWall{
         this.yPos = yPos;
     }
 
-    public Brick(int r, double theta) {
+    public Brick(int r, double theta, int pos) {
         this.r = r;
         this.theta = theta;
+        this.pos = pos;
     }
 
     private boolean destroyed = false;
@@ -68,12 +69,24 @@ public class Brick implements IWall{
 
     public int calcXPos() {
         xPos = (int)(r * Math.cos(theta));
-        return xPos;
+        switch (pos) {
+            case 0: return xPos;
+            case 1: return (Main.WIDTH - xPos);
+            case 2: return (Main.WIDTH - xPos);
+            case 3: return xPos;
+            default: return xPos;
+        }
     }
 
     public int calcYPos() {
         yPos = (int)(r * Math.sin(theta));
-        return yPos;
+        switch (pos) {
+            case 0: return yPos;
+            case 1: return yPos;
+            case 2: return (Main.HEIGHT - yPos);
+            case 3: return (Main.HEIGHT - yPos);
+            default: return yPos;
+        }
     }
 
     public double getTheta () {

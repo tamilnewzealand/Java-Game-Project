@@ -60,6 +60,7 @@ public class PlayNow implements SceneInterface {
         Image ballImage = new Image( "ball.png" );
         Image paddleImages[] = new Image[4];
         Image brickImage = new Image ( "brick.png" );
+        Image generalImage = new Image ( "general.png" );
         paddleImages[0] = new Image( "paddleA.png" );
         paddleImages[1] = new Image( "paddleB.png" );
         paddleImages[2] = new Image( "paddleC.png" );
@@ -76,10 +77,10 @@ public class PlayNow implements SceneInterface {
         Brick[][] wallD = new Brick[3][5];
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 5; j++) {
-                wallA[i][j] = new Brick(100 + 35*i, 0.3*(j + 1) - 0.15);
-                wallB[i][j] = new Brick(100 + 35*i, 0.3*(j + 1) - 0.15);
-                wallC[i][j] = new Brick(100 + 35*i, 0.3*(j + 1) - 0.15);
-                wallD[i][j] = new Brick(100 + 35*i, 0.3*(j + 1) - 0.15);
+                wallA[i][j] = new Brick(100 + 35*i, 0.3*(j + 1) - 0.15, 0);
+                wallB[i][j] = new Brick(100 + 35*i, 0.3*(j + 1) - 0.15, 1);
+                wallC[i][j] = new Brick(100 + 35*i, 0.3*(j + 1) - 0.15, 2);
+                wallD[i][j] = new Brick(100 + 35*i, 0.3*(j + 1) - 0.15, 3);
             }
         }
 
@@ -87,10 +88,10 @@ public class PlayNow implements SceneInterface {
         for (int i = 0; i < 4; i++) {
             paddles[i] = new Paddle(Math.PI/4, i);
         }
-        General generalA = new General(0, 0, paddles[0], wallA);
-        General generalB = new General(0, 0, paddles[1], wallB);
-        General generalC = new General(0, 0, paddles[2], wallC);
-        General generalD = new General(0, 0, paddles[3], wallD);
+        General generalA = new General(50, Math.PI/4, paddles[0], wallA, 0);
+        General generalB = new General(50, Math.PI/4, paddles[1], wallB, 1);
+        General generalC = new General(50, Math.PI/4, paddles[2], wallC, 2);
+        General generalD = new General(50, Math.PI/4, paddles[3], wallD, 3);
 
         double randomX = Math.random() * 10 - 5;//Random speed generation
         double randomY = Math.random() * 10 - 5;
@@ -135,18 +136,16 @@ public class PlayNow implements SceneInterface {
                     // background image clears canvas
                     gc.drawImage( space, 0, 0 );
                     gc.drawImage( ballImage, game.ball.getXPos(), game.ball.getYPos(), game.ball.getWidth(), game.ball.getHeight() );
-                    gc.drawImage( paddleImages[0], game.generals[0].paddle.calcXPos(), game.generals[0].paddle.calcYPos(), game.generals[0].paddle.getWidth(), game.generals[0].paddle.getHeight());
-                    gc.drawImage( paddleImages[1], game.generals[1].paddle.calcXPos(), game.generals[1].paddle.calcYPos(), game.generals[1].paddle.getWidth(), game.generals[1].paddle.getHeight());
-                    gc.drawImage( paddleImages[2], game.generals[2].paddle.calcXPos(), game.generals[2].paddle.calcYPos(), game.generals[2].paddle.getWidth(), game.generals[2].paddle.getHeight());
-                    gc.drawImage( paddleImages[3], game.generals[3].paddle.calcXPos(), game.generals[3].paddle.calcYPos(), game.generals[3].paddle.getWidth(), game.generals[3].paddle.getHeight());
-                    for (int i = 0; i < 3; i++) {
-                        for (int j = 0; j < 5; j++) {
-                            gc.drawImage( brickImage, game.generals[0].wall[i][j].calcXPos(), game.generals[0].wall[i][j].calcYPos(), game.generals[0].wall[i][j].getWidth(), game.generals[0].wall[i][j].getHeight());
-                            gc.drawImage( brickImage, Main.WIDTH - game.generals[1].wall[i][j].calcXPos(), game.generals[1].wall[i][j].calcYPos(), game.generals[1].wall[i][j].getWidth(), game.generals[1].wall[i][j].getHeight());
-                            gc.drawImage( brickImage, Main.WIDTH - game.generals[2].wall[i][j].calcXPos(), Main.HEIGHT - game.generals[2].wall[i][j].calcYPos(), game.generals[2].wall[i][j].getWidth(), game.generals[2].wall[i][j].getHeight());
-                            gc.drawImage( brickImage, game.generals[3].wall[i][j].calcXPos(), Main.HEIGHT - game.generals[3].wall[i][j].calcYPos(), game.generals[3].wall[i][j].getWidth(), game.generals[3].wall[i][j].getHeight());
+                    for (int k = 0; k < game.generals.length; k++) {
+                        gc.drawImage( paddleImages[k], game.generals[k].paddle.calcXPos(), game.generals[k].paddle.calcYPos(), game.generals[k].paddle.getWidth(), game.generals[k].paddle.getHeight());
+                        for (int i = 0; i < 3; i++) {
+                            for (int j = 0; j < 5; j++) {
+                                if (!game.generals[k].wall[i][j].isDestroyed()) gc.drawImage( brickImage, game.generals[k].wall[i][j].calcXPos(), game.generals[k].wall[i][j].calcYPos(), game.generals[k].wall[i][j].getWidth(), game.generals[k].wall[i][j].getHeight());
+                            }
                         }
+                        gc.drawImage(generalImage, game.generals[k].calcXPos(), game.generals[k].calcYPos(), game.generals[k].getWidth(), game.generals[k].getHeight());
                     }
+
 
                     game.tick();
 
