@@ -63,11 +63,17 @@ public class PlayNow implements SceneInterface {
         Image brickImage = new Image ( "brick.png" );
         Image generalImage = new Image ( "general.png" );
         Image markerImages[] = new Image[4];
+        Image markerReadyImages[] = new Image[4];
 
         markerImages[0] = new Image ("xMarkerA.png");
         markerImages[1] = new Image ("xMarkerB.png");
         markerImages[2] = new Image ("xMarkerC.png");
         markerImages[3] = new Image ("xMarkerD.png");
+
+        markerReadyImages[0] = new Image ("xMarkerAReady.png");
+        markerReadyImages[1] = new Image ("xMarkerBReady.png");
+        markerReadyImages[2] = new Image ("xMarkerCReady.png");
+        markerReadyImages[3] = new Image ("xMarkerDReady.png");
 
         paddleImages[0] = new Image( "paddleA.png" );
         paddleImages[1] = new Image( "paddleB.png" );
@@ -78,7 +84,7 @@ public class PlayNow implements SceneInterface {
         Image speedImage = new Image ("speedUp.png");
         gc.drawImage( space, 0, 0, Main.WIDTH, Main.HEIGHT);
 
-        Ball ball = new Ball(Main.WIDTH/2,Main.HEIGHT/2);
+        Ball ball = new Ball(0,0);
 
         Brick[][] wallA = new Brick[3][5];
         Brick[][] wallB = new Brick[3][5];
@@ -147,17 +153,22 @@ public class PlayNow implements SceneInterface {
                     // background image clears canvas
                     gc.drawImage( space, 0, 0 );
 
-                    if (game.markers.size() > 0) {
-                        for (int i = 0; i < game.markers.size(); i++) {
-                            //System.out.println(game.markers.get(i).calcXPos() + " " + game.markers.get(i).calcYPos() + " " + game.markers.get(i).getWidth() + " " + game.markers.get(i).getHeight());
-                            gc.drawImage(markerImages[game.markers.get(i).getPos()], game.markers.get(i).calcXPos(), game.markers.get(i).calcYPos(), game.markers.get(i).getWidth(), game.markers.get(i).getHeight());
-                        }
-                    }
                     for (int i = 0; i < game.speedUps.size(); i++) {
                         if(!game.speedUps.get(i).isHit()) {
                             gc.drawImage(speedImage, game.speedUps.get(i).calcXPos(), game.speedUps.get(i).calcYPos(), game.speedUps.get(i).getWidth(), game.speedUps.get(i).getHeight());
                         }
                     }
+
+                    if (game.markers.size() > 0) {
+                        for (int i = 0; i < game.markers.size(); i++) {
+                            if (game.markers.get(i).getReady()){
+                                gc.drawImage(markerReadyImages[game.markers.get(i).getPos()], game.markers.get(i).calcXPos(), game.markers.get(i).calcYPos(), game.markers.get(i).getWidth(), game.markers.get(i).getHeight());
+                            }else {
+                                gc.drawImage(markerImages[game.markers.get(i).getPos()], game.markers.get(i).calcXPos(), game.markers.get(i).calcYPos(), game.markers.get(i).getWidth(), game.markers.get(i).getHeight());
+                            }
+                        }
+                    }
+
                     if (!game.ball.getSpedUp()) {
                         gc.drawImage(ballImage, game.ball.getXPos(), game.ball.getYPos(), game.ball.getWidth(), game.ball.getHeight());
                     }else{

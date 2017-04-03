@@ -145,7 +145,16 @@ public class Game{
             }
 
             for (int i = 0; i < AIs.size();i++){
-                AIs.get(i).movePaddle(ball);
+                if (!generals[i+1].isDead()) {
+                    AIs.get(i).movePaddle(ball);
+                }else{
+                    for (int j = 0; j < markers.size();j++){
+                        if (markers.get(j).getPos() == i+1){
+                            AIs.get(i).moveMarker(markers.get(j));
+                            AIs.get(i).checkDeployPowerUp(markers.get(j),speedUps);
+                        }
+                    }
+                }
             }
 
             if (timeElapsed % 900 == 0){
@@ -153,6 +162,15 @@ public class Game{
                 generatePowerUp(speedUps.size()-1);
             }
             ball.checkReduceSpeed();
+            for (int i = 0; i < generals.length;i++){
+                if (deadPos[i] == 1 && generals[i].isDead()){
+                    for (int j = 0; j < markers.size(); j++){
+                        if (markers.get(j).getPos() == i){
+                            markers.get(j).decrementReadyCounter();
+                        }
+                    }
+                }
+            }
         }
     }
 
@@ -316,6 +334,41 @@ public class Game{
                                 for (int i = 0; i < markers.size();i++){
                                     if (markers.get(i).getPos() == 0){
                                         markers.get(i).moveRight();
+                                    }
+                                }
+                            }
+                        }
+                        break;
+                    case UP:
+                        if (!paused) {
+                            if(generals[0].isDead()) {
+                                for (int i = 0; i < markers.size();i++){
+                                    if (markers.get(i).getPos() == 0){
+                                        markers.get(i).moveUp();
+                                    }
+                                }
+                            }
+                        }
+                        break;
+                    case DOWN:
+                        if (!paused) {
+                            if(generals[0].isDead()) {
+                                for (int i = 0; i < markers.size();i++){
+                                    if (markers.get(i).getPos() == 0){
+                                        markers.get(i).moveDown();
+                                    }
+                                }
+                            }
+                        }
+                        break;
+                    case SHIFT:
+                        if (!paused) {
+                            if(generals[0].isDead()) {
+                                for (int i = 0; i < markers.size();i++){
+                                    if (markers.get(i).getPos() == 0 && markers.get(i).getReady()){
+                                        speedUps.add(new SpeedUp());
+                                        speedUps.get(speedUps.size()-1).setPos(markers.get(i).calcXPos(), markers.get(i).calcYPos());
+                                        markers.get(i).resetReadyCounter();
                                     }
                                 }
                             }
