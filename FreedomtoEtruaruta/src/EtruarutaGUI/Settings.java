@@ -51,7 +51,7 @@ public class Settings implements SceneInterface {
 
         Slider sliderA = new Slider(0, 1, 0.5);
 
-        GridPane grid = new GridPane();
+        /*GridPane grid = new GridPane();
         grid.setPadding(new Insets(10, 10, 10, 10));
         grid.setVgap(10);
         grid.setHgap(70);
@@ -76,7 +76,7 @@ public class Settings implements SceneInterface {
 
         GridPane.setConstraints(opacityValue, 2, 1);
         grid.getChildren().add(opacityValue);
-
+        */
         addTitle();
         addMenuButton();
 

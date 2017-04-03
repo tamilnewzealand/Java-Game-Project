@@ -3,7 +3,7 @@ package warlords2600;
 import EtruarutaGUI.Main;
 
 public class Ball{
-    private int x, y, xSpeed = 0, ySpeed = 0, width = 15, height = 15, maxSpeed = 25;
+    private int x, y, xSpeed = 0, ySpeed = 0, width = 17, height = 17, maxSpeed = 25;
     private boolean hitLastTick = false;
     private int collisionCounter = 0;
     private boolean spedup = false;

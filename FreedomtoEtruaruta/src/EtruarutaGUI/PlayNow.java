@@ -84,7 +84,7 @@ public class PlayNow implements SceneInterface {
         Image speedImage = new Image ("speedUp.png");
         gc.drawImage( space, 0, 0, Main.WIDTH, Main.HEIGHT);
 
-        Ball ball = new Ball(0,0);
+        Ball ball = new Ball(Main.WIDTH/2,Main.HEIGHT/2);
 
         Brick[][] wallA = new Brick[3][5];
         Brick[][] wallB = new Brick[3][5];
