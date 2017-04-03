@@ -44,4 +44,16 @@ public class Marker implements IObject {
         return pos;
     }
 
+    public void moveLeft(){
+        if (xPos > 10) {
+            xPos = xPos - 10;
+        }
+    }
+
+    public void moveRight(){
+        if (xPos < Main.WIDTH-width-10) {
+            xPos = xPos + 10;
+        }
+    }
+
 }

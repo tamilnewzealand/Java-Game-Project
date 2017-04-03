@@ -297,12 +297,28 @@ public class Game{
                 switch(keyEvent.getCode()) {
                     case LEFT:
                         if (!paused) {
-                            generals[0].paddle.moveLeft();
+                            if(!generals[0].isDead()) {
+                                generals[0].paddle.moveLeft();
+                            }else{
+                                for (int i = 0; i < markers.size();i++){
+                                    if (markers.get(i).getPos() == 0){
+                                        markers.get(i).moveLeft();
+                                    }
+                                }
+                            }
                         }
                         break;
                     case RIGHT:
-                        if (!paused){
-                            generals[0].paddle.moveRight();
+                        if (!paused) {
+                            if(!generals[0].isDead()) {
+                                generals[0].paddle.moveRight();
+                            }else{
+                                for (int i = 0; i < markers.size();i++){
+                                    if (markers.get(i).getPos() == 0){
+                                        markers.get(i).moveRight();
+                                    }
+                                }
+                            }
                         }
                         break;
                     case ESCAPE:
