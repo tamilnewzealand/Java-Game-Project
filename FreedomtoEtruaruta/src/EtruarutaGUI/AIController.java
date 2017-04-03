@@ -91,7 +91,7 @@ public class AIController {
         movingLeft = false;
     }
 
-    public void checkDeployPowerUp(Marker markerIn, ArrayList<IPowerUp> powerUps){
+    public void checkDeployPowerUp(Marker markerIn, ArrayList<PowerUp> powerUps){
         if (markerIn.getReady()){
             powerUps.add(new SpeedUp());
             powerUps.get(powerUps.size()-1).setPos(markerIn.calcXPos(), markerIn.calcYPos());

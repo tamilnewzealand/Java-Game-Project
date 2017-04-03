@@ -17,7 +17,7 @@ public class Game{
 
     public General[] generals;
     public Ball ball;
-    public ArrayList<IPowerUp> powerUps = new ArrayList<IPowerUp>();
+    public ArrayList<PowerUp> powerUps = new ArrayList<PowerUp>();
     public SpeedUp speedUp;
     public ArrayList<AIController> AIs = new ArrayList<AIController>();
 
@@ -71,7 +71,7 @@ public class Game{
                         if (objectCollision(powerUps.get(i), ballHit, false)) {
                             if (!ball.getSpedUp()) {
                                 powerUps.get(i).setHit(true);
-                                powerUps.get(i).activateEffect(ball);
+                                powerUps.get(i).activateEffect(ball,generals);
                                 SoundManager.playSpeedUp();
                                 ball.setSpedUp(true);
                             }
@@ -218,18 +218,18 @@ public class Game{
         return ballHit;
     }
 
-    private boolean objectCollision (IPowerUp powerUp, boolean ballHit, boolean bounce) {
-        for (int x = powerUp.calcXPos(); x < (powerUp.calcXPos() + powerUp.getWidth()); x++) {
-            for (int y = powerUp.calcYPos(); y < (powerUp.calcYPos() + powerUp.getHeight()); y++) {
-                if (x == powerUp.calcXPos() || y == powerUp.calcYPos() || x == (powerUp.calcXPos() + powerUp.getWidth()) || y == (powerUp.calcYPos() + powerUp.getHeight())) {
+    private boolean objectCollision (IObject object, boolean ballHit, boolean bounce) {
+        for (int x = object.calcXPos(); x < (object.calcXPos() + object.getWidth()); x++) {
+            for (int y = object.calcYPos(); y < (object.calcYPos() + object.getHeight()); y++) {
+                if (x == object.calcXPos() || y == object.calcYPos() || x == (object.calcXPos() + object.getWidth()) || y == (object.calcYPos() + object.getHeight())) {
                     if (inBallPath(x, y)) {
-                        if (x == powerUp.calcXPos()) {
+                        if (x == object.calcXPos()) {
                             return true;
-                        } else if (y == powerUp.calcYPos()) {
+                        } else if (y == object.calcYPos()) {
                             return true;
-                        } else if (x == (powerUp.calcXPos() + powerUp.getWidth())) {
+                        } else if (x == (object.calcXPos() + object.getWidth())) {
                             return true;
-                        } else if (y == (powerUp.calcYPos() + powerUp.getHeight())) {
+                        } else if (y == (object.calcYPos() + object.getHeight())) {
                             return true;
                         }
                     }
