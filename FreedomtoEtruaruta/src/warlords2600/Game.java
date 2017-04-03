@@ -21,6 +21,10 @@ public class Game{
     public SpeedUp speedUp;
     public ArrayList<AIController> AIs = new ArrayList<AIController>();
 
+    public ArrayList<Marker> markers = new ArrayList<>();
+
+    private int[] deadPos;
+
 
     public Game(Ball ball, General generalA, General generalB, Brick brick) {
         this.ball = ball;
@@ -49,6 +53,9 @@ public class Game{
 
         this.AIs.add(new AIController());
         this.AIs.get(2).setGeneral(generalD);
+
+        this.deadPos = new int[4];
+
     }
 
     public void tick(){
@@ -113,6 +120,17 @@ public class Game{
                 }
             }
 
+            if (deadCount > 0 && markers.size() < deadCount ){
+                for (int i = 0; i < deadPos.length;i++) {
+                    if (deadPos[i] != 1 && generals[i].isDead()) {
+                        this.markers.add(new Marker());
+                        this.markers.get(this.markers.size() - 1).setPos(i);
+                        System.out.println(this.markers.get(this.markers.size() - 1).getPos());
+                        deadPos[i] = 1;
+                        break;
+                    }
+                }
+            }
             if (!ballHit) {
                 ball.processBall();
                 ball.setHitLastTick(false);
