@@ -35,9 +35,6 @@ public class Game{
     }
 
     public Game(Ball ball, General generalA, General generalB, General generalC, General generalD) {
-        this.speedUp = new SpeedUp();
-        this.powerUps.add(this.speedUp);
-        generatePowerUp(0);
         this.ball = ball;
         this.generals = new General[4];
         this.generals[0] = generalA;
@@ -69,11 +66,24 @@ public class Game{
                 for (int i = 0; i < powerUps.size(); i++) {
                     if (!ballHit && (!powerUps.get(i).isHit())) {
                         if (objectCollision(powerUps.get(i), ballHit, false)) {
-                            if (!ball.getSpedUp()) {
-                                powerUps.get(i).setHit(true);
-                                powerUps.get(i).activateEffect(ball,generals);
-                                SoundManager.playSpeedUp();
-                                ball.setSpedUp(true);
+                            if (powerUps.get(i).getPowerUpName().equals("Speed Up")) {
+                                if (!ball.getSpedUp()) {
+                                    powerUps.get(i).setHit(true);
+                                    powerUps.get(i).activateEffect(ball, generals);
+                                    SoundManager.playSpeedUp();
+                                    ball.setSpedUp(true);
+                                }
+                            }else if (powerUps.get(i).getPowerUpName().equals("Paddle Size Up")){
+                                boolean activateSizeIncrease = false;
+                                for (int j = 0; j < generals.length;j++){
+                                    if (!generals[j].isDead() && !generals[j].paddle.getSizeIncreased()){
+                                        activateSizeIncrease = true;
+                                    }
+                                }
+                                if (activateSizeIncrease){
+                                    powerUps.get(i).setHit(true);
+                                    powerUps.get(i).activateEffect(ball, generals);
+                                }
                             }
                         }
                     }
@@ -158,10 +168,12 @@ public class Game{
             }
 
             if (timeElapsed % 900 == 0){
-                this.powerUps.add(new SpeedUp());
-                generatePowerUp(powerUps.size()-1);
+                generatePowerUp();
             }
             ball.checkReduceSpeed();
+            for (int i = 0; i < generals.length;i++){
+                generals[i].paddle.checkDecreaseWidth();
+            }
             for (int i = 0; i < generals.length;i++){
                 if (deadPos[i] == 1 && generals[i].isDead()){
                     for (int j = 0; j < markers.size(); j++){
@@ -302,11 +314,30 @@ public class Game{
         return paused;
     }
 
-    private void generatePowerUp(int i){
-            double xPos = Math.random() * 424 + 350;
-            double yPos = Math.random() * 608 + 50;
-            powerUps.get(i).setPos((int) xPos, (int) yPos);
+    private void generatePowerUp(){
+        int option = (int)Math.random() * 2;
+        if (option == 0){
+            this.powerUps.add(new PaddleSizeUp());
+        } else if (option == 1){
+            this.powerUps.add(new SpeedUp());
+        }
+
+        double xPos = Math.random() * 424 + 350;
+        double yPos = Math.random() * 608 + 50;
+        powerUps.get(powerUps.size()-1).setPos((int) xPos, (int) yPos);
     }
+
+    private void generatePowerUp(int xPos, int yPos){
+        int option = (int)(Math.random() * 2);
+        System.out.println(option);
+        if (option == 0){
+            this.powerUps.add(new PaddleSizeUp());
+        } else if (option == 1){
+            this.powerUps.add(new SpeedUp());
+        }
+        powerUps.get(powerUps.size()-1).setPos((int) xPos, (int) yPos);
+    }
+
 
     public void HandleInputs(Scene playNowScene, SceneManager sceneManager) {
         playNowScene.setOnKeyPressed(new EventHandler<KeyEvent>(){
@@ -366,8 +397,7 @@ public class Game{
                             if(generals[0].isDead()) {
                                 for (int i = 0; i < markers.size();i++){
                                     if (markers.get(i).getPos() == 0 && markers.get(i).getReady()){
-                                        powerUps.add(new SpeedUp());
-                                        powerUps.get(powerUps.size()-1).setPos(markers.get(i).calcXPos(), markers.get(i).calcYPos());
+                                        generatePowerUp(markers.get(i).calcXPos(), markers.get(i).calcYPos());
                                         markers.get(i).resetReadyCounter();
                                     }
                                 }

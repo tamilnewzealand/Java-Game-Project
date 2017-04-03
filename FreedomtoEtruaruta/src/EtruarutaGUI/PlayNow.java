@@ -74,6 +74,7 @@ public class PlayNow implements SceneInterface {
 
         Image space = new Image( "space.png" );
         Image speedImage = new Image ("speedUp.png");
+        Image paddleSizeUpImage = new Image ("paddleSizeUp.png");
         gc.drawImage( space, 0, 0, Main.WIDTH, Main.HEIGHT);
 
         Ball ball = new Ball(Main.WIDTH/2,Main.HEIGHT/2);
@@ -147,7 +148,11 @@ public class PlayNow implements SceneInterface {
 
                     for (int i = 0; i < game.powerUps.size(); i++) {
                         if(!game.powerUps.get(i).isHit()) {
-                            gc.drawImage(speedImage, game.powerUps.get(i).calcXPos(), game.powerUps.get(i).calcYPos(), game.powerUps.get(i).getWidth(), game.powerUps.get(i).getHeight());
+                            if (game.powerUps.get(i).getPowerUpName().equals("Speed Up")) {
+                                gc.drawImage(speedImage, game.powerUps.get(i).calcXPos(), game.powerUps.get(i).calcYPos(), game.powerUps.get(i).getWidth(), game.powerUps.get(i).getHeight());
+                            }else if (game.powerUps.get(i).getPowerUpName().equals("Paddle Size Up")){
+                                gc.drawImage(paddleSizeUpImage, game.powerUps.get(i).calcXPos(), game.powerUps.get(i).calcYPos(), game.powerUps.get(i).getWidth(), game.powerUps.get(i).getHeight());
+                            }
                         }
                     }
 

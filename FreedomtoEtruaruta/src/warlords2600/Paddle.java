@@ -5,6 +5,9 @@ import EtruarutaGUI.Main;
 public class Paddle implements IObject {
     private int x, y, r = 300, speed = 5, width = 50, height = 10, pos = 0;
     double theta, polarSpeed = 0.1;
+    private boolean sizeIncreased = false;
+    private int previousWidth;
+    private int widthUpCounter = 0;
 
     public Paddle() {
         this.theta = Math.PI/4;
@@ -21,6 +24,10 @@ public class Paddle implements IObject {
         this.x = x;
         this.y = y;
 
+    }
+
+    public boolean getSizeIncreased(){
+        return sizeIncreased;
     }
 
     public void setXPos(int x){
@@ -127,6 +134,26 @@ public class Paddle implements IObject {
 
     public int getR () {
         return r;
+    }
+
+    public void checkIncreaseWidth(int width){
+        if (!sizeIncreased){
+            this.previousWidth = this.width;
+            this.width = width;
+            this.widthUpCounter = 300;
+            sizeIncreased = true;
+        }
+    }
+
+    public void checkDecreaseWidth(){
+        if (sizeIncreased){
+            if (widthUpCounter > 0){
+                widthUpCounter--;
+            } else{
+                sizeIncreased = false;
+                this.width = previousWidth;
+            }
+        }
     }
 
 }

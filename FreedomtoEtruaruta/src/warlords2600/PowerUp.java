@@ -40,4 +40,7 @@ public abstract class PowerUp implements IObject {
         this.yPos = yPos;
     }
     abstract public void activateEffect(Ball ball, General[] generals);
+
+    abstract public String getPowerUpName();
+
 }
