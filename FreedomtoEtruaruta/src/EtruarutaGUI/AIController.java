@@ -1,10 +1,7 @@
 package EtruarutaGUI;
 
 
-import warlords2600.Ball;
-import warlords2600.General;
-import warlords2600.Marker;
-import warlords2600.SpeedUp;
+import warlords2600.*;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -94,10 +91,10 @@ public class AIController {
         movingLeft = false;
     }
 
-    public void checkDeployPowerUp(Marker markerIn, ArrayList<SpeedUp> speedUps){
+    public void checkDeployPowerUp(Marker markerIn, ArrayList<IPowerUp> powerUps){
         if (markerIn.getReady()){
-            speedUps.add(new SpeedUp());
-            speedUps.get(speedUps.size()-1).setPos(markerIn.calcXPos(), markerIn.calcYPos());
+            powerUps.add(new SpeedUp());
+            powerUps.get(powerUps.size()-1).setPos(markerIn.calcXPos(), markerIn.calcYPos());
             markerIn.resetReadyCounter();
         }
     }

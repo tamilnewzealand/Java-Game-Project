@@ -3,7 +3,7 @@ package warlords2600;
 /**
  * Created by adilb on 1/04/2017.
  */
-public class SpeedUp implements IObject {
+public class SpeedUp implements IObject, IPowerUp{
     private int xPos, yPos;
     private int width = 25,height = 25;
     private boolean hit = false;

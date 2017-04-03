@@ -17,7 +17,7 @@ public class Game{
 
     public General[] generals;
     public Ball ball;
-    public ArrayList<SpeedUp> speedUps = new ArrayList<SpeedUp>();
+    public ArrayList<IPowerUp> powerUps = new ArrayList<IPowerUp>();
     public SpeedUp speedUp;
     public ArrayList<AIController> AIs = new ArrayList<AIController>();
 
@@ -36,7 +36,7 @@ public class Game{
 
     public Game(Ball ball, General generalA, General generalB, General generalC, General generalD) {
         this.speedUp = new SpeedUp();
-        this.speedUps.add(this.speedUp);
+        this.powerUps.add(this.speedUp);
         generatePowerUp(0);
         this.ball = ball;
         this.generals = new General[4];
@@ -66,12 +66,12 @@ public class Game{
             int deadCount = 0;
             //System.out.println("Tick");
             if (!ball.getHitLastTick() && ball.getCollisionCounter() <= 0) {
-                for (int i = 0; i < speedUps.size(); i++) {
-                    if (!ballHit && (!speedUps.get(i).isHit())) {
-                        if (objectCollision(speedUps.get(i), ballHit, false)) {
+                for (int i = 0; i < powerUps.size(); i++) {
+                    if (!ballHit && (!powerUps.get(i).isHit())) {
+                        if (objectCollision(powerUps.get(i), ballHit, false)) {
                             if (!ball.getSpedUp()) {
-                                speedUps.get(i).setHit(true);
-                                speedUps.get(i).activateEffect(ball);
+                                powerUps.get(i).setHit(true);
+                                powerUps.get(i).activateEffect(ball);
                                 SoundManager.playSpeedUp();
                                 ball.setSpedUp(true);
                             }
@@ -151,15 +151,15 @@ public class Game{
                     for (int j = 0; j < markers.size();j++){
                         if (markers.get(j).getPos() == i+1){
                             AIs.get(i).moveMarker(markers.get(j));
-                            AIs.get(i).checkDeployPowerUp(markers.get(j),speedUps);
+                            AIs.get(i).checkDeployPowerUp(markers.get(j), powerUps);
                         }
                     }
                 }
             }
 
             if (timeElapsed % 900 == 0){
-                this.speedUps.add(new SpeedUp());
-                generatePowerUp(speedUps.size()-1);
+                this.powerUps.add(new SpeedUp());
+                generatePowerUp(powerUps.size()-1);
             }
             ball.checkReduceSpeed();
             for (int i = 0; i < generals.length;i++){
@@ -218,18 +218,18 @@ public class Game{
         return ballHit;
     }
 
-    private boolean objectCollision (IObject object, boolean ballHit, boolean bounce) {
-        for (int x = object.calcXPos(); x < (object.calcXPos() + object.getWidth()); x++) {
-            for (int y = object.calcYPos(); y < (object.calcYPos() + object.getHeight()); y++) {
-                if (x == object.calcXPos() || y == object.calcYPos() || x == (object.calcXPos() + object.getWidth()) || y == (object.calcYPos() + object.getHeight())) {
+    private boolean objectCollision (IPowerUp powerUp, boolean ballHit, boolean bounce) {
+        for (int x = powerUp.calcXPos(); x < (powerUp.calcXPos() + powerUp.getWidth()); x++) {
+            for (int y = powerUp.calcYPos(); y < (powerUp.calcYPos() + powerUp.getHeight()); y++) {
+                if (x == powerUp.calcXPos() || y == powerUp.calcYPos() || x == (powerUp.calcXPos() + powerUp.getWidth()) || y == (powerUp.calcYPos() + powerUp.getHeight())) {
                     if (inBallPath(x, y)) {
-                        if (x == object.calcXPos()) {
+                        if (x == powerUp.calcXPos()) {
                             return true;
-                        } else if (y == object.calcYPos()) {
+                        } else if (y == powerUp.calcYPos()) {
                             return true;
-                        } else if (x == (object.calcXPos() + object.getWidth())) {
+                        } else if (x == (powerUp.calcXPos() + powerUp.getWidth())) {
                             return true;
-                        } else if (y == (object.calcYPos() + object.getHeight())) {
+                        } else if (y == (powerUp.calcYPos() + powerUp.getHeight())) {
                             return true;
                         }
                     }
@@ -305,7 +305,7 @@ public class Game{
     private void generatePowerUp(int i){
             double xPos = Math.random() * 424 + 350;
             double yPos = Math.random() * 608 + 50;
-            speedUps.get(i).setPos((int) xPos, (int) yPos);
+            powerUps.get(i).setPos((int) xPos, (int) yPos);
     }
 
     public void HandleInputs(Scene playNowScene, SceneManager sceneManager) {
@@ -366,8 +366,8 @@ public class Game{
                             if(generals[0].isDead()) {
                                 for (int i = 0; i < markers.size();i++){
                                     if (markers.get(i).getPos() == 0 && markers.get(i).getReady()){
-                                        speedUps.add(new SpeedUp());
-                                        speedUps.get(speedUps.size()-1).setPos(markers.get(i).calcXPos(), markers.get(i).calcYPos());
+                                        powerUps.add(new SpeedUp());
+                                        powerUps.get(powerUps.size()-1).setPos(markers.get(i).calcXPos(), markers.get(i).calcYPos());
                                         markers.get(i).resetReadyCounter();
                                     }
                                 }

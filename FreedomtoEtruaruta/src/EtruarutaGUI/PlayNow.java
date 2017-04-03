@@ -1,23 +1,15 @@
 package EtruarutaGUI;
 
 import javafx.animation.AnimationTimer;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Button;
 import javafx.scene.image.Image;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import warlords2600.*;
-
-import java.util.Random;
 
 public class PlayNow implements SceneInterface {
     private SceneManager sceneManager;
@@ -153,9 +145,9 @@ public class PlayNow implements SceneInterface {
                     // background image clears canvas
                     gc.drawImage( space, 0, 0 );
 
-                    for (int i = 0; i < game.speedUps.size(); i++) {
-                        if(!game.speedUps.get(i).isHit()) {
-                            gc.drawImage(speedImage, game.speedUps.get(i).calcXPos(), game.speedUps.get(i).calcYPos(), game.speedUps.get(i).getWidth(), game.speedUps.get(i).getHeight());
+                    for (int i = 0; i < game.powerUps.size(); i++) {
+                        if(!game.powerUps.get(i).isHit()) {
+                            gc.drawImage(speedImage, game.powerUps.get(i).calcXPos(), game.powerUps.get(i).calcYPos(), game.powerUps.get(i).getWidth(), game.powerUps.get(i).getHeight());
                         }
                     }
 
