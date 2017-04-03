@@ -84,13 +84,13 @@ public class Settings implements SceneInterface {
     }
 
     private void addTitle() {
-        Text titleText = UIGenerator.createText("Settings", 392, 90, 54);
+        Text titleText = GUIComponent.createText("Settings", 392, 90, 54);
 
         root.getChildren().add(titleText);
     }
 
     private void addMenuButton() {
-        Button menuButton = UIGenerator.createButton("Back to Menu", 244, 580);
+        Button menuButton = GUIComponent.createButton("Back to Menu", 244, 580);
 
         menuButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override

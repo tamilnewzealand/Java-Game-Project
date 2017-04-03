@@ -2,6 +2,14 @@ package warlords2600;
 
 import EtruarutaGUI.Main;
 
+/**
+ * This class models a paddle in the game.
+ *
+ * @author Adil Bhayani <abha808@aucklanduni.ac.nz>
+ * @author Sakayan Sitsabesan <ssit662@aucklanduni.ac.nz>
+ * @version 0.1.0
+ */
+
 public class Paddle implements IObject {
     private int x, y, r = 300, speed = 5, width = 50, height = 10, pos = 0;
     double theta, polarSpeed = 0.1;

@@ -6,6 +6,16 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.scene.image.Image;
 
+/**
+ * The game uses one JavaFX stage, this class handles all scene
+ * changes necessary for the game. Provides public methods to
+ * switch from one game scene to another.
+ *
+ * @author Adil Bhayani <abha808@aucklanduni.ac.nz>
+ * @author Sakayan Sitsabesan <ssit662@aucklanduni.ac.nz>
+ * @version 0.1.0
+ */
+
 public class SceneManager {
 
     private Stage stage;
@@ -20,6 +30,17 @@ public class SceneManager {
         this.animation = new Timeline();
         stage.getIcons().add(new Image("etruaruta.png"));
         stage.show();
+    }
+
+    /**
+     * Sets the scene to be the intro Scene
+     * @param sceneManager SceneManager currently being used
+     */
+    public void goToIntroScene(SceneManager sceneManager) {
+        animation.stop();
+        Intro intro = new Intro(sceneManager);
+        Scene introScene = intro.init(Main.WIDTH, Main.HEIGHT);
+        stage.setScene(introScene);
     }
 
     /**
@@ -75,13 +96,5 @@ public class SceneManager {
         Settings settings = new Settings(sceneManager);
         Scene settingsScene = settings.init(Main.WIDTH, Main.HEIGHT);
         stage.setScene(settingsScene);
-    }
-
-
-    private void setGameLoop(KeyFrame frame) {
-        animation = new Timeline();
-        animation.setCycleCount(Timeline.INDEFINITE);
-        animation.getKeyFrames().add(frame);
-        animation.play();
     }
 }

@@ -10,22 +10,22 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 
-public class UIGenerator {
+/**
+ * This class generates GUI components needed in the game
+ * menu system. It can generate text, buttons, and a moving
+ * planet animation background.
+ *
+ * @author Adil Bhayani <abha808@aucklanduni.ac.nz>
+ * @author Sakayan Sitsabesan <ssit662@aucklanduni.ac.nz>
+ * @version 0.1.0
+ */
+
+public class GUIComponent {
 	public static final String DEFAULT_FONT_FAMILY = "Kavivanar";
-	public static final int DEFAULT_FONT_SIZE = 14;
+    public static final int DEFAULT_FONT_SIZE = 14;
 	public static final double DEFAULT_BUTTON_WIDTH = 100;
 	public static final double DEFAULT_BUTTON_HEIGHT = 25;
-	
-	/**
-	 * @param text String to fill the text
-	 * @param x x-coordinate of the text
-	 * @param y y-coordinate of the text
-	 * @return Text with the specified attributes
-	 */
-	public static Text createText(String text, double x, double y) {
-		return createText(text, x, y, DEFAULT_FONT_SIZE);
-	}
-	
+
 	/**
 	 * @param text String to fill the text
 	 * @param x x-coordinate of the text
@@ -39,7 +39,7 @@ public class UIGenerator {
 		textUI.setX(x);
 		textUI.setY(y);
 		textUI.setFill(Color.WHITE);
-		textUI.setTextAlignment(TextAlignment.CENTER);
+		textUI.setTextAlignment(TextAlignment.LEFT);
 		textUI.setFont(Font.font(DEFAULT_FONT_FAMILY, fontSize));
 		
 		return textUI;
@@ -75,25 +75,6 @@ public class UIGenerator {
 		
 		return buttonUI;
 	}
-	
-	/**
-	 * @param color color of the rectangle
-	 * @param x x-coordinate of the rectangle
-	 * @param y y-coordinate of the rectangle
-	 * @param width width of the rectangle
-	 * @param height height of the rectangle
-	 * @return Rectangle with the specified attributes
-	 */
-	public static Rectangle createRectangle(Color color, double x, double y, double width, double height) {
-		Rectangle rectangleUI = new Rectangle();
-		rectangleUI.setFill(color);
-		rectangleUI.setX(x);
-		rectangleUI.setY(y);
-		rectangleUI.setWidth(width);
-		rectangleUI.setHeight(height);
-		
-		return rectangleUI;
-	}
 
     /**
      *
@@ -114,8 +95,8 @@ public class UIGenerator {
             {
                 double t = (currentNanoTime - startNanoTime) / 1000000000.0;
 
-                double x = 192 + 128 * Math.cos(t);
-                double y = 400 + 128 * Math.sin(t);
+                double x = 232 + 128 * Math.cos(t);
+                double y = 232 + 128 * Math.sin(t);
 
                 // Clear the canvas
                 gc.clearRect(0, 0, Main.WIDTH, Main.HEIGHT);
@@ -123,7 +104,7 @@ public class UIGenerator {
                 // background image clears canvas
                 gc.drawImage( space, 0, 0 );
                 gc.drawImage( etruaruta, x, y );
-                gc.drawImage( star, 156, 356 );
+                gc.drawImage( star, 196, 196 );
             }
         }.start();
 

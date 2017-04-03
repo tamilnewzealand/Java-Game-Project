@@ -35,7 +35,7 @@ public class HiScore implements SceneInterface {
         root.getChildren().add( canvas );
 
         GraphicsContext gc = canvas.getGraphicsContext2D();
-        gc = UIGenerator.createAnimationBackground(gc);
+        gc = GUIComponent.createAnimationBackground(gc);
         SoundManager.playBackground();
 
         addTitle();
@@ -46,7 +46,7 @@ public class HiScore implements SceneInterface {
     }
 
     private void addTitle() {
-        Text titleText = UIGenerator.createText("High Scores", 392, 90, 54);
+        Text titleText = GUIComponent.createText("High Scores", 392, 90, 54);
 
         root.getChildren().add(titleText);
     }
@@ -63,13 +63,13 @@ public class HiScore implements SceneInterface {
                 " 8) RANDOM PLAYER  80\n" +
                 " 9) RANDOM PLAYER  70\n" +
                 "10) RANDOM PLAYER  60";
-        Text instructionsText = UIGenerator.createText(text, 353, 150, 26);
+        Text instructionsText = GUIComponent.createText(text, 353, 150, 26);
 
         root.getChildren().add(instructionsText);
     }
 
     private void addMenuButton() {
-        Button menuButton = UIGenerator.createButton("Back to Menu", 244, 580);
+        Button menuButton = GUIComponent.createButton("Back to Menu", 244, 580);
 
         menuButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override

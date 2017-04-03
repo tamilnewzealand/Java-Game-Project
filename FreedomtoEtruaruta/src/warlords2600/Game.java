@@ -6,8 +6,17 @@ import EtruarutaGUI.SoundManager;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyEvent;
-
 import java.util.ArrayList;
+
+/**
+ * This is the controller class that processes all
+ * the game logic and algorithms.
+ *
+ * @author Adil Bhayani <abha808@aucklanduni.ac.nz>
+ * @author Sakayan Sitsabesan <ssit662@aucklanduni.ac.nz>
+ * @version 0.1.0
+ */
+
 
 public class Game{
 
@@ -24,7 +33,6 @@ public class Game{
     public ArrayList<Marker> markers = new ArrayList<>();
 
     private int[] deadPos;
-
 
     public Game(Ball ball, General generalA, General generalB, Brick brick) {
         this.ball = ball;

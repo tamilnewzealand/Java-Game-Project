@@ -2,6 +2,14 @@ package warlords2600;
 
 import EtruarutaGUI.Main;
 
+/**
+ * This class models a General in the game.
+ *
+ * @author Adil Bhayani <abha808@aucklanduni.ac.nz>
+ * @author Sakayan Sitsabesan <ssit662@aucklanduni.ac.nz>
+ * @version 0.1.0
+ */
+
 public class General implements IObject {
 
     public Paddle paddle;

@@ -11,6 +11,16 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+/**
+ * This class implements the menu screen. When the game is
+ * loaded the user is presented with this menu screen from
+ * which they can start game or see the instructions.
+ *
+ * @author Adil Bhayani <abha808@aucklanduni.ac.nz>
+ * @author Sakayan Sitsabesan <ssit662@aucklanduni.ac.nz>
+ * @version 0.1.0
+ */
+
 public class Menu implements SceneInterface {
     private SceneManager sceneManager;
     private Scene menuScene;
@@ -36,7 +46,7 @@ public class Menu implements SceneInterface {
         root.getChildren().add( canvas );
 
         GraphicsContext gc = canvas.getGraphicsContext2D();
-        gc = UIGenerator.createAnimationBackground(gc);
+        gc = GUIComponent.createAnimationBackground(gc);
         SoundManager.playBackground();
 
         addTitle();
@@ -54,13 +64,13 @@ public class Menu implements SceneInterface {
 
 
     private void addTitle() {
-        Text titleText = UIGenerator.createText("Freedom to Etruaruta", 256, 90, 54);
+        Text titleText = GUIComponent.createText("Freedom to Etruaruta", 256, 90, 54);
 
         root.getChildren().add(titleText);
     }
 
     private void addStartButton() {
-        Button startButton = UIGenerator.createButton("Play Now (1P)", 426, 180);
+        Button startButton = GUIComponent.createButton("Play Now (1P)", 426, 180);
 
         startButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -73,7 +83,7 @@ public class Menu implements SceneInterface {
     }
 
     private void addMultiplayer2Button() {
-        Button multi2Button = UIGenerator.createButton("Multiplayer (2P)", 426, 240);
+        Button multi2Button = GUIComponent.createButton("Multiplayer (2P)", 426, 240);
 
         multi2Button.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -86,7 +96,7 @@ public class Menu implements SceneInterface {
     }
 
     private void addMultiplayer4Button() {
-        Button multi4Button = UIGenerator.createButton("Multiplayer (4P)", 426, 300);
+        Button multi4Button = GUIComponent.createButton("Multiplayer (4P)", 426, 300);
 
         multi4Button.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -99,7 +109,7 @@ public class Menu implements SceneInterface {
     }
 
     private void addInstructionsButton() {
-        Button instructionsButton = UIGenerator.createButton("Instructions", 426, 360);
+        Button instructionsButton = GUIComponent.createButton("Instructions", 426, 360);
 
         instructionsButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -112,7 +122,7 @@ public class Menu implements SceneInterface {
     }
 
     private void addDemoButton() {
-        Button demoButton = UIGenerator.createButton("Demo", 426, 420);
+        Button demoButton = GUIComponent.createButton("Demo", 426, 420);
 
         demoButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -125,7 +135,7 @@ public class Menu implements SceneInterface {
     }
 
     private void addHighScoresButton() {
-        Button highScoresButton = UIGenerator.createButton("High Scores", 426, 480);
+        Button highScoresButton = GUIComponent.createButton("High Scores", 426, 480);
 
         highScoresButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -138,7 +148,7 @@ public class Menu implements SceneInterface {
     }
 
     private void addSettingsButton() {
-        Button settingsButton = UIGenerator.createButton("Settings", 426, 540);
+        Button settingsButton = GUIComponent.createButton("Settings", 426, 540);
 
         settingsButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -151,7 +161,7 @@ public class Menu implements SceneInterface {
     }
 
     private void addExitButton() {
-        Button exitButton = UIGenerator.createButton("Exit", 426, 600);
+        Button exitButton = GUIComponent.createButton("Exit", 426, 600);
 
         exitButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
