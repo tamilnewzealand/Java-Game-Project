@@ -25,7 +25,7 @@ import javafx.scene.control.Labeled;
  */
 
 public class GUIComponent {
-	public static final String DEFAULT_FONT_FAMILY = "Perfect Dark (BRK)";
+	public static final String DEFAULT_FONT_FAMILY = "Kavivanar";
     public static final int DEFAULT_FONT_SIZE = 30;
 	public static final double DEFAULT_BUTTON_WIDTH = 200;
 	public static final double DEFAULT_BUTTON_HEIGHT = 50;

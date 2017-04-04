@@ -56,7 +56,9 @@ public class PlayNow implements SceneInterface {
         GraphicsContext gc = canvas.getGraphicsContext2D();
         gc = renderGame(gc);
         if (Main.gameMode == 0) HandleInputsMulti();
+        else if (Main.gameMode == 99) HandleTriggers();
         else HandleInputs();
+
         playNowScene.addEventHandler(KeyEvent.KEY_PRESSED, handler);
 
         return playNowScene;
@@ -66,9 +68,10 @@ public class PlayNow implements SceneInterface {
         handler = new EventHandler<KeyEvent>(){
             @Override
             public void handle(KeyEvent keyEvent) {
+                boolean freezed = paused || game.isCountingDown();
                 switch(keyEvent.getCode()) {
                     case LEFT:
-                        if (!paused) {
+                        if (!freezed) {
                             if(!game.generals[0].isDead()) {
                                 game.generals[0].paddle.moveLeft();
                             }else{
@@ -81,7 +84,7 @@ public class PlayNow implements SceneInterface {
                         }
                         break;
                     case RIGHT:
-                        if (!paused) {
+                        if (!freezed) {
                             if(!game.generals[0].isDead()) {
                                 game.generals[0].paddle.moveRight();
                             }else{
@@ -94,7 +97,7 @@ public class PlayNow implements SceneInterface {
                         }
                         break;
                     case UP:
-                        if (!paused) {
+                        if (!freezed) {
                             if(game.generals[0].isDead()) {
                                 for (int i = 0; i < game.markers.size();i++){
                                     if (game.markers.get(i).getPos() == 0){
@@ -116,7 +119,7 @@ public class PlayNow implements SceneInterface {
                         }
                         break;
                     case SHIFT:
-                        if (!paused) {
+                        if (!freezed) {
                             if(game.generals[0].isDead()) {
                                 for (int i = 0; i < game.markers.size();i++){
                                     if (game.markers.get(i).getPos() == 0 && game.markers.get(i).getReady()){
@@ -157,13 +160,50 @@ public class PlayNow implements SceneInterface {
         };
     }
 
+    public void HandleTriggers() {
+        handler = new EventHandler<KeyEvent>(){
+            @Override
+            public void handle(KeyEvent keyEvent) {
+                boolean freezed = paused || game.isCountingDown();
+                switch(keyEvent.getCode()) {
+                    case ESCAPE:
+                        if (paused && escaping) {
+                            paused = false;
+                            escaping = false;
+                        } else{
+                            paused = true;
+                            escaping = true;
+                        }
+                        break;
+                    case ENTER:
+                        if (paused && escaping) {
+                            Main.gameMode = 0;
+                            game.setFinished(true);
+                            playNowScene.removeEventHandler(KeyEvent.KEY_PRESSED, handler);
+                            sceneManager.goToMenuScene(sceneManager);
+                        }
+                        break;
+                    case P:
+                        if (paused) {
+                            paused = false;
+                        } else{
+                            paused = true;
+                        }
+                        break;
+                }
+            }
+
+        };
+    }
+
     public void HandleInputsMulti() {
         handler = new EventHandler<KeyEvent>(){
             @Override
             public void handle(KeyEvent keyEvent) {
+                boolean freezed = paused || game.isCountingDown();
                 switch(keyEvent.getCode()) {
                     case LEFT:
-                        if (!paused) {
+                        if (!freezed) {
                             if(!game.generals[2].isDead()) {
                                 game.generals[2].paddle.moveLeft();
                             }else{
@@ -176,7 +216,7 @@ public class PlayNow implements SceneInterface {
                         }
                         break;
                     case RIGHT:
-                        if (!paused) {
+                        if (!freezed) {
                             if(!game.generals[2].isDead()) {
                                 game.generals[2].paddle.moveRight();
                             }else{
@@ -189,7 +229,7 @@ public class PlayNow implements SceneInterface {
                         }
                         break;
                     case UP:
-                        if (!paused) {
+                        if (!freezed) {
                             if(game.generals[2].isDead()) {
                                 for (int i = 0; i < game.markers.size();i++){
                                     if (game.markers.get(i).getPos() == 0){
@@ -200,7 +240,7 @@ public class PlayNow implements SceneInterface {
                         }
                         break;
                     case DOWN:
-                        if (!paused) {
+                        if (!freezed) {
                             if(game.generals[2].isDead()) {
                                 for (int i = 0; i < game.markers.size();i++){
                                     if (game.markers.get(i).getPos() == 0){
@@ -211,7 +251,7 @@ public class PlayNow implements SceneInterface {
                         }
                         break;
                     case SHIFT:
-                        if (!paused) {
+                        if (!freezed) {
                             if(game.generals[2].isDead()) {
                                 for (int i = 0; i < game.markers.size();i++){
                                     if (game.markers.get(i).getPos() == 0 && game.markers.get(i).getReady()){
@@ -223,7 +263,7 @@ public class PlayNow implements SceneInterface {
                         }
                         break;
                     case A:
-                        if (!paused) {
+                        if (!freezed) {
                             if(!game.generals[0].isDead()) {
                                 game.generals[0].paddle.moveLeft();
                             }else{
@@ -236,7 +276,7 @@ public class PlayNow implements SceneInterface {
                         }
                         break;
                     case D:
-                        if (!paused) {
+                        if (!freezed) {
                             if(!game.generals[0].isDead()) {
                                 game.generals[0].paddle.moveRight();
                             }else{
@@ -249,7 +289,7 @@ public class PlayNow implements SceneInterface {
                         }
                         break;
                     case W:
-                        if (!paused) {
+                        if (!freezed) {
                             if(game.generals[0].isDead()) {
                                 for (int i = 0; i < game.markers.size();i++){
                                     if (game.markers.get(i).getPos() == 0){
@@ -260,7 +300,7 @@ public class PlayNow implements SceneInterface {
                         }
                         break;
                     case S:
-                        if (!paused) {
+                        if (!freezed) {
                             if(game.generals[0].isDead()) {
                                 for (int i = 0; i < game.markers.size();i++){
                                     if (game.markers.get(i).getPos() == 0){
@@ -271,7 +311,7 @@ public class PlayNow implements SceneInterface {
                         }
                         break;
                     case E:
-                        if (!paused) {
+                        if (!freezed) {
                             if(game.generals[0].isDead()) {
                                 for (int i = 0; i < game.markers.size();i++){
                                     if (game.markers.get(i).getPos() == 0 && game.markers.get(i).getReady()){
@@ -395,8 +435,9 @@ public class PlayNow implements SceneInterface {
         gc.setTextAlign(TextAlignment.CENTER);
         gc.setFont( theFont );
 
-        if (Main.gameMode == 0) game = new Game(ball, generalA, generalB, generalC, generalD, true);
-        else game = new Game(ball, generalA, generalB, generalC, generalD, false);
+        if (Main.gameMode == 0) game = new Game(ball, generalA, generalB, generalC, generalD, 2);
+        else if (Main.gameMode == 99) game = new Game(ball, generalA, generalB, generalC, generalD, 4);
+        else game = new Game(ball, generalA, generalB, generalC, generalD, 3);
 
         SoundManager.playBackground();
         //game.ball.setYPos(game.generals[1].paddle.calcYPos());

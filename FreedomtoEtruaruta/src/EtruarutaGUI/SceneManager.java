@@ -90,6 +90,18 @@ public class SceneManager {
     }
 
     /**
+     * Sets the scene to be the Demo Scene
+     * @param sceneManager SceneManager currently being used
+     */
+    public void goToDemoScene(SceneManager sceneManager) {
+        Main.gameMode = 99;
+        animation.stop();
+        PlayNow playNow = new PlayNow(sceneManager);
+        Scene playNowScene = playNow.init(Main.WIDTH, Main.HEIGHT);
+        stage.setScene(playNowScene);
+    }
+
+    /**
      * Sets the scene to be the Instructions Scene
      * @param sceneManager SceneManager currently being used
      */
