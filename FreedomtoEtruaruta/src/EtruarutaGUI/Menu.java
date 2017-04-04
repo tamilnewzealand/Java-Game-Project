@@ -52,7 +52,6 @@ public class Menu implements SceneInterface {
         addTitle();
         addStartButton();
         addMultiplayer2Button();
-        addMultiplayer4Button();
         addInstructionsButton();
         addDemoButton();
         addHighScoresButton();
@@ -88,28 +87,15 @@ public class Menu implements SceneInterface {
         multi2Button.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                sceneManager.goToInstructionsScene(sceneManager);
+                sceneManager.goToMultiplayerScene(sceneManager);
             }
         });
 
         root.getChildren().add(multi2Button);
     }
 
-    private void addMultiplayer4Button() {
-        Button multi4Button = GUIComponent.createButton("Multiplayer (4P)", 426, 300);
-
-        multi4Button.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                sceneManager.goToInstructionsScene(sceneManager);
-            }
-        });
-
-        root.getChildren().add(multi4Button);
-    }
-
     private void addInstructionsButton() {
-        Button instructionsButton = GUIComponent.createButton("Instructions", 426, 360);
+        Button instructionsButton = GUIComponent.createButton("Instructions", 426, 300);
 
         instructionsButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -122,7 +108,7 @@ public class Menu implements SceneInterface {
     }
 
     private void addDemoButton() {
-        Button demoButton = GUIComponent.createButton("Demo", 426, 420);
+        Button demoButton = GUIComponent.createButton("Demo", 426, 360);
 
         demoButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -135,7 +121,7 @@ public class Menu implements SceneInterface {
     }
 
     private void addHighScoresButton() {
-        Button highScoresButton = GUIComponent.createButton("High Scores", 426, 480);
+        Button highScoresButton = GUIComponent.createButton("High Scores", 426, 420);
 
         highScoresButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -148,7 +134,7 @@ public class Menu implements SceneInterface {
     }
 
     private void addSettingsButton() {
-        Button settingsButton = GUIComponent.createButton("Settings", 426, 540);
+        Button settingsButton = GUIComponent.createButton("Settings", 426, 480);
 
         settingsButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -161,7 +147,7 @@ public class Menu implements SceneInterface {
     }
 
     private void addExitButton() {
-        Button exitButton = GUIComponent.createButton("Exit", 426, 600);
+        Button exitButton = GUIComponent.createButton("Exit", 426, 540);
 
         exitButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override

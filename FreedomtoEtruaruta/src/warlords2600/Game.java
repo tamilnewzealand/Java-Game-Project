@@ -41,7 +41,7 @@ public class Game{
         this.generals[0].wall[0][0] = brick;
     }
 
-    public Game(Ball ball, General generalA, General generalB, General generalC, General generalD) {
+    public Game(Ball ball, General generalA, General generalB, General generalC, General generalD, boolean multi) {
         this.ball = ball;
         this.generals = new General[4];
         this.generals[0] = generalA;
@@ -52,11 +52,16 @@ public class Game{
         this.AIs.add(new AIController());
         this.AIs.get(0).setGeneral(generalB);
 
-        this.AIs.add(new AIController());
-        this.AIs.get(1).setGeneral(generalC);
+        if (!multi) {
+            this.AIs.add(new AIController());
+            this.AIs.get(1).setGeneral(generalC);
 
-        this.AIs.add(new AIController());
-        this.AIs.get(2).setGeneral(generalD);
+            this.AIs.add(new AIController());
+            this.AIs.get(2).setGeneral(generalD);
+        } else {
+            this.AIs.add(new AIController());
+            this.AIs.get(1).setGeneral(generalD);
+        }
 
         this.deadPos = new int[4];
 

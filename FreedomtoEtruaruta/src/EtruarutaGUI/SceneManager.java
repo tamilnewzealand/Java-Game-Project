@@ -66,6 +66,17 @@ public class SceneManager {
     }
 
     /**
+     * Sets the scene to be the Multiplayer Scene
+     * @param sceneManager SceneManager currently being used
+     */
+    public void goToMultiplayerScene(SceneManager sceneManager) {
+        animation.stop();
+        Multiplayer multiplayer = new Multiplayer(sceneManager);
+        Scene multiplayerScene = multiplayer.init(Main.WIDTH, Main.HEIGHT);
+        stage.setScene(multiplayerScene);
+    }
+
+    /**
      * Sets the scene to be the Instructions Scene
      * @param sceneManager SceneManager currently being used
      */

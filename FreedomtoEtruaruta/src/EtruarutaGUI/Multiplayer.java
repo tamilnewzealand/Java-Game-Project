@@ -25,29 +25,29 @@ import warlords2600.*;
  * @version 0.1.0
  */
 
-public class PlayNow implements SceneInterface {
+public class Multiplayer implements SceneInterface {
     private SceneManager sceneManager;
-    private Scene playNowScene;
+    private Scene multiplayerScene;
     private Group root;
     private Game game;
     private EventHandler<KeyEvent> handler;
     private boolean paused = false;
 
     /**
-     * Constructor for PlayNow class
+     * Constructor for Multiplayer class
      * @param sceneManager SceneManager currently being used
      */
-    public PlayNow(SceneManager sceneManager) {
+    public Multiplayer(SceneManager sceneManager) {
         this.sceneManager = sceneManager;
     }
 
     /**
-     * Returns the PlayNow Scene
+     * Returns the Multiplayer Scene
      */
     @Override
     public Scene init(int width, int height) {
         root = new Group();
-        playNowScene = new Scene(root, width, height, Color.ORANGE);
+        multiplayerScene = new Scene(root, width, height, Color.ORANGE);
 
         Canvas canvas = new Canvas( Main.WIDTH, Main.HEIGHT );
         root.getChildren().add( canvas );
@@ -55,9 +55,9 @@ public class PlayNow implements SceneInterface {
         GraphicsContext gc = canvas.getGraphicsContext2D();
         gc = renderGame(gc);
         HandleInputs();
-        playNowScene.addEventHandler(KeyEvent.KEY_PRESSED, handler);
+        multiplayerScene.addEventHandler(KeyEvent.KEY_PRESSED, handler);
 
-        return playNowScene;
+        return multiplayerScene;
     }
 
     public void HandleInputs() {
@@ -66,6 +66,66 @@ public class PlayNow implements SceneInterface {
             public void handle(KeyEvent keyEvent) {
                 switch(keyEvent.getCode()) {
                     case LEFT:
+                        if (!paused) {
+                            if(!game.generals[2].isDead()) {
+                                game.generals[2].paddle.moveLeft();
+                            }else{
+                                for (int i = 0; i < game.markers.size();i++){
+                                    if (game.markers.get(i).getPos() == 0){
+                                        game.markers.get(i).moveLeft();
+                                    }
+                                }
+                            }
+                        }
+                        break;
+                    case RIGHT:
+                        if (!paused) {
+                            if(!game.generals[2].isDead()) {
+                                game.generals[2].paddle.moveRight();
+                            }else{
+                                for (int i = 0; i < game.markers.size();i++){
+                                    if (game.markers.get(i).getPos() == 0){
+                                        game.markers.get(i).moveRight();
+                                    }
+                                }
+                            }
+                        }
+                        break;
+                    case UP:
+                        if (!paused) {
+                            if(game.generals[2].isDead()) {
+                                for (int i = 0; i < game.markers.size();i++){
+                                    if (game.markers.get(i).getPos() == 0){
+                                        game.markers.get(i).moveUp();
+                                    }
+                                }
+                            }
+                        }
+                        break;
+                    case DOWN:
+                        if (!paused) {
+                            if(game.generals[2].isDead()) {
+                                for (int i = 0; i < game.markers.size();i++){
+                                    if (game.markers.get(i).getPos() == 0){
+                                        game.markers.get(i).moveDown();
+                                    }
+                                }
+                            }
+                        }
+                        break;
+                    case SHIFT:
+                        if (!paused) {
+                            if(game.generals[2].isDead()) {
+                                for (int i = 0; i < game.markers.size();i++){
+                                    if (game.markers.get(i).getPos() == 0 && game.markers.get(i).getReady()){
+                                        game.generatePowerUp(game.markers.get(i).calcXPos(), game.markers.get(i).calcYPos());
+                                        game.markers.get(i).resetReadyCounter();
+                                    }
+                                }
+                            }
+                        }
+                        break;
+                    case A:
                         if (!paused) {
                             if(!game.generals[0].isDead()) {
                                 game.generals[0].paddle.moveLeft();
@@ -78,7 +138,7 @@ public class PlayNow implements SceneInterface {
                             }
                         }
                         break;
-                    case RIGHT:
+                    case D:
                         if (!paused) {
                             if(!game.generals[0].isDead()) {
                                 game.generals[0].paddle.moveRight();
@@ -91,7 +151,7 @@ public class PlayNow implements SceneInterface {
                             }
                         }
                         break;
-                    case UP:
+                    case W:
                         if (!paused) {
                             if(game.generals[0].isDead()) {
                                 for (int i = 0; i < game.markers.size();i++){
@@ -102,7 +162,7 @@ public class PlayNow implements SceneInterface {
                             }
                         }
                         break;
-                    case DOWN:
+                    case S:
                         if (!paused) {
                             if(game.generals[0].isDead()) {
                                 for (int i = 0; i < game.markers.size();i++){
@@ -113,7 +173,7 @@ public class PlayNow implements SceneInterface {
                             }
                         }
                         break;
-                    case SHIFT:
+                    case E:
                         if (!paused) {
                             if(game.generals[0].isDead()) {
                                 for (int i = 0; i < game.markers.size();i++){
@@ -127,7 +187,7 @@ public class PlayNow implements SceneInterface {
                         break;
                     case ESCAPE:
                         game.setFinished(true);
-                        playNowScene.removeEventHandler(KeyEvent.KEY_PRESSED, handler);
+                        multiplayerScene.removeEventHandler(KeyEvent.KEY_PRESSED, handler);
                         sceneManager.goToMenuScene(sceneManager);
                         break;
                     case P:
@@ -227,10 +287,9 @@ public class PlayNow implements SceneInterface {
         gc.setTextAlign(TextAlignment.CENTER);
         gc.setFont( theFont );
 
-        game = new Game(ball, generalA, generalB, generalC, generalD, false);
+        game = new Game(ball, generalA, generalB, generalC, generalD, true);
 
         SoundManager.playBackground();
-        //game.ball.setYPos(game.generals[1].paddle.calcYPos());
 
         new AnimationTimer()
         {
@@ -290,7 +349,7 @@ public class PlayNow implements SceneInterface {
 
                     if (game.getFinished()) {
                         sceneManager.goToMenuScene(sceneManager);
-                        playNowScene.removeEventHandler(KeyEvent.KEY_PRESSED, handler);
+                        multiplayerScene.removeEventHandler(KeyEvent.KEY_PRESSED, handler);
                     }
 
                     if (paused)
