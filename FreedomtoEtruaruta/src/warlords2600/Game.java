@@ -193,8 +193,8 @@ public class Game{
 
 
     private boolean objectCollision (IObject object, boolean ballHit) {
-        for (int x = object.calcXPos(); x < (object.calcXPos() + object.getWidth()); x++) {
-            for (int y = object.calcYPos(); y < (object.calcYPos() + object.getHeight()); y++) {
+        for (int x = object.calcXPos(); x <= (object.calcXPos() + object.getWidth()); x++) {
+            for (int y = object.calcYPos(); y <= (object.calcYPos() + object.getHeight()); y++) {
                 if (x == object.calcXPos() || y == object.calcYPos() || x == (object.calcXPos() + object.getWidth()) || y == (object.calcYPos() + object.getHeight())) {
                     if (inBallPath(x, y)) {
                         if (x == object.calcXPos()) {
@@ -202,29 +202,29 @@ public class Game{
                             //System.out.println(ball.getXPos());
                             ball.setXPos(ball.getXPos() + ball.getXVelocity());
                             ball.setYPos(ball.getYPos() + ball.getYVelocity());
-                            //System.out.println("A , X: " + ball.getXPos() + " Y: " + ball.getYPos() + " Y Velocity: " + ball.getYVelocity() + " X Velocity: " + ball.getXVelocity());
+                            System.out.println("A, X: " + ball.getXPos() + " Y: " + ball.getYPos() + " Y Velocity: " + ball.getYVelocity() + " X Velocity: " + ball.getXVelocity());
                             ball.setHitLastTick(true);
                             return true;
                         } else if (y == object.calcYPos()) {
-                            ball.setYVelocity(-ball.getYVelocity());
+                            ball.setXVelocity(-ball.getXVelocity());
                             ball.setXPos(ball.getXPos() + ball.getXVelocity());
                             //System.out.println(ball.getYPos());
                             ball.setYPos(ball.getYPos() + ball.getYVelocity());
-                            //System.out.println("B , X: " + ball.getXPos() + " Y: " + ball.getYPos() + " Y Velocity: " + ball.getYVelocity() + " X Velocity: " + ball.getXVelocity());
+                            System.out.println("B, X: " + ball.getXPos() + " Y: " + ball.getYPos() + " Y Velocity: " + ball.getYVelocity() + " X Velocity: " + ball.getXVelocity());
                             ball.setHitLastTick(true);
                             return true;
                         } else if (x == (object.calcXPos() + object.getWidth())) {
                             ball.setYVelocity(-ball.getYVelocity());
                             //ball.setXPos(ball.getXPos() - ball.getXVelocity());
                             ball.setYPos(ball.getYPos() - ball.getYVelocity());
-                            System.out.println("C");
+                            System.out.println("C, X: " + ball.getXPos() + " Y: " + ball.getYPos() + " Y Velocity: " + ball.getYVelocity() + " X Velocity: " + ball.getXVelocity());
                             ball.setHitLastTick(true);
                             return true;
                         } else if (y == (object.calcYPos() + object.getHeight())) {
-                            ball.setYVelocity(-ball.getYVelocity());
+                            ball.setXVelocity(-ball.getXVelocity());
                             //ball.setXPos(ball.getXPos() - ball.getXVelocity());
                             ball.setYPos(ball.getYPos() - ball.getYVelocity());
-                            System.out.println("D");
+                            System.out.println("D, X: " + ball.getXPos() + " Y: " + ball.getYPos() + " Y Velocity: " + ball.getYVelocity() + " X Velocity: " + ball.getXVelocity());
                             ball.setHitLastTick(true);
                             return true;
                         }
