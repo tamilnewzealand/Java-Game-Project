@@ -17,6 +17,16 @@ import javafx.scene.text.Text;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.GridPane;
 
+/**
+ * This class presents the settings scene. The user
+ * is presented with the settings for configuring
+ * advanced options for playing the game.
+ *
+ * @author Adil Bhayani <abha808@aucklanduni.ac.nz>
+ * @author Sakayan Sitsabesan <ssit662@aucklanduni.ac.nz>
+ * @version 0.1.0
+ */
+
 public class Settings implements SceneInterface {
     private SceneManager sceneManager;
     private Scene settingsScene;

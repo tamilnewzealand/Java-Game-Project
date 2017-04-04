@@ -10,6 +10,14 @@ import javafx.scene.control.Button;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 
+/**
+ * This class presents the High Score scene. The user
+ * is presented with the list of high scores for the game.
+ *
+ * @author Adil Bhayani <abha808@aucklanduni.ac.nz>
+ * @author Sakayan Sitsabesan <ssit662@aucklanduni.ac.nz>
+ * @version 0.1.0
+ */
 public class HiScore implements SceneInterface {
     private SceneManager sceneManager;
     private Scene hiScoreScene;

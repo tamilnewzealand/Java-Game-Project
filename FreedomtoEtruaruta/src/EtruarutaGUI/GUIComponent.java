@@ -77,6 +77,9 @@ public class GUIComponent {
 	}
 
     /**
+	 * Draws the orbiting planet around star animation,
+     * which is used as part of the background in menu
+     * scenes.
      *
      * @param gc GraphicsContext to draw animation onto
      * @return GraphicsContext with the animation drawn

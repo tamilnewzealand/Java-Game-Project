@@ -17,83 +17,75 @@ public class Paddle implements IObject {
     private int previousWidth;
     private int widthUpCounter = 0;
 
-    public Paddle() {
-        this.theta = Math.PI/4;
-        this.x = 0;
-        this.y = 0;
-    }
-
+    /**
+     * Constructor for paddle class
+     * @param theta the angle from the centre line in radians
+     * @param pos the position of the paddle in the game board
+     */
     public Paddle(double theta, int pos) {
         this.theta = theta;
         this.pos = pos;
     }
 
-    public Paddle(int x, int y) {
-        this.x = x;
-        this.y = y;
-
-    }
-
+    /**
+     *
+     * @return whether the size of the paddle has been increased
+     */
     public boolean getSizeIncreased(){
         return sizeIncreased;
     }
 
-    public void setXPos(int x){
-        this.x = x;
-    }
-
-    public void setYPos(int y){
-        this.y = y;
-    }
-
+    /**
+     *
+     * @param speed Sets the new speed of the paddle
+     */
     public void setSpeed(int speed){
         this.speed = speed;
     }
 
+    /**
+     *
+     * @param width sets the new width of the paddle
+     */
     public void setWidth(int width){
         this.width = width;
     }
 
+    /**
+     *
+     * @param height sets the new height of the paddle
+     */
     public void setHeight(int height){
         this.height = height;
     }
 
-    public int getXPos(){
-        return x;
-    }
-
-    public int getYPos(){
-        return y;
-    }
-
+    /**
+     *
+     * @return returns teh current speed of the paddle
+     */
     public int getSpeed(){
         return speed;
     }
 
+    /**
+     *
+     * @return width of the paddle
+     */
     public int getWidth(){
         return width;
     }
 
+    /**
+     *
+     * @return height of the paddle
+     */
     public int getHeight(){
         return height;
     }
 
-    public void goLeft() {
-        if (x >= speed) x -= speed;
-    }
-
-    public void goRight() {
-        if (x < Main.WIDTH - speed - width/2)x += speed;
-    }
-
-    public void goDown() {
-        if (y < Main.HEIGHT - speed - 1.5*height) y += speed;
-    }
-
-    public void goUp() {
-        if (y >= speed) y -= speed;
-    }
-
+    /**
+     * Moves the paddle one speed unit to the right direction
+     */
     public void moveRight() {
         if (pos == 0 || pos == 3) {
             if (theta > polarSpeed) theta -= polarSpeed;
@@ -102,6 +94,9 @@ public class Paddle implements IObject {
         }
     }
 
+    /**
+     * Moves the paddle one speed unit to the left direction
+     */
     public void moveLeft() {
         if (pos == 0 || pos == 3) {
             if (theta < Math.PI / 2 - polarSpeed) theta += polarSpeed;
@@ -110,10 +105,18 @@ public class Paddle implements IObject {
         }
     }
 
+    /**
+     *
+     * @param theta the angle from the centre line in radians
+     */
     public void setTheta(double theta) {
         this.theta = theta;
     }
 
+    /**
+     *
+     * @return the calculated x position in the cartesian plane
+     */
     public int calcXPos() {
         x = (int)(r * Math.cos(theta));
         switch (pos) {
@@ -125,6 +128,10 @@ public class Paddle implements IObject {
         }
     }
 
+    /**
+     *
+     * @return the calculated y position in the cartesian plane
+     */
     public int calcYPos() {
         y = (int)(r * Math.sin(theta));
         switch (pos) {
@@ -136,14 +143,27 @@ public class Paddle implements IObject {
         }
     }
 
+    /**
+     *
+     * @return returns the angle from the centre line of the paddle in radians
+     */
     public double getTheta () {
         return theta;
     }
 
+    /**
+     *
+     * @return the radius from the nearest corner
+     */
     public int getR () {
         return r;
     }
 
+    /**
+     * Checks whether the width of the paddle has increased
+     *
+     * @param width the width of the paddle
+     */
     public void checkIncreaseWidth(int width){
         if (!sizeIncreased){
             this.previousWidth = this.width;
@@ -153,6 +173,9 @@ public class Paddle implements IObject {
         }
     }
 
+    /**
+     * Checks whether the width of the paddle has decreased
+     */
     public void checkDecreaseWidth(){
         if (sizeIncreased){
             if (widthUpCounter > 0){
@@ -163,5 +186,4 @@ public class Paddle implements IObject {
             }
         }
     }
-
 }

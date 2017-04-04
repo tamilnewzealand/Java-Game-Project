@@ -13,6 +13,14 @@ import javafx.scene.media.MediaView;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 
+/**
+ * This class presents the intro scene and plays
+ * the intro video.
+ *
+ * @author Adil Bhayani <abha808@aucklanduni.ac.nz>
+ * @author Sakayan Sitsabesan <ssit662@aucklanduni.ac.nz>
+ * @version 0.1.0
+ */
 public class Intro implements SceneInterface {
     private SceneManager sceneManager;
     private Scene introScene;

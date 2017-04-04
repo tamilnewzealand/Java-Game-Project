@@ -14,15 +14,18 @@ public class General implements IObject {
 
     public Paddle paddle;
     public Brick[][] wall;
-    private int xPos, yPos, height = 25, width = 25, r, pos = 0;
+    private int height = 25, width = 25, r, pos = 0;
     private double theta;
+    private boolean dead = false, won = false;
 
-    public General() {
-        xPos = 0;
-        yPos = 0;
-        this.paddle = new Paddle();
-    }
-
+    /**
+     * Constructor for the general class
+     * @param r radius from nearest corner
+     * @param theta angle from centre line in radians
+     * @param paddle the paddle associated with this general
+     * @param wall the wall associated with this general
+     * @param pos the position of the general in the game field
+     */
     public General(int r, double theta, Paddle paddle, Brick[][] wall, int pos) {
         this.r = r;
         this.theta = theta;
@@ -31,64 +34,74 @@ public class General implements IObject {
         this.pos = pos;
     }
 
-    public General(int xPos, int yPos, Paddle paddle) {
-        this.xPos = xPos;
-        this.yPos = yPos;
-        this.paddle = paddle;
-    }
-
-    private boolean dead = false, won = false;
-
-    public void setXPos(int x) {
-        xPos = x;
-    }
-
-    public void setYPos(int y) {
-        yPos = y;
-    }
-
+    /**
+     *
+     * @param width sets the width of the general
+     */
     public void setWidth(int width){
         this.width = width;
     }
 
+    /**
+     *
+     * @param height sets the height of the general
+     */
     public void setHeight(int height){
         this.height = height;
     }
 
-    public int getXPos() {
-        return xPos;
-    }
-
-    public int getYPos() {
-        return yPos;
-    }
-
+    /**
+     *
+     * @return the current width of the general
+     */
     public int getWidth(){
         return width;
     }
 
+    /**
+     *
+     * @return the current
+     */
     public int getHeight(){
         return height;
     }
 
+    /**
+     *
+     * @return whether the general is dead
+     */
     public boolean isDead() {
         return dead;
     }
 
+    /**
+     * Kills the general when the function is called
+     */
     public void killGeneral() {
         dead = true;
     }
 
+    /**
+     *
+     * @return whether the general has won
+     */
     public boolean hasWon() {
         return won;
     }
 
+    /**
+     * Marks the general as the winner
+     */
     public void setWon() {
         this.won = true;
     }
 
+    /**
+     *
+     * @return the x position of the general in the cartesian plane
+     */
     public int calcXPos() {
-        xPos = (int)(r * Math.cos(theta));
+        int xPos = (int)(r * Math.cos(theta));
         switch (pos) {
             case 0: return xPos;
             case 1: return (Main.WIDTH - xPos);
@@ -98,8 +111,12 @@ public class General implements IObject {
         }
     }
 
+    /**
+     *
+     * @return the y position of the general in the cartesian plane
+     */
     public int calcYPos() {
-        yPos = (int)(r * Math.sin(theta));
+        int yPos = (int)(r * Math.sin(theta));
         switch (pos) {
             case 0: return yPos;
             case 1: return yPos;
@@ -109,10 +126,18 @@ public class General implements IObject {
         }
     }
 
+    /**
+     *
+     * @return the angle from the centre line in radians
+     */
     public double getTheta () {
         return theta;
     }
 
+    /**
+     *
+     * @return the distance from the nearest corner
+     */
     public int getR () {
         return r;
     }
