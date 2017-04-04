@@ -21,7 +21,7 @@ import java.util.ArrayList;
 public class Game{
 
     private boolean isFinished = false;
-    private int timeElapsed = 0;
+    private int timeElapsed = 0, hiScore = 0;
 
     public General[] generals;
     public Ball ball;
@@ -160,9 +160,10 @@ public class Game{
 
             if (timeElapsed > 3600) {
                 isFinished = true;
-                // need to update this logic to better represent timeout wins
-                // rn warlord 0 wins automatically when timeout occurs
-                generals[0].setWon();
+                hiScore = Math.max(Math.max(generals[0].wallCount(), generals[1].wallCount()), Math.max(generals[2].wallCount(), generals[3].wallCount()));
+                for (int i = 0; i < generals.length; i++) {
+                    if (hiScore == generals[i].wallCount()) generals[i].setWon();
+                }
             }
 
             for (int i = 0; i < AIs.size();i++){

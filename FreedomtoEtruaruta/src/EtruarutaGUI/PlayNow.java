@@ -54,7 +54,8 @@ public class PlayNow implements SceneInterface {
 
         GraphicsContext gc = canvas.getGraphicsContext2D();
         gc = renderGame(gc);
-        HandleInputs();
+        if (Main.gameMode == 0) HandleInputsMulti();
+        else HandleInputs();
         playNowScene.addEventHandler(KeyEvent.KEY_PRESSED, handler);
 
         return playNowScene;
@@ -114,6 +115,150 @@ public class PlayNow implements SceneInterface {
                         }
                         break;
                     case SHIFT:
+                        if (!paused) {
+                            if(game.generals[0].isDead()) {
+                                for (int i = 0; i < game.markers.size();i++){
+                                    if (game.markers.get(i).getPos() == 0 && game.markers.get(i).getReady()){
+                                        game.generatePowerUp(game.markers.get(i).calcXPos(), game.markers.get(i).calcYPos());
+                                        game.markers.get(i).resetReadyCounter();
+                                    }
+                                }
+                            }
+                        }
+                        break;
+                    case ESCAPE:
+                        game.setFinished(true);
+                        Main.gameMode = 0;
+                        playNowScene.removeEventHandler(KeyEvent.KEY_PRESSED, handler);
+                        sceneManager.goToMenuScene(sceneManager);
+                        break;
+                    case P:
+                        if (paused) {
+                            paused = false;
+                        } else{
+                            paused = true;
+                        }
+                        break;
+                }
+            }
+
+        };
+    }
+
+    public void HandleInputsMulti() {
+        handler = new EventHandler<KeyEvent>(){
+            @Override
+            public void handle(KeyEvent keyEvent) {
+                switch(keyEvent.getCode()) {
+                    case LEFT:
+                        if (!paused) {
+                            if(!game.generals[2].isDead()) {
+                                game.generals[2].paddle.moveLeft();
+                            }else{
+                                for (int i = 0; i < game.markers.size();i++){
+                                    if (game.markers.get(i).getPos() == 0){
+                                        game.markers.get(i).moveLeft();
+                                    }
+                                }
+                            }
+                        }
+                        break;
+                    case RIGHT:
+                        if (!paused) {
+                            if(!game.generals[2].isDead()) {
+                                game.generals[2].paddle.moveRight();
+                            }else{
+                                for (int i = 0; i < game.markers.size();i++){
+                                    if (game.markers.get(i).getPos() == 0){
+                                        game.markers.get(i).moveRight();
+                                    }
+                                }
+                            }
+                        }
+                        break;
+                    case UP:
+                        if (!paused) {
+                            if(game.generals[2].isDead()) {
+                                for (int i = 0; i < game.markers.size();i++){
+                                    if (game.markers.get(i).getPos() == 0){
+                                        game.markers.get(i).moveUp();
+                                    }
+                                }
+                            }
+                        }
+                        break;
+                    case DOWN:
+                        if (!paused) {
+                            if(game.generals[2].isDead()) {
+                                for (int i = 0; i < game.markers.size();i++){
+                                    if (game.markers.get(i).getPos() == 0){
+                                        game.markers.get(i).moveDown();
+                                    }
+                                }
+                            }
+                        }
+                        break;
+                    case SHIFT:
+                        if (!paused) {
+                            if(game.generals[2].isDead()) {
+                                for (int i = 0; i < game.markers.size();i++){
+                                    if (game.markers.get(i).getPos() == 0 && game.markers.get(i).getReady()){
+                                        game.generatePowerUp(game.markers.get(i).calcXPos(), game.markers.get(i).calcYPos());
+                                        game.markers.get(i).resetReadyCounter();
+                                    }
+                                }
+                            }
+                        }
+                        break;
+                    case A:
+                        if (!paused) {
+                            if(!game.generals[0].isDead()) {
+                                game.generals[0].paddle.moveLeft();
+                            }else{
+                                for (int i = 0; i < game.markers.size();i++){
+                                    if (game.markers.get(i).getPos() == 0){
+                                        game.markers.get(i).moveLeft();
+                                    }
+                                }
+                            }
+                        }
+                        break;
+                    case D:
+                        if (!paused) {
+                            if(!game.generals[0].isDead()) {
+                                game.generals[0].paddle.moveRight();
+                            }else{
+                                for (int i = 0; i < game.markers.size();i++){
+                                    if (game.markers.get(i).getPos() == 0){
+                                        game.markers.get(i).moveRight();
+                                    }
+                                }
+                            }
+                        }
+                        break;
+                    case W:
+                        if (!paused) {
+                            if(game.generals[0].isDead()) {
+                                for (int i = 0; i < game.markers.size();i++){
+                                    if (game.markers.get(i).getPos() == 0){
+                                        game.markers.get(i).moveUp();
+                                    }
+                                }
+                            }
+                        }
+                        break;
+                    case S:
+                        if (!paused) {
+                            if(game.generals[0].isDead()) {
+                                for (int i = 0; i < game.markers.size();i++){
+                                    if (game.markers.get(i).getPos() == 0){
+                                        game.markers.get(i).moveDown();
+                                    }
+                                }
+                            }
+                        }
+                        break;
+                    case E:
                         if (!paused) {
                             if(game.generals[0].isDead()) {
                                 for (int i = 0; i < game.markers.size();i++){
@@ -227,7 +372,8 @@ public class PlayNow implements SceneInterface {
         gc.setTextAlign(TextAlignment.CENTER);
         gc.setFont( theFont );
 
-        game = new Game(ball, generalA, generalB, generalC, generalD, false);
+        if (Main.gameMode == 0) game = new Game(ball, generalA, generalB, generalC, generalD, true);
+        else game = new Game(ball, generalA, generalB, generalC, generalD, false);
 
         SoundManager.playBackground();
         //game.ball.setYPos(game.generals[1].paddle.calcYPos());
@@ -289,8 +435,29 @@ public class PlayNow implements SceneInterface {
                     gc.fillText(game.getTimeRemaining(), Main.WIDTH/2, 60);
 
                     if (game.getFinished()) {
-                        sceneManager.goToMenuScene(sceneManager);
                         playNowScene.removeEventHandler(KeyEvent.KEY_PRESSED, handler);
+                        if (game.generals[0].hasWon()) {
+                            switch (Main.gameMode)  {
+                                case 2:
+                                    Main.gameMode = 3;
+                                    sceneManager.goToPlayNowScene(sceneManager);
+                                    break;
+                                case 4:
+                                    Main.gameMode = 5;
+                                    sceneManager.goToPlayNowScene(sceneManager);
+                                    break;
+                                case 6:
+                                    Main.gameMode = 7;
+                                    sceneManager.goToPlayNowScene(sceneManager);
+                                    break;
+                                default:
+                                    Main.gameMode = 0;
+                                    sceneManager.goToMenuScene(sceneManager);
+                            }
+                        } else {
+                            Main.gameMode = 0;
+                            sceneManager.goToMenuScene(sceneManager);
+                        }
                     }
 
                     if (paused)

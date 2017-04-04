@@ -141,4 +141,14 @@ public class General implements IObject {
     public int getR () {
         return r;
     }
+
+    public int wallCount () {
+        int wallCount = 0;
+        for (int i = 0; i < wall.length; i++) {
+            for (int j = 0; j < wall[0].length; j++) {
+                if (!wall[i][j].isDestroyed()) wallCount++;
+            }
+        }
+        return wallCount;
+    }
 }

@@ -58,7 +58,7 @@ public class SceneManager {
      * Sets the scene to be the Play Now Scene
      * @param sceneManager SceneManager currently being used
      */
-    public void goToPlayNowScene(SceneManager sceneManager) {
+    public void goToGameScene(SceneManager sceneManager) {
         animation.stop();
         PlayNow playNow = new PlayNow(sceneManager);
         Scene playNowScene = playNow.init(Main.WIDTH, Main.HEIGHT);
@@ -66,14 +66,27 @@ public class SceneManager {
     }
 
     /**
+     * Sets the scene to be the Play Now Scene
+     * @param sceneManager SceneManager currently being used
+     */
+    public void goToPlayNowScene(SceneManager sceneManager) {
+        if (Main.gameMode == 0) Main.gameMode = 1;
+        animation.stop();
+        Story story = new Story(sceneManager);
+        Scene storyScene = story.init(Main.WIDTH, Main.HEIGHT);
+        stage.setScene(storyScene);
+    }
+
+    /**
      * Sets the scene to be the Multiplayer Scene
      * @param sceneManager SceneManager currently being used
      */
     public void goToMultiplayerScene(SceneManager sceneManager) {
+        Main.gameMode = 0;
         animation.stop();
-        Multiplayer multiplayer = new Multiplayer(sceneManager);
-        Scene multiplayerScene = multiplayer.init(Main.WIDTH, Main.HEIGHT);
-        stage.setScene(multiplayerScene);
+        PlayNow playNow = new PlayNow(sceneManager);
+        Scene playNowScene = playNow.init(Main.WIDTH, Main.HEIGHT);
+        stage.setScene(playNowScene);
     }
 
     /**
