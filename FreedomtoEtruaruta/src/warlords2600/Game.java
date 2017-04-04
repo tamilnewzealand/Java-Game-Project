@@ -22,7 +22,6 @@ public class Game{
 
     private boolean isFinished = false;
     private int timeElapsed = 0;
-    private boolean paused = false;
 
     public General[] generals;
     public Ball ball;
@@ -64,7 +63,6 @@ public class Game{
     }
 
     public void tick(){
-        if (!paused) {
             timeElapsed++;
             boolean ballHit = false;
             boolean generalHit = false;
@@ -191,7 +189,6 @@ public class Game{
                     }
                 }
             }
-        }
     }
 
 
@@ -318,11 +315,8 @@ public class Game{
         return isFinished;
     }
 
-    public boolean getPaused() {
-        return paused;
-    }
 
-    private void generatePowerUp(){
+    public void generatePowerUp(){
         int option = (int)Math.random() * 2;
         if (option == 0){
             this.powerUps.add(new PaddleSizeUp());
@@ -335,7 +329,7 @@ public class Game{
         powerUps.get(powerUps.size()-1).setPos((int) xPos, (int) yPos);
     }
 
-    private void generatePowerUp(int xPos, int yPos){
+    public void generatePowerUp(int xPos, int yPos){
         int option = (int)(Math.random() * 2);
         System.out.println(option);
         if (option == 0){
@@ -344,88 +338,5 @@ public class Game{
             this.powerUps.add(new SpeedUp());
         }
         powerUps.get(powerUps.size()-1).setPos((int) xPos, (int) yPos);
-    }
-
-
-    public void HandleInputs(Scene playNowScene, SceneManager sceneManager) {
-        playNowScene.setOnKeyPressed(new EventHandler<KeyEvent>(){
-            @Override
-            public void handle(KeyEvent keyEvent) {
-                switch(keyEvent.getCode()) {
-                    case LEFT:
-                        if (!paused) {
-                            if(!generals[0].isDead()) {
-                                generals[0].paddle.moveLeft();
-                            }else{
-                                for (int i = 0; i < markers.size();i++){
-                                    if (markers.get(i).getPos() == 0){
-                                        markers.get(i).moveLeft();
-                                    }
-                                }
-                            }
-                        }
-                        break;
-                    case RIGHT:
-                        if (!paused) {
-                            if(!generals[0].isDead()) {
-                                generals[0].paddle.moveRight();
-                            }else{
-                                for (int i = 0; i < markers.size();i++){
-                                    if (markers.get(i).getPos() == 0){
-                                        markers.get(i).moveRight();
-                                    }
-                                }
-                            }
-                        }
-                        break;
-                    case UP:
-                        if (!paused) {
-                            if(generals[0].isDead()) {
-                                for (int i = 0; i < markers.size();i++){
-                                    if (markers.get(i).getPos() == 0){
-                                        markers.get(i).moveUp();
-                                    }
-                                }
-                            }
-                        }
-                        break;
-                    case DOWN:
-                        if (!paused) {
-                            if(generals[0].isDead()) {
-                                for (int i = 0; i < markers.size();i++){
-                                    if (markers.get(i).getPos() == 0){
-                                        markers.get(i).moveDown();
-                                    }
-                                }
-                            }
-                        }
-                        break;
-                    case SHIFT:
-                        if (!paused) {
-                            if(generals[0].isDead()) {
-                                for (int i = 0; i < markers.size();i++){
-                                    if (markers.get(i).getPos() == 0 && markers.get(i).getReady()){
-                                        generatePowerUp(markers.get(i).calcXPos(), markers.get(i).calcYPos());
-                                        markers.get(i).resetReadyCounter();
-                                    }
-                                }
-                            }
-                        }
-                        break;
-                    case ESCAPE:
-                            setFinished(true);
-                            sceneManager.goToMenuScene(sceneManager);
-                        break;
-                    case P:
-                        if (paused) {
-                            paused = false;
-                        } else{
-                            paused = true;
-                        }
-                        break;
-                }
-            }
-
-        });
     }
 }

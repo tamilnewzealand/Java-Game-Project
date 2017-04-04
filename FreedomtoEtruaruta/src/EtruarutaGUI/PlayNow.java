@@ -1,11 +1,13 @@
 package EtruarutaGUI;
 
 import javafx.animation.AnimationTimer;
+import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
@@ -28,6 +30,8 @@ public class PlayNow implements SceneInterface {
     private Scene playNowScene;
     private Group root;
     private Game game;
+    private EventHandler<KeyEvent> handler;
+    private boolean paused = false;
 
     /**
      * Constructor for PlayNow class
@@ -50,9 +54,93 @@ public class PlayNow implements SceneInterface {
 
         GraphicsContext gc = canvas.getGraphicsContext2D();
         gc = renderGame(gc);
-        game.HandleInputs(playNowScene,sceneManager);
+        HandleInputs();
+        playNowScene.addEventHandler(KeyEvent.KEY_PRESSED, handler);
 
         return playNowScene;
+    }
+
+    public void HandleInputs() {
+        handler = new EventHandler<KeyEvent>(){
+            @Override
+            public void handle(KeyEvent keyEvent) {
+                switch(keyEvent.getCode()) {
+                    case LEFT:
+                        if (!paused) {
+                            if(!game.generals[0].isDead()) {
+                                game.generals[0].paddle.moveLeft();
+                            }else{
+                                for (int i = 0; i < game.markers.size();i++){
+                                    if (game.markers.get(i).getPos() == 0){
+                                        game.markers.get(i).moveLeft();
+                                    }
+                                }
+                            }
+                        }
+                        break;
+                    case RIGHT:
+                        if (!paused) {
+                            if(!game.generals[0].isDead()) {
+                                game.generals[0].paddle.moveRight();
+                            }else{
+                                for (int i = 0; i < game.markers.size();i++){
+                                    if (game.markers.get(i).getPos() == 0){
+                                        game.markers.get(i).moveRight();
+                                    }
+                                }
+                            }
+                        }
+                        break;
+                    case UP:
+                        if (!paused) {
+                            if(game.generals[0].isDead()) {
+                                for (int i = 0; i < game.markers.size();i++){
+                                    if (game.markers.get(i).getPos() == 0){
+                                        game.markers.get(i).moveUp();
+                                    }
+                                }
+                            }
+                        }
+                        break;
+                    case DOWN:
+                        if (!paused) {
+                            if(game.generals[0].isDead()) {
+                                for (int i = 0; i < game.markers.size();i++){
+                                    if (game.markers.get(i).getPos() == 0){
+                                        game.markers.get(i).moveDown();
+                                    }
+                                }
+                            }
+                        }
+                        break;
+                    case SHIFT:
+                        if (!paused) {
+                            if(game.generals[0].isDead()) {
+                                for (int i = 0; i < game.markers.size();i++){
+                                    if (game.markers.get(i).getPos() == 0 && game.markers.get(i).getReady()){
+                                        game.generatePowerUp(game.markers.get(i).calcXPos(), game.markers.get(i).calcYPos());
+                                        game.markers.get(i).resetReadyCounter();
+                                    }
+                                }
+                            }
+                        }
+                        break;
+                    case ESCAPE:
+                        game.setFinished(true);
+                        playNowScene.removeEventHandler(KeyEvent.KEY_PRESSED, handler);
+                        sceneManager.goToMenuScene(sceneManager);
+                        break;
+                    case P:
+                        if (paused) {
+                            paused = false;
+                        } else{
+                            paused = true;
+                        }
+                        break;
+                }
+            }
+
+        };
     }
 
     /**
@@ -150,7 +238,7 @@ public class PlayNow implements SceneInterface {
 
             public void handle(long currentNanoTime)
             {
-                if (currentNanoTime - lastUpdate >= 16666666) {
+                if ((currentNanoTime - lastUpdate >= 16666666) && !game.isFinished()) {
                     lastUpdate = currentNanoTime;
                     // Clear the canvas
                     gc.clearRect(0, 0, Main.WIDTH, Main.WIDTH);
@@ -194,16 +282,18 @@ public class PlayNow implements SceneInterface {
                         if (!game.generals[k].isDead()) gc.drawImage(generalImage, game.generals[k].calcXPos(), game.generals[k].calcYPos(), game.generals[k].getWidth(), game.generals[k].getHeight());
                     }
 
-
-                    game.tick();
+                    if (!paused) {
+                        game.tick();
+                    }
 
                     gc.fillText(game.getTimeRemaining(), Main.WIDTH/2, 60);
 
                     if (game.getFinished()) {
                         sceneManager.goToMenuScene(sceneManager);
+                        playNowScene.removeEventHandler(KeyEvent.KEY_PRESSED, handler);
                     }
 
-                    if (game.getPaused())
+                    if (paused)
                         gc.fillText("Paused", Main.WIDTH/2, Main.HEIGHT/2);
                     }
                 }
