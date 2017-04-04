@@ -32,6 +32,7 @@ public class PlayNow implements SceneInterface {
     private Game game;
     private EventHandler<KeyEvent> handler;
     private boolean paused = false;
+    private boolean escaping = false;
 
     /**
      * Constructor for PlayNow class
@@ -127,10 +128,21 @@ public class PlayNow implements SceneInterface {
                         }
                         break;
                     case ESCAPE:
-                        game.setFinished(true);
-                        Main.gameMode = 0;
-                        playNowScene.removeEventHandler(KeyEvent.KEY_PRESSED, handler);
-                        sceneManager.goToMenuScene(sceneManager);
+                        if (paused && escaping) {
+                            paused = false;
+                            escaping = false;
+                        } else{
+                            paused = true;
+                            escaping = true;
+                        }
+                        break;
+                    case ENTER:
+                        if (paused && escaping) {
+                            Main.gameMode = 0;
+                            game.setFinished(true);
+                            playNowScene.removeEventHandler(KeyEvent.KEY_PRESSED, handler);
+                            sceneManager.goToMenuScene(sceneManager);
+                        }
                         break;
                     case P:
                         if (paused) {
@@ -271,9 +283,20 @@ public class PlayNow implements SceneInterface {
                         }
                         break;
                     case ESCAPE:
-                        game.setFinished(true);
-                        playNowScene.removeEventHandler(KeyEvent.KEY_PRESSED, handler);
-                        sceneManager.goToMenuScene(sceneManager);
+                        if (paused && escaping) {
+                            paused = false;
+                            escaping = false;
+                        } else{
+                            paused = true;
+                            escaping = true;
+                        }
+                        break;
+                    case ENTER:
+                        if (paused && escaping) {
+                            game.setFinished(true);
+                            playNowScene.removeEventHandler(KeyEvent.KEY_PRESSED, handler);
+                            sceneManager.goToMenuScene(sceneManager);
+                        }
                         break;
                     case P:
                         if (paused) {
@@ -428,11 +451,14 @@ public class PlayNow implements SceneInterface {
                         if (!game.generals[k].isDead()) gc.drawImage(generalImage, game.generals[k].calcXPos(), game.generals[k].calcYPos(), game.generals[k].getWidth(), game.generals[k].getHeight());
                     }
 
-                    if (!paused) {
+                    if (game.isCountingDown()) {
+                        game.countdownTick();
+                    }else if (!paused) {
                         game.tick();
                     }
 
-                    gc.fillText(game.getTimeRemaining(), Main.WIDTH/2, 60);
+                    if (game.isCountingDown()) gc.fillText(game.getCountdownRemaining(), Main.WIDTH/2, 60);
+                    else gc.fillText(game.getTimeRemaining(), Main.WIDTH/2, 60);
 
                     if (game.getFinished()) {
                         playNowScene.removeEventHandler(KeyEvent.KEY_PRESSED, handler);
@@ -460,8 +486,11 @@ public class PlayNow implements SceneInterface {
                         }
                     }
 
-                    if (paused)
+                    if (paused && !escaping)
                         gc.fillText("Paused", Main.WIDTH/2, Main.HEIGHT/2);
+                    }
+                    if (paused && escaping) {
+                        gc.fillText("Press enter to exit", Main.WIDTH/2, Main.HEIGHT/2);
                     }
                 }
 

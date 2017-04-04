@@ -20,8 +20,8 @@ import java.util.ArrayList;
 
 public class Game{
 
-    private boolean isFinished = false;
-    private int timeElapsed = 0, hiScore = 0;
+    private boolean isFinished = false, countingDown = true;
+    private int timeElapsed = 0, hiScore = 0, countDown = 91;
 
     public General[] generals;
     public Ball ball;
@@ -65,6 +65,15 @@ public class Game{
 
         this.deadPos = new int[4];
 
+    }
+
+    public void countdownTick() {
+        if (countDown > 0) countDown--;
+        else countingDown = false;
+    }
+
+    public boolean isCountingDown() {
+        return countingDown;
     }
 
     public void tick(){
@@ -307,6 +316,11 @@ public class Game{
         if (time == 120) return "2:00";
         if (time > 59) return "1:" + String.format("%02d",time-60);
         else return "0:" + String.format("%02d",time);
+    }
+
+    public String getCountdownRemaining() {
+        int time = (countDown / 30);
+        return "0:" + String.format("%02d",time);
     }
 
     public void setTimeRemaining(int seconds){
