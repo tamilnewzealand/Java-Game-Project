@@ -79,7 +79,7 @@ public class Story implements SceneInterface {
                 "also known as an elixir of immortality and grants the drinker eternal life. The Earthlings and\n" +
                 "Martians have decided to colonize this planet to claim this Qeflinda. As a general of the Galactic\n" +
                 "Empire, will you be able to defend the invasion?";
-        Text instructionsText = GUIComponent.createText(text, 50, 150, 30);
+        Text instructionsText = GUIComponent.createText(text, 50, 150, 22);
 
         root.getChildren().add(instructionsText);
     }
@@ -89,7 +89,7 @@ public class Story implements SceneInterface {
                 "keep them at bay orbiting the planet Etruaruta. Intelligence reports suggest that they are planning a\n" +
                 "new attack against the planet when the citizens are celebrating Republic Day. Are you ready for the\n" +
                 "next invasion?";
-        Text instructionsText = GUIComponent.createText(text, 50, 150, 30);
+        Text instructionsText = GUIComponent.createText(text, 50, 150, 22);
 
         root.getChildren().add(instructionsText);
     }
@@ -99,7 +99,7 @@ public class Story implements SceneInterface {
                 "you into exile in orbit. The locals have been enslaved and you are facing an eminent loss. The locals\n" +
                 "are planning a coup to send out the invaders. Will you be able to defeat the invaders and give\n" +
                 "Freedom to the people of Etruaruta?";
-        Text instructionsText = GUIComponent.createText(text, 50, 150, 30);
+        Text instructionsText = GUIComponent.createText(text, 50, 150, 22);
 
         root.getChildren().add(instructionsText);
     }

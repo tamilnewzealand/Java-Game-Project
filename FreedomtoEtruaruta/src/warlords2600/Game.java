@@ -50,14 +50,14 @@ public class Game{
         this.generals[3] = generalD;
 
         this.AIs.add(new AIController());
-        this.AIs.get(0).setGeneral(generalD);
+        this.AIs.get(0).setGeneral(generalB);
 
         if (AICount == 4) {
             this.AIs.add(new AIController());
             this.AIs.get(1).setGeneral(generalC);
 
             this.AIs.add(new AIController());
-            this.AIs.get(2).setGeneral(generalB);
+            this.AIs.get(2).setGeneral(generalD);
 
             this.AIs.add(new AIController());
             this.AIs.get(3).setGeneral(generalA);
@@ -66,10 +66,10 @@ public class Game{
             this.AIs.get(1).setGeneral(generalC);
 
             this.AIs.add(new AIController());
-            this.AIs.get(2).setGeneral(generalB);
+            this.AIs.g  et(2).setGeneral(generalD);
         } else if (AICount == 2) {
             this.AIs.add(new AIController());
-            this.AIs.get(1).setGeneral(generalB);
+            this.AIs.get(1).setGeneral(generalD);
         }
 
         this.deadPos = new int[4];
