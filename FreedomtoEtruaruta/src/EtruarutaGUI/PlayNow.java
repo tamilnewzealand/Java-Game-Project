@@ -131,27 +131,27 @@ public class PlayNow implements SceneInterface {
                         break;
                     //The following code is for player at the bottom right (index 2)
                     case A:
-                        if (!freezed && Main.gameMode != 99 && Main.gameMode != 2){
+                        if (!freezed && Main.gameMode != 99 && Main.gameMode == 0){
                             game.generalsMovement[2] = "left";
                         }
                         break;
                     case D:
-                        if (!freezed && Main.gameMode != 99 && Main.gameMode != 2){
+                        if (!freezed && Main.gameMode != 99 && Main.gameMode == 0){
                             game.generalsMovement[2] = "right";
                         }
                         break;
                     case W:
-                        if (!freezed && Main.gameMode != 99 && Main.gameMode != 2) {
+                        if (!freezed && Main.gameMode != 99 && Main.gameMode == 0) {
                             if (game.generals[2].isDead()) game.generalsMovement[2] = "up";
                         }
                         break;
                     case S:
-                        if (!freezed && Main.gameMode != 99 && Main.gameMode != 2) {
+                        if (!freezed && Main.gameMode != 99 && Main.gameMode == 0) {
                             if (game.generals[2].isDead()) game.generalsMovement[2] = "down";
                         }
                         break;
                     case E:
-                        if (!freezed && Main.gameMode != 99 && Main.gameMode != 2) {
+                        if (!freezed && Main.gameMode != 99 && Main.gameMode  == 0) {
                             if (game.generals[2].isDead()) {
                                 for (int i = 0; i < game.markers.size(); i++) {
                                     if (game.markers.get(i).getPos() == 2 && game.markers.get(i).getReady()) {
@@ -252,7 +252,7 @@ public class PlayNow implements SceneInterface {
         Image paddleSizeUpImage = new Image("paddleSizeUp.png");
         gc.drawImage(space, 0, 0, Main.WIDTH, Main.HEIGHT);
 
-        Ball ball = new Ball(Main.WIDTH, Main.HEIGHT);
+        Ball ball = new Ball(Main.WIDTH/2,Main.HEIGHT/2);
 
         Brick[][] wallA = new Brick[3][5];
         Brick[][] wallB = new Brick[3][5];
@@ -369,18 +369,21 @@ public class PlayNow implements SceneInterface {
 
                     if (game.getFinished()) {
                         playNowScene.removeEventHandler(KeyEvent.KEY_PRESSED, keyPressHandler);
-                        if (game.generals[0].hasWon()) {
+                        if (true || game.generals[0].hasWon()) {
                             switch (Main.gameMode) {
                                 case 2:
                                     Main.gameMode = 3;
+                                    Main.playerScore += (game.generals[0].wallCount() * 10);
                                     sceneManager.goToPlayNowScene(sceneManager);
                                     break;
                                 case 4:
                                     Main.gameMode = 5;
+                                    Main.playerScore += (game.generals[0].wallCount() * 10);
                                     sceneManager.goToPlayNowScene(sceneManager);
                                     break;
                                 case 6:
                                     Main.gameMode = 7;
+                                    Main.playerScore += (game.generals[0].wallCount() * 10);
                                     sceneManager.goToPlayNowScene(sceneManager);
                                     break;
                                 default:
