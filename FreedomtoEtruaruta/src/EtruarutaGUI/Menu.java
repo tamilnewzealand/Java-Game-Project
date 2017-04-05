@@ -5,9 +5,11 @@ import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -25,6 +27,9 @@ public class Menu implements SceneInterface {
     private SceneManager sceneManager;
     private Scene menuScene;
     private Group root;
+    private EventHandler<KeyEvent> keyPressHandler;
+    private int optionNumber = 0;
+    private Button[] buttonsArray = new Button[7];
 
     /**
      * Constructor for Menu class
@@ -58,6 +63,9 @@ public class Menu implements SceneInterface {
         addSettingsButton();
         addExitButton();
 
+        handleInputs();
+        menuScene.addEventHandler(KeyEvent.KEY_PRESSED, keyPressHandler);
+
         return menuScene;
     }
 
@@ -70,14 +78,15 @@ public class Menu implements SceneInterface {
 
     private void addStartButton() {
         Button startButton = GUIComponent.createButton("Play Now (1P)", 426, 180);
-
+        startButton.setTextFill(Paint.valueOf("#FF3333"));
         startButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 sceneManager.goToPlayNowScene(sceneManager);
+                menuScene.removeEventHandler(KeyEvent.KEY_PRESSED, keyPressHandler);
             }
         });
-
+        buttonsArray[0] = startButton;
         root.getChildren().add(startButton);
     }
 
@@ -88,9 +97,10 @@ public class Menu implements SceneInterface {
             @Override
             public void handle(ActionEvent event) {
                 sceneManager.goToMultiplayerScene(sceneManager);
+                menuScene.removeEventHandler(KeyEvent.KEY_PRESSED, keyPressHandler);
             }
         });
-
+        buttonsArray[1] = multi2Button;
         root.getChildren().add(multi2Button);
     }
 
@@ -101,9 +111,10 @@ public class Menu implements SceneInterface {
             @Override
             public void handle(ActionEvent event) {
                 sceneManager.goToInstructionsScene(sceneManager);
+                menuScene.removeEventHandler(KeyEvent.KEY_PRESSED, keyPressHandler);
             }
         });
-
+        buttonsArray[2] = instructionsButton;
         root.getChildren().add(instructionsButton);
     }
 
@@ -114,9 +125,10 @@ public class Menu implements SceneInterface {
             @Override
             public void handle(ActionEvent event) {
                 sceneManager.goToDemoScene(sceneManager);
+                menuScene.removeEventHandler(KeyEvent.KEY_PRESSED, keyPressHandler);
             }
         });
-
+        buttonsArray[3] = demoButton;
         root.getChildren().add(demoButton);
     }
 
@@ -127,9 +139,10 @@ public class Menu implements SceneInterface {
             @Override
             public void handle(ActionEvent event) {
                 sceneManager.goToHiScoreScene(sceneManager);
+                menuScene.removeEventHandler(KeyEvent.KEY_PRESSED, keyPressHandler);
             }
         });
-
+        buttonsArray[4] = highScoresButton;
         root.getChildren().add(highScoresButton);
     }
 
@@ -140,9 +153,10 @@ public class Menu implements SceneInterface {
             @Override
             public void handle(ActionEvent event) {
                 sceneManager.goToSettingsScene(sceneManager);
+                menuScene.removeEventHandler(KeyEvent.KEY_PRESSED, keyPressHandler);
             }
         });
-
+        buttonsArray[5] = settingsButton;
         root.getChildren().add(settingsButton);
     }
 
@@ -156,7 +170,48 @@ public class Menu implements SceneInterface {
                 stage.close();
             }
         });
-
+        buttonsArray[6] = exitButton;
         root.getChildren().add(exitButton);
     }
+
+    private void handleInputs(){
+        keyPressHandler = new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent keyEvent) {
+                switch (keyEvent.getCode()) {
+                    case UP:
+                        if (optionNumber > 0) {
+                            optionNumber--;
+                        } else {
+                            optionNumber = 6;
+                        }
+                        resetColours();
+                        colourText(optionNumber);
+                        break;
+                    case DOWN:
+                        if (optionNumber < 6) {
+                            optionNumber++;
+                        } else {
+                            optionNumber = 0;
+                        }
+                        resetColours();
+                        colourText(optionNumber);
+                        break;
+                    case ENTER:
+                        buttonsArray[optionNumber].fire();
+                }
+            }
+        };
+    }
+
+    private void resetColours(){
+        for (int i = 0; i < buttonsArray.length; i++){
+            buttonsArray[i].setTextFill(Paint.valueOf("#FFFFFF"));
+        }
+    }
+
+    private void colourText(int index){
+        buttonsArray[index].setTextFill(Paint.valueOf("#FF3333"));
+    }
+
 }
