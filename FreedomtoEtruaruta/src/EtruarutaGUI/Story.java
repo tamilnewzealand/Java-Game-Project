@@ -2,11 +2,16 @@ package EtruarutaGUI;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 
@@ -23,6 +28,7 @@ public class Story implements SceneInterface {
     private SceneManager sceneManager;
     private Scene storyScene;
     private Group root;
+    private TextField name;
 
     /**
      * Constructor for Story class
@@ -46,6 +52,22 @@ public class Story implements SceneInterface {
         GraphicsContext gc = canvas.getGraphicsContext2D();
         gc = GUIComponent.createAnimationBackground(gc);
 
+        if (Main.gameMode == 1) {
+            //Creating a GridPane container
+            GridPane grid = new GridPane();
+            grid.setPadding(new Insets(300, 100, 100, 450));
+            grid.setVgap(50);
+            grid.setHgap(50);
+            //Defining the Name text field
+            name = new TextField();
+            name.setPromptText("Enter your first name.");
+            name.setPrefColumnCount(10);
+            name.getText();
+            GridPane.setConstraints(name, 0, 0);
+            grid.getChildren().add(name);
+            root.getChildren().add(grid);
+        }
+
         switch (Main.gameMode) {
             case 1:
                 addStoryAText();
@@ -64,6 +86,7 @@ public class Story implements SceneInterface {
                 break;
             case 7:
                 addWinMessageText();
+                ScoreManager.addScore(Main.playerName, Main.playerScore);
                 Main.gameMode = 0;
                 break;
             default:
@@ -78,7 +101,7 @@ public class Story implements SceneInterface {
         String text = "In 2572, an ancient alien source of Qeflinda was discovered on the surface of Etruaruta. Qeflinda is\n" +
                 "also known as an elixir of immortality and grants the drinker eternal life. The Earthlings and\n" +
                 "Martians have decided to colonize this planet to claim this Qeflinda. As a general of the Galactic\n" +
-                "Empire, will you be able to defend the invasion?";
+                "Empire, will you be able to defend the invasion? Please enter your name below:";
         Text instructionsText = GUIComponent.createText(text, 50, 150, 22);
 
         root.getChildren().add(instructionsText);
@@ -105,19 +128,27 @@ public class Story implements SceneInterface {
     }
 
     private void addWinMessageText() {
-        String text = "Well Done, you have successfully gained freedom for Etruaruta!!!";
+        String text = "Well Done " + Main.playerName + ", you have successfully gained freedom for Etruaruta!!!\n" +
+                "Your Score: " + Main.playerScore;
         Text instructionsText = GUIComponent.createText(text, 50, 150, 30);
 
         root.getChildren().add(instructionsText);
     }
 
     private void addMenuButton() {
-        Button menuButton = GUIComponent.createButton("Start Game", 30, 480);
+        Button menuButton;
+        if (Main.gameMode > 3) menuButton = GUIComponent.createButton("Continue Game", 30, 480);
+        else menuButton = GUIComponent.createButton("Start Game", 30, 480);
 
         menuButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                sceneManager.goToGameScene(sceneManager);
+                if (Main.gameMode == 2) {
+                    Main.playerName = name.textProperty().getValue();
+                    if (!((Main.playerName == null) ||(Main.playerName == ""))) {
+                        sceneManager.goToGameScene(sceneManager);
+                    }
+                } else sceneManager.goToGameScene(sceneManager);
             }
         });
 
