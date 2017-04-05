@@ -2,16 +2,20 @@ package EtruarutaGUI;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.Cursor;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+
+import javax.swing.*;
 
 /**
  * This class implements the menu screen. When the game is
@@ -86,6 +90,18 @@ public class Menu implements SceneInterface {
                 menuScene.removeEventHandler(KeyEvent.KEY_PRESSED, keyPressHandler);
             }
         });
+        startButton.setOnMouseEntered(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent me) {
+                menuScene.setCursor(Cursor.HAND); //Change cursor to hand
+            }
+        });
+        startButton.setOnMouseExited(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent me) {
+                menuScene.setCursor(Cursor.DEFAULT); //Change cursor to hand
+            }
+        });
         buttonsArray[0] = startButton;
         root.getChildren().add(startButton);
     }
@@ -100,6 +116,20 @@ public class Menu implements SceneInterface {
                 menuScene.removeEventHandler(KeyEvent.KEY_PRESSED, keyPressHandler);
             }
         });
+
+        multi2Button.setOnMouseEntered(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent me) {
+                menuScene.setCursor(Cursor.HAND); //Change cursor to hand
+            }
+        });
+        multi2Button.setOnMouseExited(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent me) {
+                menuScene.setCursor(Cursor.DEFAULT); //Change cursor to hand
+            }
+        });
+
         buttonsArray[1] = multi2Button;
         root.getChildren().add(multi2Button);
     }
@@ -114,6 +144,20 @@ public class Menu implements SceneInterface {
                 menuScene.removeEventHandler(KeyEvent.KEY_PRESSED, keyPressHandler);
             }
         });
+
+        instructionsButton.setOnMouseEntered(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent me) {
+                menuScene.setCursor(Cursor.HAND); //Change cursor to hand
+            }
+        });
+        instructionsButton.setOnMouseExited(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent me) {
+                menuScene.setCursor(Cursor.DEFAULT); //Change cursor to hand
+            }
+        });
+
         buttonsArray[2] = instructionsButton;
         root.getChildren().add(instructionsButton);
     }
@@ -128,6 +172,20 @@ public class Menu implements SceneInterface {
                 menuScene.removeEventHandler(KeyEvent.KEY_PRESSED, keyPressHandler);
             }
         });
+
+        demoButton.setOnMouseEntered(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent me) {
+                menuScene.setCursor(Cursor.HAND); //Change cursor to hand
+            }
+        });
+        demoButton.setOnMouseExited(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent me) {
+                menuScene.setCursor(Cursor.DEFAULT); //Change cursor to hand
+            }
+        });
+
         buttonsArray[3] = demoButton;
         root.getChildren().add(demoButton);
     }
@@ -142,6 +200,20 @@ public class Menu implements SceneInterface {
                 menuScene.removeEventHandler(KeyEvent.KEY_PRESSED, keyPressHandler);
             }
         });
+
+        highScoresButton.setOnMouseEntered(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent me) {
+                menuScene.setCursor(Cursor.HAND); //Change cursor to hand
+            }
+        });
+        highScoresButton.setOnMouseExited(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent me) {
+                menuScene.setCursor(Cursor.DEFAULT); //Change cursor to hand
+            }
+        });
+
         buttonsArray[4] = highScoresButton;
         root.getChildren().add(highScoresButton);
     }
@@ -156,6 +228,20 @@ public class Menu implements SceneInterface {
                 menuScene.removeEventHandler(KeyEvent.KEY_PRESSED, keyPressHandler);
             }
         });
+
+        settingsButton.setOnMouseEntered(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent me) {
+                menuScene.setCursor(Cursor.HAND); //Change cursor to hand
+            }
+        });
+        settingsButton.setOnMouseExited(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent me) {
+                menuScene.setCursor(Cursor.DEFAULT); //Change cursor to hand
+            }
+        });
+
         buttonsArray[5] = settingsButton;
         root.getChildren().add(settingsButton);
     }
@@ -168,6 +254,19 @@ public class Menu implements SceneInterface {
             public void handle(ActionEvent event) {
                 Stage stage = (Stage) exitButton.getScene().getWindow();
                 stage.close();
+            }
+        });
+
+        exitButton.setOnMouseEntered(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent me) {
+                menuScene.setCursor(Cursor.HAND); //Change cursor to hand
+            }
+        });
+        exitButton.setOnMouseExited(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent me) {
+                menuScene.setCursor(Cursor.DEFAULT); //Change cursor to hand
             }
         });
         buttonsArray[6] = exitButton;
