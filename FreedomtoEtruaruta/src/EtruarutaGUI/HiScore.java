@@ -60,17 +60,7 @@ public class HiScore implements SceneInterface {
     }
 
     private void addHiScoreText() {
-        String text = "Pos: Player Name: Score:  \n" +
-                " 1) RANDOM PLAYER 150\n" +
-                " 2) RANDOM PLAYER 140\n" +
-                " 3) RANDOM PLAYER 130\n" +
-                " 4) RANDOM PLAYER 120\n" +
-                " 5) RANDOM PLAYER 110\n" +
-                " 6) RANDOM PLAYER 100\n" +
-                " 7) RANDOM PLAYER  90\n" +
-                " 8) RANDOM PLAYER  80\n" +
-                " 9) RANDOM PLAYER  70\n" +
-                "10) RANDOM PLAYER  60";
+        String text = ScoreManager.getHighscoreString();
         Text instructionsText = GUIComponent.createText(text, 353, 150, 26);
 
         root.getChildren().add(instructionsText);

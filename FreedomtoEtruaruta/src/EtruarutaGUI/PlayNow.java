@@ -385,7 +385,7 @@ public class PlayNow implements SceneInterface {
         Image paddleSizeUpImage = new Image ("paddleSizeUp.png");
         gc.drawImage( space, 0, 0, Main.WIDTH, Main.HEIGHT);
 
-        Ball ball = new Ball(Main.WIDTH,Main.HEIGHT);
+        Ball ball = new Ball(Main.WIDTH/2,Main.HEIGHT/2);
 
         Brick[][] wallA = new Brick[3][5];
         Brick[][] wallB = new Brick[3][5];
@@ -503,18 +503,21 @@ public class PlayNow implements SceneInterface {
 
                     if (game.getFinished()) {
                         playNowScene.removeEventHandler(KeyEvent.KEY_PRESSED, handler);
-                        if (game.generals[0].hasWon()) {
+                        if (true || game.generals[0].hasWon()) {
                             switch (Main.gameMode)  {
                                 case 2:
                                     Main.gameMode = 3;
+                                    Main.playerScore += (game.generals[0].wallCount() * 10);
                                     sceneManager.goToPlayNowScene(sceneManager);
                                     break;
                                 case 4:
                                     Main.gameMode = 5;
+                                    Main.playerScore += (game.generals[0].wallCount() * 10);
                                     sceneManager.goToPlayNowScene(sceneManager);
                                     break;
                                 case 6:
                                     Main.gameMode = 7;
+                                    Main.playerScore += (game.generals[0].wallCount() * 10);
                                     sceneManager.goToPlayNowScene(sceneManager);
                                     break;
                                 default:
