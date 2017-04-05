@@ -23,7 +23,8 @@ public class AIController {
     }
 
     public void movePaddle(Ball ball){
-        if (Main.gameMode == 99 || (Main.gameMode == 0 && general.getPos() != 2 && general.getPos() != 0) || (Main.gameMode == 2 && general.getPos() != 0) ) {
+        System.out.println(Main.gameMode);
+        if (Main.gameMode == 99 || (Main.gameMode == 0 && general.getPos() != 2 && general.getPos() != 0) || (Main.gameMode == 2 && general.getPos() != 0)  || (Main.gameMode == 4  && general.getPos() != 0) || (Main.gameMode == 6  && general.getPos() != 0)) {
             double distanceBefore = calculateDistance(ball);
             if (distanceBefore > 75) {//Stops paddle moving when close to ball
                 //System.out.println(distanceBefore);
@@ -51,7 +52,7 @@ public class AIController {
 
 
     public void moveMarker(Marker markerIn, ArrayList<PowerUp> powerUps){
-        if (Main.gameMode == 99 || (Main.gameMode == 0 && general.getPos() != 2 && general.getPos() != 0) || (Main.gameMode == 2 && general.getPos() != 0) ) {
+        if (Main.gameMode == 99 || (Main.gameMode == 0 && general.getPos() != 2 && general.getPos() != 0) || (Main.gameMode == 2 && general.getPos() != 0)  || (Main.gameMode == 4  && general.getPos() != 0)|| (Main.gameMode == 6  && general.getPos() != 0)) {
             if (movementCounter <= 0) {
                 movementCounter = 15;
                 resetMovement();
