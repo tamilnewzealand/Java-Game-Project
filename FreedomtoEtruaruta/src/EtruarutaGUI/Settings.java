@@ -35,8 +35,9 @@ public class Settings implements SceneInterface {
     private SceneManager sceneManager;
     private Scene settingsScene;
     private Group root;
+    private double numOfBalls = 1.00;
     final Slider ballSpeedSetting = new Slider(1, 3, Main.speedMultiplier);
-    final Slider numberOfBallSetting = new Slider(1, 3, Main.numberOfBalls);
+    final Slider numberOfBallSetting = new Slider(1, 3, numOfBalls);
     final Slider numberOfPaddleSetting = new Slider(1, 2, Main.numberOfPaddles);
 
     /**
@@ -99,7 +100,8 @@ public class Settings implements SceneInterface {
         numberOfBallSetting.valueProperty().addListener(new ChangeListener<Number>() {
             public void changed(ObservableValue<? extends Number> ov,
                                 Number old_val, Number new_val) {
-                Main.numberOfBalls = new_val.doubleValue();
+                numOfBalls = new_val.doubleValue();
+                Main.numberOfBalls = (int)Math.round(numOfBalls);
             }
         });
 

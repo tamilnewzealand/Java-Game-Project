@@ -252,8 +252,6 @@ public class PlayNow implements SceneInterface {
         Image paddleSizeUpImage = new Image("paddleSizeUp.png");
         gc.drawImage(space, 0, 0, Main.WIDTH, Main.HEIGHT);
 
-        Ball ball = new Ball(Main.WIDTH/2,Main.HEIGHT/2);
-
         Brick[][] wallA = new Brick[3][5];
         Brick[][] wallB = new Brick[3][5];
         Brick[][] wallC = new Brick[3][5];
@@ -288,33 +286,39 @@ public class PlayNow implements SceneInterface {
             generalD = new General(50, Math.PI / 4, paddles[3], wallD, 3);
         }
 
-        double randomX = Math.random() * 10 - 5; //Random speed generation
-        double randomY = Math.random() * 10 - 5;
+        Ball[] balls = new Ball[Main.numberOfBalls];
 
-        if (randomX > 0) { //Speed boost for ball
-            randomX += 8;
-        } else {
-            randomX -= 8;
+        for (int a = 0; a < Main.numberOfBalls; a++) {
+            balls[a] = new Ball(Main.WIDTH/2,Main.HEIGHT/2);
+
+            double randomX = Math.random() * 10 - 5; //Random speed generation
+            double randomY = Math.random() * 10 - 5;
+
+            if (randomX > 0) { //Speed boost for ball
+                randomX += 8;
+            } else {
+                randomX -= 8;
+            }
+
+            if (randomY > 0) {
+                randomY += 8;
+            } else {
+                randomY -= 8;
+            }
+
+            balls[a].setXVelocity((int) (Main.speedMultiplier * randomX));
+            balls[a].setYVelocity((int) (Main.speedMultiplier * randomY));
         }
 
-        if (randomY > 0) {
-            randomY += 8;
-        } else {
-            randomY -= 8;
-        }
-
-        ball.setXVelocity((int) (Main.speedMultiplier * randomX));
-        ball.setYVelocity((int) (Main.speedMultiplier * randomY));
+        if (Main.gameMode == 0) game = new Game(balls, generalA, generalB, generalC, generalD);
+        else if (Main.gameMode == 99) game = new Game(balls, generalA, generalB, generalC, generalD);
+        else game = new Game(balls, generalA, generalB, generalC, generalD);
 
         gc.setFill(Color.WHITE);
         gc.setLineWidth(2);
         Font theFont = Font.font("Kavivanar", 54);
         gc.setTextAlign(TextAlignment.CENTER);
         gc.setFont(theFont);
-
-        if (Main.gameMode == 0) game = new Game(ball, generalA, generalB, generalC, generalD);
-        else if (Main.gameMode == 99) game = new Game(ball, generalA, generalB, generalC, generalD);
-        else game = new Game(ball, generalA, generalB, generalC, generalD);
 
         SoundManager.playBackground();
 
@@ -350,12 +354,14 @@ public class PlayNow implements SceneInterface {
                         }
                     }
 
-                    if (!game.ball.getSpedUp()) {
-                        gc.drawImage(ballImage, game.ball.getXPos(), game.ball.getYPos(), game.ball.getWidth(), game.ball.getHeight());
-                    } else {
-                        gc.drawImage(spedUpBall, game.ball.getXPos(), game.ball.getYPos(), game.ball.getWidth(), game.ball.getHeight());
-
+                    for (int a = 0; a < game.balls.length; a++) {
+                        if (!game.balls[a].getSpedUp()) {
+                            gc.drawImage(ballImage, game.balls[a].getXPos(), game.balls[a].getYPos(), game.balls[a].getWidth(), game.balls[a].getHeight());
+                        } else {
+                            gc.drawImage(spedUpBall, game.balls[a].getXPos(), game.balls[a].getYPos(), game.balls[a].getWidth(), game.balls[a].getHeight());
+                        }
                     }
+
                     for (int k = 0; k < game.generals.length; k++) {
                         if (!game.generals[k].isDead())
                             gc.drawImage(paddleImages[k], game.generals[k].paddle.calcXPos(), game.generals[k].paddle.calcYPos(), game.generals[k].paddle.getWidth(), game.generals[k].paddle.getHeight());

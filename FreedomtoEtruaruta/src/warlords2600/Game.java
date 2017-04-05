@@ -25,7 +25,8 @@ public class Game{
     private int timeElapsed = 0, hiScore = 0, countDown = 91;
 
     public General[] generals;
-    public Ball ball;
+    public Ball[] balls;
+    private Ball ball;
     public ArrayList<PowerUp> powerUps = new ArrayList<PowerUp>();
     public SpeedUp speedUp;
     public ArrayList<AIController> AIs = new ArrayList<AIController>();
@@ -44,8 +45,8 @@ public class Game{
         this.generals[0].wall[0][0] = brick;
     }
 
-    public Game(Ball ball, General generalA, General generalB, General generalC, General generalD) {
-        this.ball = ball;
+    public Game(Ball[] balls, General generalA, General generalB, General generalC, General generalD) {
+        this.balls = balls;
         this.generals = new General[4];
         this.generals[0] = generalA;
         this.generals[1] = generalB;
@@ -79,77 +80,99 @@ public class Game{
 
     public void tick(){
             timeElapsed++;
-            boolean ballHit = false;
             boolean generalHit = false;
             int deadCount = 0;
             executeActions();
-            //System.out.println("Tick");
-            if (!ball.getHitLastTick() && ball.getCollisionCounter() <= 0) {
-                for (int i = 0; i < powerUps.size(); i++) {
-                    if (!ballHit && (!powerUps.get(i).isHit())) {
-                        if (objectCollision(powerUps.get(i), ballHit, false)) {
-                            if (powerUps.get(i).getPowerUpName().equals("Speed Up")) {
-                                if (!ball.getSpedUp()) {
-                                    powerUps.get(i).setHit(true);
-                                    powerUps.get(i).activateEffect(ball, generals);
-                                    SoundManager.playSpeedUp();
-                                    ball.setSpedUp(true);
-                                }
-                            }else if (powerUps.get(i).getPowerUpName().equals("Paddle Size Up")){
-                                boolean activateSizeIncrease = false;
-                                for (int j = 0; j < generals.length;j++){
-                                    if (!generals[j].isDead() && !generals[j].paddle.getSizeIncreased()){
-                                        activateSizeIncrease = true;
+
+            for (int a = 0; a < balls.length; a++) {
+                ball = balls[a];
+                boolean ballHit = false;
+                if (!ball.getHitLastTick() && ball.getCollisionCounter() <= 0) {
+                    for (int i = 0; i < powerUps.size(); i++) {
+                        if (!ballHit && (!powerUps.get(i).isHit())) {
+                            if (objectCollision(powerUps.get(i), ballHit, false)) {
+                                if (powerUps.get(i).getPowerUpName().equals("Speed Up")) {
+                                    if (!ball.getSpedUp()) {
+                                        powerUps.get(i).setHit(true);
+                                        powerUps.get(i).activateEffect(ball, generals);
+                                        SoundManager.playSpeedUp();
+                                        ball.setSpedUp(true);
                                     }
-                                }
-                                if (activateSizeIncrease){
-                                    powerUps.get(i).setHit(true);
-                                    powerUps.get(i).activateEffect(ball, generals);
-                                }
-                            }
-                        }
-                    }
-                }
-                outerLoop:
-                for (int i = 0; i < generals.length; i++) {
-                    if (!ballHit && (!generals[i].isDead())) ballHit = objectCollision(generals[i].paddle, ballHit);
-                    if (!ballHit && (!generals[i].isDead())) {
-                        ballHit = objectCollision(generals[i], ballHit);
-                        if (ballHit){
-                            generals[i].killGeneral();
-                            generalHit = true;
-                            SoundManager.playGeneralDeath();
-                        }
-                    }
-                    if (!ballHit) {
-                        for (int j = 0; j < generals[i].wall.length; j++) {
-                            for (int k = 0; k < generals[i].wall[j].length; k++) {
-                                if (!generals[i].wall[j][k].isDestroyed()){
-                                    if (!ballHit) ballHit = objectCollision(generals[i].wall[j][k], ballHit);
-                                    if (ballHit) {
-                                        generals[i].wall[j][k].destroyBrick();
-                                        break outerLoop;
+                                }else if (powerUps.get(i).getPowerUpName().equals("Paddle Size Up")){
+                                    boolean activateSizeIncrease = false;
+                                    for (int j = 0; j < generals.length;j++){
+                                        if (!generals[j].isDead() && !generals[j].paddle.getSizeIncreased()){
+                                            activateSizeIncrease = true;
+                                        }
+                                    }
+                                    if (activateSizeIncrease){
+                                        powerUps.get(i).setHit(true);
+                                        powerUps.get(i).activateEffect(ball, generals);
                                     }
                                 }
                             }
                         }
                     }
+                    outerLoop:
+                    for (int i = 0; i < generals.length; i++) {
+                        if (!ballHit && (!generals[i].isDead())) ballHit = objectCollision(generals[i].paddle, ballHit);
+                        if (!ballHit && (!generals[i].isDead())) {
+                            ballHit = objectCollision(generals[i], ballHit);
+                            if (ballHit){
+                                generals[i].killGeneral();
+                                generalHit = true;
+                                SoundManager.playGeneralDeath();
+                            }
+                        }
+                        if (!ballHit) {
+                            for (int j = 0; j < generals[i].wall.length; j++) {
+                                for (int k = 0; k < generals[i].wall[j].length; k++) {
+                                    if (!generals[i].wall[j][k].isDestroyed()){
+                                        if (!ballHit) ballHit = objectCollision(generals[i].wall[j][k], ballHit);
+                                        if (ballHit) {
+                                            generals[i].wall[j][k].destroyBrick();
+                                            break outerLoop;
+                                        }
+                                    }
+                                }
+                            }
+                        }
 
+                    }
                 }
-            }
 
-            if (ballHit && !generalHit) SoundManager.playCollision();
+                if (ballHit && !generalHit) SoundManager.playCollision();
 
-            for (int i = 0; i < generals.length; i++) {
-                if (generals[i].isDead()) deadCount++;
-            }
-            if (deadCount + 1 == generals.length) {
                 for (int i = 0; i < generals.length; i++) {
+                    if (generals[i].isDead()) deadCount++;
+                }
+
+                if (deadCount + 1 == generals.length) {
+                    for (int i = 0; i < generals.length; i++) {
+                        if (!generals[i].isDead()) {
+                            generals[i].setWon();
+                            isFinished = true;
+                        }
+                    }
+                }
+
+                if (!ballHit) {
+                    ball.processBall();
+                    ball.setHitLastTick(false);
+                    ball.decrementCounter();
+                }
+                for (int i = 0; i < AIs.size();i++){
                     if (!generals[i].isDead()) {
-                        generals[i].setWon();
-                        isFinished = true;
+                        AIs.get(i).movePaddle(ball);
+                    }else{
+                        for (int j = 0; j < markers.size();j++){
+                            if (markers.get(j).getPos() == i){
+                                AIs.get(i).moveMarker(markers.get(j), powerUps);
+                            }
+                        }
                     }
                 }
+                ball.checkReduceSpeed();
             }
 
             if (deadCount > 0 && markers.size() < deadCount ){
@@ -163,11 +186,6 @@ public class Game{
                     }
                 }
             }
-            if (!ballHit) {
-                ball.processBall();
-                ball.setHitLastTick(false);
-                ball.decrementCounter();
-            }
 
             if (timeElapsed > 3600) {
                 isFinished = true;
@@ -177,25 +195,14 @@ public class Game{
                 }
             }
 
-            for (int i = 0; i < AIs.size();i++){
-                if (!generals[i].isDead()) {
-                    AIs.get(i).movePaddle(ball);
-                }else{
-                    for (int j = 0; j < markers.size();j++){
-                        if (markers.get(j).getPos() == i){
-                            AIs.get(i).moveMarker(markers.get(j), powerUps);
-                        }
-                    }
-                }
-            }
-
             if (timeElapsed % 600 == 0){
                 generatePowerUp();
             }
-            ball.checkReduceSpeed();
+
             for (int i = 0; i < generals.length;i++){
                 generals[i].paddle.checkDecreaseWidth();
             }
+
             for (int i = 0; i < generals.length;i++){
                 if (deadPos[i] == 1 && generals[i].isDead()){
                     for (int j = 0; j < markers.size(); j++){
@@ -205,7 +212,6 @@ public class Game{
                     }
                 }
             }
-
     }
 
 

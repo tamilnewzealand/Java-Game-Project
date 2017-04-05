@@ -35,7 +35,7 @@ public class Main extends Application {
     public static String playerName;
     public static int playerScore = 0;
     public static double speedMultiplier = 1.00;
-    public static double numberOfBalls = 1.00;
+    public static int numberOfBalls = 1;
     public static double numberOfPaddles = 1.00;
 
     @Override
