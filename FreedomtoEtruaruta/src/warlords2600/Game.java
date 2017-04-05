@@ -34,6 +34,8 @@ public class Game{
 
     private int[] deadPos;
 
+    public String[] generalsMovement = {"", "", "", ""};
+
     public Game(Ball ball, General generalA, General generalB, Brick brick) {
         this.ball = ball;
         this.generals = new General[2];
@@ -91,6 +93,7 @@ public class Game{
             boolean ballHit = false;
             boolean generalHit = false;
             int deadCount = 0;
+            executeActions();
             //System.out.println("Tick");
             if (!ball.getHitLastTick() && ball.getCollisionCounter() <= 0) {
                 for (int i = 0; i < powerUps.size(); i++) {
@@ -214,6 +217,7 @@ public class Game{
                     }
                 }
             }
+
     }
 
 
@@ -373,4 +377,54 @@ public class Game{
         }
         powerUps.get(powerUps.size()-1).setPos((int) xPos, (int) yPos);
     }
-}
+
+    public void executeActions(){
+            for (int i = 0; i < generalsMovement.length; i++) {
+                //System.out.println(generalsMovement[i]);
+                switch (generalsMovement[i]) {
+                    case "left":
+                        if(!generals[i].isDead()) {
+                            generals[i].paddle.moveLeft();
+                        }else{
+                            for (int j = 0; j < markers.size();j++){
+                                if (markers.get(j).getPos() == 0){
+                                    markers.get(j).moveLeft();
+                                }
+                            }
+                        }
+                        break;
+                    case "right":
+                        if(!generals[i].isDead()) {
+                            generals[i].paddle.moveRight();
+                        }else{
+                            for (int j = 0; j < markers.size();j++){
+                                if (markers.get(j).getPos() == 0){
+                                    markers.get(j).moveRight();
+                                }
+                            }
+                        }
+                        break;
+                    case "up":
+                        if(generals[i].isDead()) {
+                            for (int j = 0; j < markers.size();j++){
+                                if (markers.get(j).getPos() == 0){
+                                    markers.get(j).moveUp();
+                                }
+                            }
+                        }
+                        break;
+                    case "down":
+                        if(generals[i].isDead()) {
+                            for (int j = 0; j < markers.size();j++){
+                                if (markers.get(j).getPos() == 0){
+                                    markers.get(j).moveDown();
+                                }
+                            }
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+    }
