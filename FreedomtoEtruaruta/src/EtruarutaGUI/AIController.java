@@ -11,7 +11,6 @@ import java.util.Random;
  */
 public class AIController {
     private General general;
-    private int tickCounter = 0;
     private int movementCounter = 15;
     private boolean movingUp = false, movingRight = false, movingDown = false, movingLeft = false;
 
@@ -24,26 +23,20 @@ public class AIController {
     }
 
     public void movePaddle(Ball ball){
-
-            if (tickCounter <= 0) {//Make sure that movement occurs only every 5th tick or so
-                double distanceBefore = calculateDistance(ball);
-                if (distanceBefore > 75) {//Stops paddle moving when close to ball
-                    //System.out.println(distanceBefore);
-                    tickCounter = 2;
-                    general.paddle.moveLeft();
-
-                    double distanceAfter = calculateDistance(ball);
-
-                    if (distanceAfter < distanceBefore) {
-                        //Do Nothing our move made it get closer to ball in y axis. No further action required.
-                    } else {
-                        general.paddle.moveRight();
-                        general.paddle.moveRight();//Move right twice to compensate for wrong left turn initially
-                    }
+        if (Main.gameMode == 99 || (Main.gameMode == 0 && general.getPos() != 2 && general.getPos() != 0) || (Main.gameMode == 2 && general.getPos() != 0) ) {
+            double distanceBefore = calculateDistance(ball);
+            if (distanceBefore > 75) {//Stops paddle moving when close to ball
+                //System.out.println(distanceBefore);
+                general.paddle.moveLeft();
+                double distanceAfter = calculateDistance(ball);
+                if (distanceAfter < distanceBefore) {
+                    //Do Nothing our move made it get closer to ball in y axis. No further action required.
+                } else {
+                    general.paddle.moveRight();
+                    general.paddle.moveRight();//Move right twice to compensate for wrong left turn initially
                 }
-            }else{
-                tickCounter--;
             }
+        }
     }
 
     private double calculateDistance(Ball ball){
@@ -57,30 +50,33 @@ public class AIController {
     }
 
 
-    public void moveMarker(Marker markerIn){
-        if (movementCounter <= 0) {
-            movementCounter = 15;
-            resetMovement();
-            int movement = (int) (Math.random() * 4);
-            if (movement == 0) {
-                markerIn.moveUp();
-                movingUp = true;
-            } else if (movement == 1) {
-                markerIn.moveRight();
-                movingRight = true;
-            } else if (movement == 2) {
-                markerIn.moveDown();
-                movingDown = true;
-            } else if (movement == 3) {
-                markerIn.moveLeft();
-                movingLeft = true;
+    public void moveMarker(Marker markerIn, ArrayList<PowerUp> powerUps){
+        if (Main.gameMode == 99 || (Main.gameMode == 0 && general.getPos() != 2 && general.getPos() != 0) || (Main.gameMode == 2 && general.getPos() != 0) ) {
+            if (movementCounter <= 0) {
+                movementCounter = 15;
+                resetMovement();
+                int movement = (int) (Math.random() * 4);
+                if (movement == 0) {
+                    markerIn.moveUp();
+                    movingUp = true;
+                } else if (movement == 1) {
+                    markerIn.moveRight();
+                    movingRight = true;
+                } else if (movement == 2) {
+                    markerIn.moveDown();
+                    movingDown = true;
+                } else if (movement == 3) {
+                    markerIn.moveLeft();
+                    movingLeft = true;
+                }
+            } else {
+                movementCounter--;
+                if (movingUp) markerIn.moveUp();
+                else if (movingRight) markerIn.moveRight();
+                else if (movingDown) markerIn.moveDown();
+                else if (movingLeft) markerIn.moveLeft();
             }
-        }else{
-            movementCounter--;
-            if (movingUp) markerIn.moveUp();
-            else if (movingRight) markerIn.moveRight();
-            else if (movingDown) markerIn.moveDown();
-            else if (movingLeft) markerIn.moveLeft();
+            checkDeployPowerUp(markerIn, powerUps);
         }
     }
 
@@ -91,7 +87,7 @@ public class AIController {
         movingLeft = false;
     }
 
-    public void checkDeployPowerUp(Marker markerIn, ArrayList<PowerUp> powerUps){
+    private void checkDeployPowerUp(Marker markerIn, ArrayList<PowerUp> powerUps){
         if (markerIn.getReady()){
             powerUps.add(new SpeedUp());
             powerUps.get(powerUps.size()-1).setPos(markerIn.calcXPos(), markerIn.calcYPos());

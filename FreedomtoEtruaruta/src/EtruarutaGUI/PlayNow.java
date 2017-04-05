@@ -73,27 +73,27 @@ public class PlayNow implements SceneInterface {
                 boolean freezed = paused || game.isCountingDown();
                 switch (keyEvent.getCode()) {
                     case LEFT:
-                        if (!freezed) {
+                        if (!freezed && Main.gameMode != 99) {
                             game.generalsMovement[0] = "left";
                         }
                         break;
                     case RIGHT:
-                        if (!freezed) {
+                        if (!freezed && Main.gameMode != 99) {
                             game.generalsMovement[0] = "right";
                         }
                         break;
                     case UP:
-                        if (!freezed) {
+                        if (!freezed && Main.gameMode != 99) {
                             if (game.generals[0].isDead()) game.generalsMovement[0] = "up";
                         }
                         break;
                     case DOWN:
-                        if (!freezed) {
+                        if (!freezed && Main.gameMode != 99) {
                             if (game.generals[0].isDead()) game.generalsMovement[0] = "down";
                         }
                         break;
                     case SHIFT:
-                        if (!freezed) {
+                        if (!freezed && Main.gameMode != 99) {
                             if (game.generals[0].isDead()) {
                                 for (int i = 0; i < game.markers.size(); i++) {
                                     if (game.markers.get(i).getPos() == 0 && game.markers.get(i).getReady()) {
@@ -129,6 +129,39 @@ public class PlayNow implements SceneInterface {
                             paused = true;
                         }
                         break;
+                    //The following code is for player at the bottom right (index 2)
+                    case A:
+                        if (!freezed && Main.gameMode != 99 && Main.gameMode != 2){
+                            game.generalsMovement[2] = "left";
+                        }
+                        break;
+                    case D:
+                        if (!freezed && Main.gameMode != 99 && Main.gameMode != 2){
+                            game.generalsMovement[2] = "right";
+                        }
+                        break;
+                    case W:
+                        if (!freezed && Main.gameMode != 99 && Main.gameMode != 2) {
+                            if (game.generals[2].isDead()) game.generalsMovement[2] = "up";
+                        }
+                        break;
+                    case S:
+                        if (!freezed && Main.gameMode != 99 && Main.gameMode != 2) {
+                            if (game.generals[2].isDead()) game.generalsMovement[2] = "down";
+                        }
+                        break;
+                    case E:
+                        if (!freezed && Main.gameMode != 99 && Main.gameMode != 2) {
+                            if (game.generals[2].isDead()) {
+                                for (int i = 0; i < game.markers.size(); i++) {
+                                    if (game.markers.get(i).getPos() == 2 && game.markers.get(i).getReady()) {
+                                        game.generatePowerUp(game.markers.get(i).calcXPos(), game.markers.get(i).calcYPos());
+                                        game.markers.get(i).resetReadyCounter();
+                                    }
+                                }
+                            }
+                        }
+                        break;
                 }
             }
 
@@ -140,23 +173,43 @@ public class PlayNow implements SceneInterface {
                 boolean freezed = paused || game.isCountingDown();
                 switch (keyEvent.getCode()) {
                     case LEFT:
-                        if (!freezed) {
+                        if (!freezed && Main.gameMode != 99) {
                             game.generalsMovement[0] = "";
                         }
                         break;
                     case RIGHT:
-                        if (!freezed) {
+                        if (!freezed && Main.gameMode != 99) {
                             game.generalsMovement[0] = "";
                         }
                         break;
                     case UP:
-                        if (!freezed) {
+                        if (!freezed && Main.gameMode != 99) {
                             if (game.generals[0].isDead()) game.generalsMovement[0] = "";
                         }
                         break;
                     case DOWN:
-                        if (!freezed) {
+                        if (!freezed && Main.gameMode != 99) {
                             if (game.generals[0].isDead()) game.generalsMovement[0] = "";
+                        }
+                        break;
+                    case A:
+                        if (!freezed && Main.gameMode != 99) {
+                            game.generalsMovement[2] = "";
+                        }
+                        break;
+                    case D:
+                        if (!freezed && Main.gameMode != 99) {
+                            game.generalsMovement[2] = "";
+                        }
+                        break;
+                    case W:
+                        if (!freezed && Main.gameMode != 99) {
+                            if (game.generals[2].isDead()) game.generalsMovement[2] = "";
+                        }
+                        break;
+                    case S:
+                        if (!freezed && Main.gameMode != 99) {
+                            if (game.generals[2].isDead()) game.generalsMovement[2] = "";
                         }
                         break;
                 }

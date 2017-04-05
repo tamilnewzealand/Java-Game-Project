@@ -53,27 +53,16 @@ public class Game{
         this.generals[3] = generalD;
 
         this.AIs.add(new AIController());
-        this.AIs.get(0).setGeneral(generalB);
+        this.AIs.get(0).setGeneral(generalA);
 
-        if (AICount == 4) {
-            this.AIs.add(new AIController());
-            this.AIs.get(1).setGeneral(generalC);
+        this.AIs.add(new AIController());
+        this.AIs.get(1).setGeneral(generalB);
 
-            this.AIs.add(new AIController());
-            this.AIs.get(2).setGeneral(generalD);
+        this.AIs.add(new AIController());
+        this.AIs.get(2).setGeneral(generalC);
 
-            this.AIs.add(new AIController());
-            this.AIs.get(3).setGeneral(generalA);
-        } else if (AICount == 3) {
-            this.AIs.add(new AIController());
-            this.AIs.get(1).setGeneral(generalC);
-
-            this.AIs.add(new AIController());
-            this.AIs.get(2).setGeneral(generalD);
-        } else if (AICount == 2) {
-            this.AIs.add(new AIController());
-            this.AIs.get(1).setGeneral(generalD);
-        }
+        this.AIs.add(new AIController());
+        this.AIs.get(3).setGeneral(generalD);
 
         this.deadPos = new int[4];
 
@@ -189,13 +178,12 @@ public class Game{
             }
 
             for (int i = 0; i < AIs.size();i++){
-                if (!generals[(i+1)%4].isDead()) {
+                if (!generals[i].isDead()) {
                     AIs.get(i).movePaddle(ball);
                 }else{
                     for (int j = 0; j < markers.size();j++){
-                        if (markers.get(j).getPos() == i+1){
-                            AIs.get(i).moveMarker(markers.get(j));
-                            AIs.get(i).checkDeployPowerUp(markers.get(j), powerUps);
+                        if (markers.get(j).getPos() == i){
+                            AIs.get(i).moveMarker(markers.get(j), powerUps);
                         }
                     }
                 }
@@ -387,7 +375,7 @@ public class Game{
                             generals[i].paddle.moveLeft();
                         }else{
                             for (int j = 0; j < markers.size();j++){
-                                if (markers.get(j).getPos() == 0){
+                                if (markers.get(j).getPos() == i){
                                     markers.get(j).moveLeft();
                                 }
                             }
@@ -398,7 +386,7 @@ public class Game{
                             generals[i].paddle.moveRight();
                         }else{
                             for (int j = 0; j < markers.size();j++){
-                                if (markers.get(j).getPos() == 0){
+                                if (markers.get(j).getPos() == i){
                                     markers.get(j).moveRight();
                                 }
                             }
@@ -407,7 +395,7 @@ public class Game{
                     case "up":
                         if(generals[i].isDead()) {
                             for (int j = 0; j < markers.size();j++){
-                                if (markers.get(j).getPos() == 0){
+                                if (markers.get(j).getPos() == i){
                                     markers.get(j).moveUp();
                                 }
                             }
@@ -416,7 +404,7 @@ public class Game{
                     case "down":
                         if(generals[i].isDead()) {
                             for (int j = 0; j < markers.size();j++){
-                                if (markers.get(j).getPos() == 0){
+                                if (markers.get(j).getPos() == i){
                                     markers.get(j).moveDown();
                                 }
                             }

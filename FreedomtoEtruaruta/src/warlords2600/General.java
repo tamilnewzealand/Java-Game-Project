@@ -151,4 +151,8 @@ public class General implements IObject {
         }
         return wallCount;
     }
+
+    public int getPos(){
+        return pos;
+    }
 }
