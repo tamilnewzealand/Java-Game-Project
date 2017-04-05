@@ -373,6 +373,7 @@ public class Game{
                     case "left":
                         if(!generals[i].isDead()) {
                             generals[i].paddle.moveLeft();
+                            if (Main.numberOfPaddles > 1.50) generals[i].paddleFollower.moveRight();
                         }else{
                             for (int j = 0; j < markers.size();j++){
                                 if (markers.get(j).getPos() == i){
@@ -384,6 +385,7 @@ public class Game{
                     case "right":
                         if(!generals[i].isDead()) {
                             generals[i].paddle.moveRight();
+                            if (Main.numberOfPaddles > 1.50) generals[i].paddleFollower.moveLeft();
                         }else{
                             for (int j = 0; j < markers.size();j++){
                                 if (markers.get(j).getPos() == i){

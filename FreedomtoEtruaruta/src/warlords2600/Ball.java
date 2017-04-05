@@ -67,7 +67,7 @@ public class Ball{
     public void setXVelocity(int dX) {
         if (Math.abs(dX) <= maxSpeed){
             xSpeed = dX;
-        }
+        } else xSpeed = maxSpeed;
     }
 
     /**
@@ -77,7 +77,7 @@ public class Ball{
     public void setYVelocity(int dY) {
         if (Math.abs(dY) <= maxSpeed){
             ySpeed = dY;
-        }
+        } else ySpeed = maxSpeed;
     }
 
     /**

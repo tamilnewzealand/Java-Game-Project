@@ -29,12 +29,17 @@ public class AIController {
             if (distanceBefore > 75) {//Stops paddle moving when close to ball
                 //System.out.println(distanceBefore);
                 general.paddle.moveLeft();
+                if(Main.numberOfPaddles > 1.50) general.paddleFollower.moveRight();
                 double distanceAfter = calculateDistance(ball);
                 if (distanceAfter < distanceBefore) {
                     //Do Nothing our move made it get closer to ball in y axis. No further action required.
                 } else {
                     general.paddle.moveRight();
                     general.paddle.moveRight();//Move right twice to compensate for wrong left turn initially
+                    if(Main.numberOfPaddles > 1.50) {
+                        general.paddleFollower.moveLeft();
+                        general.paddleFollower.moveLeft();
+                    }
                 }
             }
         }

@@ -268,15 +268,27 @@ public class PlayNow implements SceneInterface {
         }
 
         Paddle[] paddles = new Paddle[4];
+        Paddle[] paddleFollowers = new Paddle[4];
         for (int i = 0; i < 4; i++) {
             paddles[i] = new Paddle(Math.PI / 4, i);
+            paddleFollowers[i] = new Paddle(Math.PI / 4, i);
         }
-        General generalA = new General(50, Math.PI / 4, paddles[0], wallA, 0);
-        General generalB = new General(50, Math.PI / 4, paddles[1], wallB, 1);
-        General generalC = new General(50, Math.PI / 4, paddles[2], wallC, 2);
-        General generalD = new General(50, Math.PI / 4, paddles[3], wallD, 3);
 
-        double randomX = Math.random() * 10 - 5;//Random speed generation
+        General generalA, generalB, generalC, generalD;
+
+        if (Main.numberOfPaddles > 1.50) {
+            generalA = new General(50, Math.PI / 4, paddles[0], paddleFollowers[0], wallA, 0);
+            generalB = new General(50, Math.PI / 4, paddles[1], paddleFollowers[1], wallB, 1);
+            generalC = new General(50, Math.PI / 4, paddles[2], paddleFollowers[2], wallC, 2);
+            generalD = new General(50, Math.PI / 4, paddles[3], paddleFollowers[3], wallD, 3);
+        } else {
+            generalA = new General(50, Math.PI / 4, paddles[0], wallA, 0);
+            generalB = new General(50, Math.PI / 4, paddles[1], wallB, 1);
+            generalC = new General(50, Math.PI / 4, paddles[2], wallC, 2);
+            generalD = new General(50, Math.PI / 4, paddles[3], wallD, 3);
+        }
+
+        double randomX = Math.random() * 10 - 5; //Random speed generation
         double randomY = Math.random() * 10 - 5;
 
         if (randomX > 0) { //Speed boost for ball
@@ -291,8 +303,8 @@ public class PlayNow implements SceneInterface {
             randomY -= 8;
         }
 
-        ball.setXVelocity((int) randomX);
-        ball.setYVelocity((int) randomY);
+        ball.setXVelocity((int) (Main.speedMultiplier * randomX));
+        ball.setYVelocity((int) (Main.speedMultiplier * randomY));
 
         gc.setFill(Color.WHITE);
         gc.setLineWidth(2);
@@ -305,7 +317,6 @@ public class PlayNow implements SceneInterface {
         else game = new Game(ball, generalA, generalB, generalC, generalD, 3);
 
         SoundManager.playBackground();
-        //game.ball.setYPos(game.generals[1].paddle.calcYPos());
 
         new AnimationTimer() {
             private long lastUpdate = 0;
@@ -348,6 +359,7 @@ public class PlayNow implements SceneInterface {
                     for (int k = 0; k < game.generals.length; k++) {
                         if (!game.generals[k].isDead())
                             gc.drawImage(paddleImages[k], game.generals[k].paddle.calcXPos(), game.generals[k].paddle.calcYPos(), game.generals[k].paddle.getWidth(), game.generals[k].paddle.getHeight());
+                            if (Main.numberOfPaddles > 1.50) gc.drawImage(paddleImages[k], game.generals[k].paddleFollower.calcXPos(), game.generals[k].paddleFollower.calcYPos(), game.generals[k].paddleFollower.getWidth(), game.generals[k].paddleFollower.getHeight());
                         for (int i = 0; i < 3; i++) {
                             for (int j = 0; j < 5; j++) {
                                 if (!game.generals[k].wall[i][j].isDestroyed())
@@ -369,6 +381,7 @@ public class PlayNow implements SceneInterface {
 
                     if (game.getFinished()) {
                         playNowScene.removeEventHandler(KeyEvent.KEY_PRESSED, keyPressHandler);
+                        playNowScene.removeEventHandler(KeyEvent.KEY_RELEASED, keyReleaseHandler);
                         if (true || game.generals[0].hasWon()) {
                             switch (Main.gameMode) {
                                 case 2:

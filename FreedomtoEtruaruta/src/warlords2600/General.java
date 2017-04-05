@@ -13,6 +13,7 @@ import EtruarutaGUI.Main;
 public class General implements IObject {
 
     public Paddle paddle;
+    public Paddle paddleFollower;
     public Brick[][] wall;
     private int height = 25, width = 25, r, pos = 0;
     private double theta;
@@ -32,6 +33,11 @@ public class General implements IObject {
         this.paddle = paddle;
         this.wall = wall;
         this.pos = pos;
+    }
+
+    public General(int r, double theta, Paddle paddle, Paddle paddleFollower, Brick[][] wall, int pos) {
+        this(r, theta, paddle, wall, pos);
+        this.paddleFollower = paddleFollower;
     }
 
     /**

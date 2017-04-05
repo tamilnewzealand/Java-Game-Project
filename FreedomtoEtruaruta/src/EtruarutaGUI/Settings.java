@@ -12,10 +12,13 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
 
 /**
  * This class presents the settings scene. The user
@@ -31,9 +34,9 @@ public class Settings implements SceneInterface {
     private SceneManager sceneManager;
     private Scene settingsScene;
     private Group root;
-    final Slider opacityLevel = new Slider(0, 1, 1);
-    final Label opacityCaption = new Label("Opacity Level:");
-    final Label opacityValue = new Label(Double.toString(opacityLevel.getValue()));
+    final Slider ballSpeedSetting = new Slider(1, 3, Main.speedMultiplier);
+    final Slider numberOfBallSetting = new Slider(1, 3, Main.numberOfBalls);
+    final Slider numberOfPaddleSetting = new Slider(1, 2, Main.numberOfPaddles);
 
     /**
      * Constructor for Settings class
@@ -59,34 +62,64 @@ public class Settings implements SceneInterface {
         gc.drawImage( space, 0, 0 );
         SoundManager.playBackground();
 
-        Slider sliderA = new Slider(0, 1, 0.5);
-
-        /*GridPane grid = new GridPane();
-        grid.setPadding(new Insets(10, 10, 10, 10));
+        GridPane grid = new GridPane();
+        grid.setPadding(new Insets(150, 100, 100, 325));
         grid.setVgap(10);
         grid.setHgap(70);
 
-        settingsScene.setRoot(grid);
+        final Label ballSpeed = new Label("Ball Speed:");
+        final Label numberOfBalls = new Label("Number of Balls:");
+        final Label numberOfPaddles = new Label("Number of Paddles:");
 
-        GridPane.setConstraints(opacityCaption, 0, 1);
-        grid.getChildren().add(opacityCaption);
+        Font theFont = Font.font("Kavivanar", 24);
 
+        ballSpeed.setTextFill(Color.WHITE);
+        ballSpeed.setFont(theFont);
+        GridPane.setConstraints(ballSpeed, 0, 1);
+        grid.getChildren().add(ballSpeed);
 
-        opacityLevel.valueProperty().addListener(new ChangeListener<Number>() {
+        numberOfBalls.setTextFill(Color.WHITE);
+        numberOfBalls.setFont(theFont);
+        GridPane.setConstraints(numberOfBalls, 0, 2);
+        grid.getChildren().add(numberOfBalls);
+
+        numberOfPaddles.setTextFill(Color.WHITE);
+        numberOfPaddles.setFont(theFont);
+        GridPane.setConstraints(numberOfPaddles, 0, 3);
+        grid.getChildren().add(numberOfPaddles);
+
+        ballSpeedSetting.valueProperty().addListener(new ChangeListener<Number>() {
             public void changed(ObservableValue<? extends Number> ov,
                                 Number old_val, Number new_val) {
-                //System.out.println(new_val.doubleValue());
-                opacityValue.setText(String.format("%.2f", new_val));
+               Main.speedMultiplier = new_val.doubleValue();
             }
         });
 
-        GridPane.setConstraints(opacityLevel, 1, 1);
-        grid.getChildren().add(opacityLevel);
+        numberOfBallSetting.valueProperty().addListener(new ChangeListener<Number>() {
+            public void changed(ObservableValue<? extends Number> ov,
+                                Number old_val, Number new_val) {
+                Main.numberOfBalls = new_val.doubleValue();
+            }
+        });
 
+        numberOfPaddleSetting.valueProperty().addListener(new ChangeListener<Number>() {
+            public void changed(ObservableValue<? extends Number> ov,
+                                Number old_val, Number new_val) {
+                Main.numberOfPaddles = new_val.doubleValue();
+            }
+        });
 
-        GridPane.setConstraints(opacityValue, 2, 1);
-        grid.getChildren().add(opacityValue);
-        */
+        GridPane.setConstraints(ballSpeedSetting, 1, 1);
+        grid.getChildren().add(ballSpeedSetting);
+
+        GridPane.setConstraints(numberOfBallSetting, 1, 2);
+        grid.getChildren().add(numberOfBallSetting);
+
+        GridPane.setConstraints(numberOfPaddleSetting, 1, 3);
+        grid.getChildren().add(numberOfPaddleSetting);
+
+        root.getChildren().add(grid);
+
         addTitle();
         addMenuButton();
 
