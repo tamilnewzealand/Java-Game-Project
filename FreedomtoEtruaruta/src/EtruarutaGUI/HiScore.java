@@ -8,6 +8,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
 
 /**
@@ -75,7 +76,8 @@ public class HiScore implements SceneInterface {
                 sceneManager.goToMenuScene(sceneManager);
             }
         });
-
+        menuButton.setTextFill(Paint.valueOf("#FF3333"));
+        menuButton.defaultButtonProperty().bind(menuButton.focusedProperty());
         root.getChildren().add(menuButton);
     }
 }
