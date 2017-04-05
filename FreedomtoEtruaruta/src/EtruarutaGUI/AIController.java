@@ -12,7 +12,7 @@ import java.util.Random;
 public class AIController {
     private General general;
     private int tickCounter = 0;
-    private int movementCounter = 30;
+    private int movementCounter = 15;
     private boolean movingUp = false, movingRight = false, movingDown = false, movingLeft = false;
 
     public void AIController(){
@@ -29,7 +29,7 @@ public class AIController {
                 double distanceBefore = calculateDistance(ball);
                 if (distanceBefore > 75) {//Stops paddle moving when close to ball
                     //System.out.println(distanceBefore);
-                    tickCounter = 5;
+                    tickCounter = 2;
                     general.paddle.moveLeft();
 
                     double distanceAfter = calculateDistance(ball);
@@ -59,7 +59,7 @@ public class AIController {
 
     public void moveMarker(Marker markerIn){
         if (movementCounter <= 0) {
-            movementCounter = 5;
+            movementCounter = 15;
             resetMovement();
             int movement = (int) (Math.random() * 4);
             if (movement == 0) {

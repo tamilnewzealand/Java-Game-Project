@@ -1,6 +1,7 @@
 package warlords2600;
 
 import EtruarutaGUI.AIController;
+import EtruarutaGUI.Main;
 import EtruarutaGUI.SceneManager;
 import EtruarutaGUI.SoundManager;
 import javafx.event.EventHandler;
@@ -66,7 +67,7 @@ public class Game{
             this.AIs.get(1).setGeneral(generalC);
 
             this.AIs.add(new AIController());
-            this.AIs.g  et(2).setGeneral(generalD);
+            this.AIs.get(2).setGeneral(generalD);
         } else if (AICount == 2) {
             this.AIs.add(new AIController());
             this.AIs.get(1).setGeneral(generalD);
@@ -185,7 +186,7 @@ public class Game{
             }
 
             for (int i = 0; i < AIs.size();i++){
-                if (!generals[i+1].isDead()) {
+                if (!generals[(i+1)%4].isDead()) {
                     AIs.get(i).movePaddle(ball);
                 }else{
                     for (int j = 0; j < markers.size();j++){
@@ -197,7 +198,7 @@ public class Game{
                 }
             }
 
-            if (timeElapsed % 900 == 0){
+            if (timeElapsed % 600 == 0){
                 generatePowerUp();
             }
             ball.checkReduceSpeed();
@@ -222,12 +223,14 @@ public class Game{
                 if (x == object.calcXPos() || y == object.calcYPos() || x == (object.calcXPos() + object.getWidth()) || y == (object.calcYPos() + object.getHeight())) {
                     if (inBallPath(x, y)) {
                         if (x == object.calcXPos()) {
-                            ball.setXVelocity(-ball.getXVelocity());
+                            if (ball.getXVelocity() > 0) {
+                                ball.setXVelocity(-ball.getXVelocity());
+                                ball.setHitLastTick(true);
+                            }
                             //System.out.println(ball.getXPos());
                             ball.setXPos(ball.getXPos() + ball.getXVelocity());
                             ball.setYPos(ball.getYPos() + ball.getYVelocity());
                             System.out.println("A, X: " + ball.getXPos() + " Y: " + ball.getYPos() + " Y Velocity: " + ball.getYVelocity() + " X Velocity: " + ball.getXVelocity());
-                            ball.setHitLastTick(true);
                             return true;
                         } else if (y == object.calcYPos()) {
                             ball.setYVelocity(-ball.getYVelocity());
@@ -238,11 +241,13 @@ public class Game{
                             ball.setHitLastTick(true);
                             return true;
                         } else if (x == (object.calcXPos() + object.getWidth())) {
-                            ball.setXVelocity(-ball.getXVelocity());
+                            if (ball.getXVelocity() < 0) {
+                                ball.setXVelocity(-ball.getXVelocity());
+                                ball.setHitLastTick(true);
+                            }
                             //ball.setXPos(ball.getXPos() - ball.getXVelocity());
                             ball.setYPos(ball.getYPos() - ball.getYVelocity());
                             System.out.println("C, X: " + ball.getXPos() + " Y: " + ball.getYPos() + " Y Velocity: " + ball.getYVelocity() + " X Velocity: " + ball.getXVelocity());
-                            ball.setHitLastTick(true);
                             return true;
                         } else if (y == (object.calcYPos() + object.getHeight())) {
                             ball.setYVelocity(-ball.getYVelocity());

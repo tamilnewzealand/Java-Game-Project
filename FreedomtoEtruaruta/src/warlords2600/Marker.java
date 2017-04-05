@@ -7,7 +7,7 @@ import EtruarutaGUI.Main;
  */
 public class Marker implements IObject {
     private int xPos = Main.WIDTH/2,yPos = Main.HEIGHT/2,width = 25,height = 25;
-    private int pos, readyCounter = 900;
+    private int pos, readyCounter = 300;
 
     public void Marker(){
     }
@@ -83,6 +83,6 @@ public class Marker implements IObject {
     }
 
     public void resetReadyCounter(){
-        readyCounter = 450;
+        readyCounter = 300;
     }
 }

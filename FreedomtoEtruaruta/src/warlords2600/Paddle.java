@@ -11,8 +11,8 @@ import EtruarutaGUI.Main;
  */
 
 public class Paddle implements IObject {
-    private int x, y, r = 300, speed = 5, width = 50, height = 10, pos = 0;
-    double theta, polarSpeed = 0.1;
+    private int x, y, r = 275, speed = 5, width = 50, height = 10, pos = 0;
+    double theta, polarSpeed = 0.03;
     private boolean sizeIncreased = false;
     private int previousWidth;
     private int widthUpCounter = 0;

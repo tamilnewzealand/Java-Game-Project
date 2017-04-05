@@ -385,7 +385,7 @@ public class PlayNow implements SceneInterface {
         Image paddleSizeUpImage = new Image ("paddleSizeUp.png");
         gc.drawImage( space, 0, 0, Main.WIDTH, Main.HEIGHT);
 
-        Ball ball = new Ball(Main.WIDTH/2,Main.HEIGHT/2);
+        Ball ball = new Ball(Main.WIDTH,Main.HEIGHT);
 
         Brick[][] wallA = new Brick[3][5];
         Brick[][] wallB = new Brick[3][5];
