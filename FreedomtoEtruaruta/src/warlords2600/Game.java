@@ -44,7 +44,7 @@ public class Game{
         this.generals[0].wall[0][0] = brick;
     }
 
-    public Game(Ball ball, General generalA, General generalB, General generalC, General generalD, int AICount) {
+    public Game(Ball ball, General generalA, General generalB, General generalC, General generalD) {
         this.ball = ball;
         this.generals = new General[4];
         this.generals[0] = generalA;

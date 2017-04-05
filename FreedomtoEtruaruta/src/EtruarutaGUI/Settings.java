@@ -14,6 +14,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.control.Slider;
@@ -142,6 +143,8 @@ public class Settings implements SceneInterface {
             }
         });
 
+        menuButton.setTextFill(Paint.valueOf("#FF3333"));
+        menuButton.defaultButtonProperty().bind(menuButton.focusedProperty());
         root.getChildren().add(menuButton);
     }
 }

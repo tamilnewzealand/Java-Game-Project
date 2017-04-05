@@ -40,13 +40,19 @@ public class Intro implements SceneInterface {
     @Override
     public Scene init(int width, int height) {
         root = new Group();
-        introScene = new Scene(root, width, height, Color.AZURE);
+        introScene = new Scene(root, width, height, Color.ORANGE);
 
         Canvas canvas = new Canvas(Main.WIDTH, Main.HEIGHT);
         root.getChildren().add(canvas);
 
-        final MediaView introVid = new MediaView(new MediaPlayer(new Media("intro.flv")));
-        root.getChildren().add(introVid);
+        Media media = new Media("file:/e:/intro.flv");
+        MediaPlayer mediaPlayer = new MediaPlayer(media);
+        MediaView mediaView = new MediaView(mediaPlayer);
+        mediaPlayer.play();
+        //mediaView.setFitWidth(Main.WIDTH);
+        //mediaView.setFitHeight(Main.HEIGHT);
+
+        root.getChildren().add(mediaView);
         addMenuButton();
 
         addMenuButton();

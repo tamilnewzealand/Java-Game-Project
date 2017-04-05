@@ -312,9 +312,9 @@ public class PlayNow implements SceneInterface {
         gc.setTextAlign(TextAlignment.CENTER);
         gc.setFont(theFont);
 
-        if (Main.gameMode == 0) game = new Game(ball, generalA, generalB, generalC, generalD, 2);
-        else if (Main.gameMode == 99) game = new Game(ball, generalA, generalB, generalC, generalD, 4);
-        else game = new Game(ball, generalA, generalB, generalC, generalD, 3);
+        if (Main.gameMode == 0) game = new Game(ball, generalA, generalB, generalC, generalD);
+        else if (Main.gameMode == 99) game = new Game(ball, generalA, generalB, generalC, generalD);
+        else game = new Game(ball, generalA, generalB, generalC, generalD);
 
         SoundManager.playBackground();
 
