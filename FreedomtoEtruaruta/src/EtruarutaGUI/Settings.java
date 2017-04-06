@@ -39,7 +39,7 @@ public class Settings implements SceneInterface {
     final Slider ballSpeedSetting = new Slider(1, 3, Main.speedMultiplier);
     final Slider numberOfBallSetting = new Slider(1, 3, numOfBalls);
     final Slider numberOfPaddleSetting = new Slider(1, 2, Main.numberOfPaddles);
-
+    private Button menuButton = GUIComponent.createButton("Back to Menu", 244, 580);
     /**
      * Constructor for Settings class
      * @param sceneManager SceneManager currently being used
@@ -94,6 +94,7 @@ public class Settings implements SceneInterface {
             public void changed(ObservableValue<? extends Number> ov,
                                 Number old_val, Number new_val) {
                Main.speedMultiplier = new_val.doubleValue();
+               menuButton.requestFocus();
             }
         });
 
@@ -102,6 +103,7 @@ public class Settings implements SceneInterface {
                                 Number old_val, Number new_val) {
                 numOfBalls = new_val.doubleValue();
                 Main.numberOfBalls = (int)Math.round(numOfBalls);
+                menuButton.requestFocus();
             }
         });
 
@@ -109,6 +111,7 @@ public class Settings implements SceneInterface {
             public void changed(ObservableValue<? extends Number> ov,
                                 Number old_val, Number new_val) {
                 Main.numberOfPaddles = new_val.doubleValue();
+                menuButton.requestFocus();
             }
         });
 
@@ -120,11 +123,9 @@ public class Settings implements SceneInterface {
 
         GridPane.setConstraints(numberOfPaddleSetting, 1, 3);
         grid.getChildren().add(numberOfPaddleSetting);
-
         root.getChildren().add(grid);
 
         addTitle();
-        addMenuButton();
 
         return settingsScene;
     }
@@ -136,7 +137,6 @@ public class Settings implements SceneInterface {
     }
 
     private void addMenuButton() {
-        Button menuButton = GUIComponent.createButton("Back to Menu", 244, 580);
 
         menuButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override

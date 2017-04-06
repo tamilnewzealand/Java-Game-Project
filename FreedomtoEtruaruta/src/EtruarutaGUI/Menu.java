@@ -94,12 +94,15 @@ public class Menu implements SceneInterface {
             @Override
             public void handle(MouseEvent me) {
                 menuScene.setCursor(Cursor.HAND); //Change cursor to hand
+                optionNumber = 0;
+                resetColours();
+                colourText(0);
             }
         });
         startButton.setOnMouseExited(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent me) {
-                menuScene.setCursor(Cursor.DEFAULT); //Change cursor to hand
+                menuScene.setCursor(Cursor.DEFAULT); //Change cursor to default
             }
         });
         buttonsArray[0] = startButton;
@@ -121,12 +124,15 @@ public class Menu implements SceneInterface {
             @Override
             public void handle(MouseEvent me) {
                 menuScene.setCursor(Cursor.HAND); //Change cursor to hand
+                optionNumber = 1;
+                resetColours();
+                colourText(1);
             }
         });
         multi2Button.setOnMouseExited(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent me) {
-                menuScene.setCursor(Cursor.DEFAULT); //Change cursor to hand
+                menuScene.setCursor(Cursor.DEFAULT); //Change cursor to default
             }
         });
 
@@ -149,12 +155,15 @@ public class Menu implements SceneInterface {
             @Override
             public void handle(MouseEvent me) {
                 menuScene.setCursor(Cursor.HAND); //Change cursor to hand
+                optionNumber = 2;
+                resetColours();
+                colourText(2);
             }
         });
         instructionsButton.setOnMouseExited(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent me) {
-                menuScene.setCursor(Cursor.DEFAULT); //Change cursor to hand
+                menuScene.setCursor(Cursor.DEFAULT); //Change cursor to default
             }
         });
 
@@ -177,12 +186,15 @@ public class Menu implements SceneInterface {
             @Override
             public void handle(MouseEvent me) {
                 menuScene.setCursor(Cursor.HAND); //Change cursor to hand
+                optionNumber = 3;
+                resetColours();
+                colourText(3);
             }
         });
         demoButton.setOnMouseExited(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent me) {
-                menuScene.setCursor(Cursor.DEFAULT); //Change cursor to hand
+                menuScene.setCursor(Cursor.DEFAULT); //Change cursor to default
             }
         });
 
@@ -205,12 +217,15 @@ public class Menu implements SceneInterface {
             @Override
             public void handle(MouseEvent me) {
                 menuScene.setCursor(Cursor.HAND); //Change cursor to hand
+                optionNumber = 4;
+                resetColours();
+                colourText(4);
             }
         });
         highScoresButton.setOnMouseExited(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent me) {
-                menuScene.setCursor(Cursor.DEFAULT); //Change cursor to hand
+                menuScene.setCursor(Cursor.DEFAULT); //Change cursor to default
             }
         });
 
@@ -233,12 +248,15 @@ public class Menu implements SceneInterface {
             @Override
             public void handle(MouseEvent me) {
                 menuScene.setCursor(Cursor.HAND); //Change cursor to hand
+                optionNumber = 5;
+                resetColours();
+                colourText(5);
             }
         });
         settingsButton.setOnMouseExited(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent me) {
-                menuScene.setCursor(Cursor.DEFAULT); //Change cursor to hand
+                menuScene.setCursor(Cursor.DEFAULT); //Change cursor to default
             }
         });
 
@@ -261,12 +279,15 @@ public class Menu implements SceneInterface {
             @Override
             public void handle(MouseEvent me) {
                 menuScene.setCursor(Cursor.HAND); //Change cursor to hand
+                optionNumber = 6;
+                resetColours();
+                colourText(6);
             }
         });
         exitButton.setOnMouseExited(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent me) {
-                menuScene.setCursor(Cursor.DEFAULT); //Change cursor to hand
+                menuScene.setCursor(Cursor.DEFAULT); //Change cursor to default
             }
         });
         buttonsArray[6] = exitButton;
