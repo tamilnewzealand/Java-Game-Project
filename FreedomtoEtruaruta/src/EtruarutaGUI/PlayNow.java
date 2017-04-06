@@ -258,10 +258,10 @@ public class PlayNow implements SceneInterface {
         Brick[][] wallD = new Brick[3][5];
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 5; j++) {
-                wallA[i][j] = new Brick(100 + 35 * i, 0.3 * (j + 1) - 0.15, 0);
-                wallB[i][j] = new Brick(100 + 35 * i, 0.3 * (j + 1) - 0.15, 1);
-                wallC[i][j] = new Brick(100 + 35 * i, 0.3 * (j + 1) - 0.15, 2);
-                wallD[i][j] = new Brick(100 + 35 * i, 0.3 * (j + 1) - 0.15, 3);
+                wallA[i][j] = new Brick(100 + 35 * i, 0.15 + 0.317699082 * j , 0);
+                wallB[i][j] = new Brick(100 + 35 * i, 0.15 + 0.317699082 * j, 1);
+                wallC[i][j] = new Brick(100 + 35 * i, 0.15 + 0.317699082 * j, 2);
+                wallD[i][j] = new Brick(100 + 35 * i, 0.15 + 0.317699082 * j, 3);
             }
         }
 
