@@ -39,6 +39,7 @@ public class Settings implements SceneInterface {
     final Slider ballSpeedSetting = new Slider(1, 2, Main.speedMultiplier);
     final Slider numberOfBallSetting = new Slider(1, 3, Main.numOfBalls);
     final Slider numberOfPaddleSetting = new Slider(1, 2, Main.numberOfPaddles);
+    final Slider paddleSizeSetting = new Slider(0.5, 2.5, Main.paddleSize);
     private Button menuButton = GUIComponent.createButton("Back to Menu", 244, 580);
     /**
      * Constructor for Settings class
@@ -74,6 +75,7 @@ public class Settings implements SceneInterface {
         final Label ballSpeed = new Label("Ball Speed:");
         final Label numberOfBalls = new Label("Number of Balls:");
         final Label numberOfPaddles = new Label("Number of Paddles:");
+        final Label paddleSize = new Label("Paddle Size:");
 
         Font theFont = Font.font("Kavivanar", 24);
 
@@ -91,6 +93,11 @@ public class Settings implements SceneInterface {
         numberOfPaddles.setFont(theFont);
         GridPane.setConstraints(numberOfPaddles, 0, 3);
         grid.getChildren().add(numberOfPaddles);
+
+        paddleSize.setTextFill(Color.WHITE);
+        paddleSize.setFont(theFont);
+        GridPane.setConstraints(paddleSize, 0, 4);
+        grid.getChildren().add(paddleSize);
 
         ballSpeedSetting.valueProperty().addListener(new ChangeListener<Number>() {
             public void changed(ObservableValue<? extends Number> ov,
@@ -117,6 +124,14 @@ public class Settings implements SceneInterface {
             }
         });
 
+        paddleSizeSetting.valueProperty().addListener(new ChangeListener<Number>() {
+            public void changed(ObservableValue<? extends Number> ov,
+                                Number old_val, Number new_val) {
+                Main.paddleSize = new_val.doubleValue();
+                menuButton.requestFocus();
+            }
+        });
+
         GridPane.setConstraints(ballSpeedSetting, 1, 1);
         grid.getChildren().add(ballSpeedSetting);
 
@@ -125,6 +140,9 @@ public class Settings implements SceneInterface {
 
         GridPane.setConstraints(numberOfPaddleSetting, 1, 3);
         grid.getChildren().add(numberOfPaddleSetting);
+
+        GridPane.setConstraints(paddleSizeSetting, 1, 4);
+        grid.getChildren().add(paddleSizeSetting);
         root.getChildren().add(grid);
 
         addTitle();

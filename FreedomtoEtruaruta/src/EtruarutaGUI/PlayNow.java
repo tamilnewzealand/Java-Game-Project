@@ -270,6 +270,10 @@ public class PlayNow implements SceneInterface {
         for (int i = 0; i < 4; i++) {
             paddles[i] = new Paddle(Math.PI / 4, i);
             paddleFollowers[i] = new Paddle(Math.PI / 4, i);
+            paddles[i].setHeight((int)(paddles[i].getHeight() * Main.paddleSize));
+            paddles[i].setWidth((int)(paddles[i].getWidth() * Main.paddleSize));
+            paddleFollowers[i].setHeight((int)(paddleFollowers[i].getHeight() * Main.paddleSize));
+            paddleFollowers[i].setWidth((int)(paddleFollowers[i].getWidth() * Main.paddleSize));
         }
 
         General generalA, generalB, generalC, generalD;
