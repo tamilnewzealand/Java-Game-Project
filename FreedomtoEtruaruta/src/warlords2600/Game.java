@@ -101,7 +101,7 @@ public class Game{
                                 }else if (powerUps.get(i).getPowerUpName().equals("Paddle Size Up")){
                                     boolean activateSizeIncrease = false;
                                     for (int j = 0; j < generals.length;j++){
-                                        if (!generals[j].isDead() && !generals[j].paddle.getSizeIncreased()){
+                                        if (!generals[j].isDead() && !generals[j].paddle.getSizeIncreased()&& !generals[j].paddleFollower.getSizeIncreased()){
                                             activateSizeIncrease = true;
                                         }
                                     }
@@ -116,6 +116,7 @@ public class Game{
                     outerLoop:
                     for (int i = 0; i < generals.length; i++) {
                         if (!ballHit && (!generals[i].isDead())) ballHit = objectCollision(generals[i].paddle, ballHit);
+                        if (!ballHit && (!generals[i].isDead())) ballHit = objectCollision(generals[i].paddleFollower, ballHit);
                         if (!ballHit && (!generals[i].isDead())) {
                             ballHit = objectCollision(generals[i], ballHit);
                             if (ballHit){
@@ -201,6 +202,7 @@ public class Game{
 
             for (int i = 0; i < generals.length;i++){
                 generals[i].paddle.checkDecreaseWidth();
+                generals[i].paddleFollower.checkDecreaseWidth();
             }
 
             for (int i = 0; i < generals.length;i++){

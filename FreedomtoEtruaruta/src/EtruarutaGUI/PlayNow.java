@@ -363,9 +363,12 @@ public class PlayNow implements SceneInterface {
                     }
 
                     for (int k = 0; k < game.generals.length; k++) {
-                        if (!game.generals[k].isDead())
+                        if (!game.generals[k].isDead()) {
                             gc.drawImage(paddleImages[k], game.generals[k].paddle.calcXPos(), game.generals[k].paddle.calcYPos(), game.generals[k].paddle.getWidth(), game.generals[k].paddle.getHeight());
-                            if (Main.numberOfPaddles > 1.50) gc.drawImage(paddleImages[k], game.generals[k].paddleFollower.calcXPos(), game.generals[k].paddleFollower.calcYPos(), game.generals[k].paddleFollower.getWidth(), game.generals[k].paddleFollower.getHeight());
+                            if (Main.numberOfPaddles > 1.50) {
+                                gc.drawImage(paddleImages[k], game.generals[k].paddleFollower.calcXPos(), game.generals[k].paddleFollower.calcYPos(), game.generals[k].paddleFollower.getWidth(), game.generals[k].paddleFollower.getHeight());
+                            }
+                        }
                         for (int i = 0; i < 3; i++) {
                             for (int j = 0; j < 5; j++) {
                                 if (!game.generals[k].wall[i][j].isDestroyed())
