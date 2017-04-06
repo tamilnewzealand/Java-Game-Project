@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
+import javafx.scene.Cursor;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.geometry.Insets;
@@ -13,6 +14,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
@@ -146,6 +148,7 @@ public class Settings implements SceneInterface {
         root.getChildren().add(grid);
 
         addTitle();
+        configureSliders();
 
         return settingsScene;
     }
@@ -165,8 +168,38 @@ public class Settings implements SceneInterface {
             }
         });
 
+        menuButton.setOnMouseEntered(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                settingsScene.setCursor(Cursor.HAND);
+            }
+        });
+
+        menuButton.setOnMouseExited(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                settingsScene.setCursor(Cursor.DEFAULT);
+            }
+        });
+
         menuButton.setTextFill(Paint.valueOf("#FF3333"));
         menuButton.defaultButtonProperty().bind(menuButton.focusedProperty());
         root.getChildren().add(menuButton);
+    }
+
+    private void configureSliders(){
+        ballSpeedSetting.setShowTickLabels(true);
+
+        numberOfBallSetting.setShowTickLabels(true);
+        numberOfBallSetting.setMinorTickCount(1);
+        numberOfBallSetting.setMajorTickUnit(2);
+        numberOfBallSetting.setSnapToTicks(true);
+
+        numberOfPaddleSetting.setShowTickLabels(true);
+        numberOfPaddleSetting.setMinorTickCount(1);
+        numberOfPaddleSetting.setMajorTickUnit(2);
+        numberOfPaddleSetting.setSnapToTicks(true);
+
+        paddleSizeSetting.setShowTickLabels(true);
     }
 }
