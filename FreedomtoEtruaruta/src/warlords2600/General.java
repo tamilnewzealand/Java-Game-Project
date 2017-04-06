@@ -110,8 +110,8 @@ public class General implements IObject {
         int xPos = (int)(r * Math.cos(theta));
         switch (pos) {
             case 0: return xPos;
-            case 1: return (Main.WIDTH - xPos);
-            case 2: return (Main.WIDTH - xPos);
+            case 1: return (Main.WIDTH - xPos - 25);
+            case 2: return (Main.WIDTH - xPos - 25);
             case 3: return xPos;
             default: return xPos;
         }
@@ -126,8 +126,8 @@ public class General implements IObject {
         switch (pos) {
             case 0: return yPos;
             case 1: return yPos;
-            case 2: return (Main.HEIGHT - yPos);
-            case 3: return (Main.HEIGHT - yPos);
+            case 2: return (Main.HEIGHT - yPos - 25);
+            case 3: return (Main.HEIGHT - yPos - 25);
             default: return yPos;
         }
     }

@@ -121,8 +121,8 @@ public class Paddle implements IObject {
         x = (int)(r * Math.cos(theta));
         switch (pos) {
             case 0: return x;
-            case 1: return (Main.WIDTH - x);
-            case 2: return (Main.WIDTH - x);
+            case 1: return (Main.WIDTH - x - 25);
+            case 2: return (Main.WIDTH - x - 25);
             case 3: return x;
             default: return x;
         }
@@ -137,8 +137,8 @@ public class Paddle implements IObject {
         switch (pos) {
             case 0: return y;
             case 1: return y;
-            case 2: return (Main.HEIGHT - y);
-            case 3: return (Main.HEIGHT - y);
+            case 2: return (Main.HEIGHT - y - 25);
+            case 3: return (Main.HEIGHT - y - 25);
             default: return y;
         }
     }
