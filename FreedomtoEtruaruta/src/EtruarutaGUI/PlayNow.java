@@ -388,7 +388,7 @@ public class PlayNow implements SceneInterface {
                     if (game.isCountingDown()) gc.fillText(game.getCountdownRemaining(), Main.WIDTH / 2, 60);
                     else gc.fillText(game.getTimeRemaining(), Main.WIDTH / 2, 60);
 
-                    if (game.getFinished()) {
+                    if (game.isFinished()) {
                         playNowScene.removeEventHandler(KeyEvent.KEY_PRESSED, keyPressHandler);
                         playNowScene.removeEventHandler(KeyEvent.KEY_RELEASED, keyReleaseHandler);
                         if (true || game.generals[0].hasWon()) {

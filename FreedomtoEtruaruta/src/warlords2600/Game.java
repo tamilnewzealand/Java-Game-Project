@@ -123,6 +123,7 @@ public class Game{
                                 generals[i].killGeneral();
                                 generalHit = true;
                                 SoundManager.playGeneralDeath();
+                                break outerLoop;
                             }
                         }
                         if (!ballHit) {
@@ -144,44 +145,44 @@ public class Game{
 
                 if (ballHit && !generalHit) SoundManager.playCollision();
 
-                for (int i = 0; i < generals.length; i++) {
-                    if (generals[i].isDead()) deadCount++;
-                }
-
-                if (deadCount + 1 == generals.length) {
-                    for (int i = 0; i < generals.length; i++) {
-                        if (!generals[i].isDead()) {
-                            generals[i].setWon();
-                            isFinished = true;
-                        }
-                    }
-                }
-
                 if (!ballHit) {
                     ball.processBall();
                     ball.setHitLastTick(false);
                     ball.decrementCounter();
                 }
-                for (int i = 0; i < AIs.size();i++){
-                    if (!generals[i].isDead()) {
-                        AIs.get(i).movePaddle(ball);
-                    }else{
-                        for (int j = 0; j < markers.size();j++){
-                            if (markers.get(j).getPos() == i){
-                                AIs.get(i).moveMarker(markers.get(j), powerUps);
-                            }
-                        }
-                    }
-                }
                 ball.checkReduceSpeed();
             }
+        for (int i = 0; i < generals.length; i++) {
+            if (generals[i].isDead()) deadCount++;
+        }
+
+        if (deadCount + 1 == generals.length) {
+            for (int i = 0; i < generals.length; i++) {
+                if (!generals[i].isDead()) {
+                    generals[i].setWon();
+                    isFinished = true;
+                }
+            }
+        }
+
+        for (int i = 0; i < AIs.size();i++){
+            if (!generals[i].isDead()) {
+                AIs.get(i).movePaddle(balls);
+            }else{
+                for (int j = 0; j < markers.size();j++){
+                    if (markers.get(j).getPos() == i){
+                        AIs.get(i).moveMarker(markers.get(j), powerUps);
+                    }
+                }
+            }
+        }
 
             if (deadCount > 0 && markers.size() < deadCount ){
                 for (int i = 0; i < deadPos.length;i++) {
                     if (deadPos[i] != 1 && generals[i].isDead()) {
                         this.markers.add(new Marker());
                         this.markers.get(this.markers.size() - 1).setPos(i);
-                        System.out.println(this.markers.get(this.markers.size() - 1).getPos());
+                        //System.out.println(this.markers.get(this.markers.size() - 1).getPos());
                         deadPos[i] = 1;
                         break;
                     }
@@ -345,10 +346,6 @@ public class Game{
         isFinished = finished;
     }
 
-    public boolean getFinished() {
-        return isFinished;
-    }
-
 
     public void generatePowerUp(){
         int option = (int)(Math.random() * 2);
@@ -365,7 +362,7 @@ public class Game{
 
     public void generatePowerUp(int xPos, int yPos){
         int option = (int)(Math.random() * 2);
-        System.out.println(option);
+        //System.out.println(option);
         if (option == 0){
             this.powerUps.add(new PaddleSizeUp());
         } else if (option == 1){

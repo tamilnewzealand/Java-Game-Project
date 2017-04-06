@@ -22,7 +22,9 @@ public class AIController {
         this.general = general;
     }
 
-    public void movePaddle(Ball ball){
+    public void movePaddle(Ball[] balls){
+        int lowestDistanceIndex = findClosestBall(balls);
+        Ball ball = balls[lowestDistanceIndex];
         if (Main.gameMode == 99 || (Main.gameMode == 0 && general.getPos() != 2 && general.getPos() != 0) || (Main.gameMode == 2 && general.getPos() != 0)  || (Main.gameMode == 4  && general.getPos() != 0) || (Main.gameMode == 6  && general.getPos() != 0)) {
             double distanceBefore = calculateDistance(ball);
             if (distanceBefore > 75) {//Stops paddle moving when close to ball
@@ -98,5 +100,17 @@ public class AIController {
             powerUps.get(powerUps.size()-1).setPos(markerIn.calcXPos(), markerIn.calcYPos());
             markerIn.resetReadyCounter();
         }
+    }
+
+    private int findClosestBall(Ball[] balls){
+        int lowestIndex = 0;
+        int minimumDistance = 9999;
+        for (int i = 0; i < balls.length; i++){
+            if (calculateDistance(balls[i]) < minimumDistance){
+                lowestIndex = i;
+                minimumDistance =(int) calculateDistance(balls[i]);
+            }
+        }
+        return lowestIndex;
     }
 }
