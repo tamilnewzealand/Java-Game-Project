@@ -37,7 +37,7 @@ public class Settings implements SceneInterface {
     private Group root;
     private double numOfBalls = 1.00;
     final Slider ballSpeedSetting = new Slider(1, 2, Main.speedMultiplier);
-    final Slider numberOfBallSetting = new Slider(1, 3, numOfBalls);
+    final Slider numberOfBallSetting = new Slider(1, 3, Main.numOfBalls);
     final Slider numberOfPaddleSetting = new Slider(1, 2, Main.numberOfPaddles);
     private Button menuButton = GUIComponent.createButton("Back to Menu", 244, 580);
     /**
@@ -103,8 +103,8 @@ public class Settings implements SceneInterface {
         numberOfBallSetting.valueProperty().addListener(new ChangeListener<Number>() {
             public void changed(ObservableValue<? extends Number> ov,
                                 Number old_val, Number new_val) {
-                numOfBalls = new_val.doubleValue();
-                Main.numberOfBalls = (int)Math.round(numOfBalls);
+                Main.numOfBalls = new_val.doubleValue();
+                Main.numberOfBalls = (int)Math.round(Main.numOfBalls);
                 menuButton.requestFocus();
             }
         });
