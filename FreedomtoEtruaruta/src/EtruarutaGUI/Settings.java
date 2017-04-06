@@ -63,6 +63,8 @@ public class Settings implements SceneInterface {
         Image space = new Image( "space.png" );
         gc.drawImage( space, 0, 0 );
         SoundManager.playBackground();
+        
+        addMenuButton();
 
         GridPane grid = new GridPane();
         grid.setPadding(new Insets(150, 100, 100, 325));
