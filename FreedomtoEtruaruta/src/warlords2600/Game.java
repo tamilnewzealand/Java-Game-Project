@@ -101,7 +101,7 @@ public class Game{
                                 }else if (powerUps.get(i).getPowerUpName().equals("Paddle Size Up")){
                                     boolean activateSizeIncrease = false;
                                     for (int j = 0; j < generals.length;j++){
-                                        if (!generals[j].isDead() && !generals[j].paddle.getSizeIncreased()&& !generals[j].paddleFollower.getSizeIncreased()){
+                                        if (!generals[j].isDead() && !generals[j].paddle.getSizeIncreased()){
                                             activateSizeIncrease = true;
                                         }
                                     }
@@ -351,7 +351,7 @@ public class Game{
 
 
     public void generatePowerUp(){
-        int option = (int)Math.random() * 2;
+        int option = (int)(Math.random() * 2);
         if (option == 0){
             this.powerUps.add(new PaddleSizeUp());
         } else if (option == 1){
