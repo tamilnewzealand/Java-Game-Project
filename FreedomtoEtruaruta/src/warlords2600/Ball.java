@@ -225,6 +225,12 @@ public class Ball{
         }
     }
 
+    /**
+     * Checks if a speed up is active and if not applies the
+     * speed up power up to the ball.
+     * @param x new x speed for the ball
+     * @param y new y speed for the ball
+     */
     public void checkIncreaseSpeed(int x, int y){
         if (!spedup) {
             if (Math.abs(x) <= (maxSpeed*2 + 1) && Math.abs(y) <= (maxSpeed*2 + 1)) {
@@ -235,6 +241,14 @@ public class Ball{
             }
         }
     }
+
+    /**
+     * Checks if the speed up power up is activated,
+     * if it is then the spedUpCounter is decremented until
+     * the time limit for the power up has been reached
+     * at which point calling this methods disables the power
+     * up and returns the ball to its previous speed.
+     */
     public void checkReduceSpeed(){
         if (spedup) {
             if (spedUpCounter > 0) {

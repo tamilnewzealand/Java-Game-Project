@@ -341,10 +341,6 @@ public class Game{
         return "0:" + String.format("%02d",time);
     }
 
-    public void setTimeRemaining(int seconds){
-        timeElapsed = (120 - seconds) * 60;
-    }
-
     public void setFinished(boolean finished){
         isFinished = finished;
     }

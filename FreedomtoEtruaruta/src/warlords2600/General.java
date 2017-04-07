@@ -35,6 +35,16 @@ public class General implements IObject {
         this.pos = pos;
     }
 
+    /**
+     * Overloaded constructor for use when there is a secondary
+     * follower paddle that mirrors the main one
+     * @param r radius from nearest corner
+     * @param theta angle from centre line in radians
+     * @param paddle the paddle associated with this general
+     * @param paddleFollower the follower paddle associated with this general
+     * @param wall the wall associated with this general
+     * @param pos the position of the general in the game field
+     */
     public General(int r, double theta, Paddle paddle, Paddle paddleFollower, Brick[][] wall, int pos) {
         this(r, theta, paddle, wall, pos);
         this.paddleFollower = paddleFollower;
@@ -158,6 +168,10 @@ public class General implements IObject {
         return wallCount;
     }
 
+    /**
+     *
+     * @return the position on the game screen where this general is
+     */
     public int getPos(){
         return pos;
     }

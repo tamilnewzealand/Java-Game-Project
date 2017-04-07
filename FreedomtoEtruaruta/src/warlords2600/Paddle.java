@@ -61,7 +61,7 @@ public class Paddle implements IObject {
 
     /**
      *
-     * @return returns teh current speed of the paddle
+     * @return returns the current speed of the paddle
      */
     public int getSpeed(){
         return speed;
