@@ -319,6 +319,11 @@ public class Menu implements SceneInterface {
                         break;
                     case ENTER:
                         buttonsArray[optionNumber].fire();
+                        break;
+                    case ESCAPE:
+                        Stage stage = (Stage) menuScene.getWindow();
+                        stage.close();
+                        break;
                 }
             }
         };

@@ -45,7 +45,7 @@ public class Main extends Application {
         primaryStage.setTitle(TITLE);
 
         SceneManager sceneManager = new SceneManager(primaryStage);
-        sceneManager.goToMenuScene(sceneManager);
+        sceneManager.goToIntroScene(sceneManager);
     }
 
     public static void main(String[] args) {

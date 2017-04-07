@@ -1,5 +1,6 @@
 package EtruarutaGUI;
 
+import javafx.animation.AnimationTimer;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
@@ -7,11 +8,14 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
+import javafx.scene.web.WebView;
 
 /**
  * This class presents the intro scene and plays
@@ -25,6 +29,7 @@ public class Intro implements SceneInterface {
     private SceneManager sceneManager;
     private Scene introScene;
     private Group root;
+    private EventHandler<KeyEvent> keyPressHandler;
 
     /**
      * Constructor for Intro class
@@ -45,31 +50,25 @@ public class Intro implements SceneInterface {
         Canvas canvas = new Canvas(Main.WIDTH, Main.HEIGHT);
         root.getChildren().add(canvas);
 
-        Media media = new Media("file:/e:/intro.flv");
-        MediaPlayer mediaPlayer = new MediaPlayer(media);
-        MediaView mediaView = new MediaView(mediaPlayer);
-        mediaPlayer.play();
-        //mediaView.setFitWidth(Main.WIDTH);
-        //mediaView.setFitHeight(Main.HEIGHT);
+        WebView webview = new WebView();
+        webview.getEngine().load("https://www.youtube.com/embed/DmJhGD98lP8?autoplay=1&controls=0&disablekb=1&modestbranding=1&rel=0&showinfo=0");
+        webview.setPrefSize(Main.WIDTH, Main.HEIGHT);
 
-        root.getChildren().add(mediaView);
-        addMenuButton();
+        root.getChildren().add(webview);
 
-        addMenuButton();
+        handleInputs();
+        introScene.addEventHandler(KeyEvent.KEY_PRESSED, keyPressHandler);
 
         return introScene;
     }
 
-    private void addMenuButton() {
-        Button menuButton = GUIComponent.createButton("Skip", 244, 580);
-
-        menuButton.setOnAction(new EventHandler<ActionEvent>() {
+    private void handleInputs(){
+        keyPressHandler = new EventHandler<KeyEvent>() {
             @Override
-            public void handle(ActionEvent event) {
+            public void handle(KeyEvent keyEvent) {
+                introScene.removeEventHandler(KeyEvent.KEY_PRESSED, keyPressHandler);
                 sceneManager.goToMenuScene(sceneManager);
             }
-        });
-
-        root.getChildren().add(menuButton);
+        };
     }
 }

@@ -10,10 +10,15 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
+import javafx.scene.web.WebView;
+
+import javax.xml.crypto.dsig.keyinfo.KeyValue;
 
 /**
  * This class presents the story scene. The user
@@ -29,6 +34,7 @@ public class Story implements SceneInterface {
     private Scene storyScene;
     private Group root;
     private TextField name;
+    private EventHandler<KeyEvent> keyPressHandler;
 
     /**
      * Constructor for Story class
@@ -52,6 +58,10 @@ public class Story implements SceneInterface {
         GraphicsContext gc = canvas.getGraphicsContext2D();
         gc = GUIComponent.createAnimationBackground(gc);
 
+        WebView webview = new WebView();
+        webview.setPrefSize(Main.WIDTH, Main.HEIGHT);
+        root.getChildren().add(webview);
+
         if (Main.gameMode == 1) {
             //Creating a GridPane container
             GridPane grid = new GridPane();
@@ -71,21 +81,25 @@ public class Story implements SceneInterface {
         switch (Main.gameMode) {
             case 1:
                 addStoryAText();
+                webview.getEngine().load("https://www.youtube.com/embed/DmJhGD98lP8?autoplay=1&controls=0&disablekb=1&modestbranding=1&rel=0&showinfo=0");
                 Main.gameMode = 2;
                 addMenuButton();
                 break;
             case 3:
                 addStoryBText();
+                webview.getEngine().load("https://www.youtube.com/embed/DmJhGD98lP8?autoplay=1&controls=0&disablekb=1&modestbranding=1&rel=0&showinfo=0");
                 Main.gameMode = 4;
                 addMenuButton();
                 break;
             case 5:
                 addStoryCText();
+                webview.getEngine().load("https://www.youtube.com/embed/DmJhGD98lP8?autoplay=1&controls=0&disablekb=1&modestbranding=1&rel=0&showinfo=0");
                 Main.gameMode = 6;
                 addMenuButton();
                 break;
             case 7:
                 addWinMessageText();
+                webview.getEngine().load("https://www.youtube.com/embed/DmJhGD98lP8?autoplay=1&controls=0&disablekb=1&modestbranding=1&rel=0&showinfo=0");
                 ScoreManager.addScore(Main.playerName, Main.playerScore);
                 Main.gameMode = 0;
                 break;
@@ -93,6 +107,8 @@ public class Story implements SceneInterface {
                 break;
         }
         addExitButton();
+        handleInputs();
+        storyScene.addEventHandler(KeyEvent.KEY_PRESSED, keyPressHandler);
 
         return storyScene;
     }
@@ -143,6 +159,7 @@ public class Story implements SceneInterface {
         menuButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
+                storyScene.removeEventHandler(KeyEvent.KEY_PRESSED, keyPressHandler);
                 if (Main.gameMode == 2) {
                     Main.playerName = name.textProperty().getValue();
                     if (!((Main.playerName == null) ||(Main.playerName == ""))) {
@@ -162,10 +179,31 @@ public class Story implements SceneInterface {
             @Override
             public void handle(ActionEvent event) {
                 Main.gameMode = 0;
+                storyScene.removeEventHandler(KeyEvent.KEY_PRESSED, keyPressHandler);
                 sceneManager.goToMenuScene(sceneManager);
             }
         });
 
         root.getChildren().add(menuButton);
+    }
+
+    private void handleInputs(){
+        keyPressHandler = new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent keyEvent) {
+                storyScene.removeEventHandler(KeyEvent.KEY_PRESSED, keyPressHandler);
+                if (keyEvent.getCode() == KeyCode.ESCAPE) {
+                    sceneManager.goToMenuScene(sceneManager);
+                } else if (keyEvent.getCode() == KeyCode.ENTER) {
+                    if (Main.gameMode == 2) {
+                        Main.playerName = name.textProperty().getValue();
+                        if (!((Main.playerName == null) ||(Main.playerName == ""))) {
+                            sceneManager.goToGameScene(sceneManager);
+                        }
+                    } else sceneManager.goToGameScene(sceneManager);
+                }
+
+            }
+        };
     }
 }
