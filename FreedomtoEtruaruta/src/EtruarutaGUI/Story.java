@@ -102,7 +102,6 @@ public class Story implements SceneInterface {
                 addWinMessageText();
                 webView.getEngine().load("https://www.youtube.com/embed/DmJhGD98lP8?autoplay=1&controls=0&disablekb=1&modestbranding=1&rel=0&showinfo=0");
                 ScoreManager.addScore(Main.playerName, Main.playerScore);
-                Main.gameMode = 0;
                 break;
             default:
                 break;
@@ -217,10 +216,11 @@ public class Story implements SceneInterface {
                 storyScene.setCursor(Cursor.DEFAULT); //Change cursor to default
             }
         });
+        buttonsArray[1] = returnToMenuButton;
+
         if (Main.gameMode == 7){
+            returnToMenuButton.setTextFill(Paint.valueOf("#FF3333"));
             buttonsArray[0] = returnToMenuButton;
-        }else{
-            buttonsArray[1] = returnToMenuButton;
         }
         root.getChildren().add(returnToMenuButton);
     }
@@ -280,8 +280,11 @@ public class Story implements SceneInterface {
     }
 
     private void resetColours(){
-        for (int i = 0; i < buttonsArray.length; i++){
-            buttonsArray[i].setTextFill(Paint.valueOf("#FFFFFF"));
+        System.out.println(Main.gameMode);
+        if (Main.gameMode != 7) {
+            for (int i = 0; i < buttonsArray.length; i++) {
+                buttonsArray[i].setTextFill(Paint.valueOf("#FFFFFF"));
+            }
         }
     }
 
