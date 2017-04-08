@@ -60,13 +60,16 @@ public class Intro implements SceneInterface {
         return introScene;
     }
 
+    /**
+     * Timer to automatically move to the menu screen after
+     * the 22 second video finishes.
+     */
     TimerTask task = new TimerTask()
     {
         public void run()
         {
             timer.cancel();
             timer.purge();
-            System.out.println("Timer triggered");
             Platform.runLater(new Runnable() {
                 public void run() {
                     introScene.removeEventHandler(KeyEvent.KEY_PRESSED, keyPressHandler);
@@ -77,6 +80,9 @@ public class Intro implements SceneInterface {
         }
     };
 
+    /**
+     * Keyboard handler skips to menu whenever any key is pressed
+     */
     private void handleInputs(){
         keyPressHandler = new EventHandler<KeyEvent>() {
             @Override

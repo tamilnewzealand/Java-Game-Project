@@ -11,17 +11,19 @@ import java.util.Comparator;
  */
 
 public class ScoreComparator implements Comparator<Score> {
-    public int compare(Score score1, Score score2) {
 
+    /**
+     * Compares two scores to find the higher score
+     * @param score1 a score to compare with
+     * @param score2 another score to comapare with
+     * @return -1 if Score 1 is greater and +1 otherwise
+     */
+    public int compare(Score score1, Score score2) {
         int sc1 = score1.getScore();
         int sc2 = score2.getScore();
 
-        if (sc1 > sc2){
-            return -1;
-        }else if (sc1 < sc2){
-            return +1;
-        }else{
-            return 0;
-        }
+        if (sc1 > sc2) return -1;
+        if (sc1 < sc2) return 1;
+        return 0;
     }
 }

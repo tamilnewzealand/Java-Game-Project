@@ -15,8 +15,6 @@ import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-import javax.swing.*;
-
 /**
  * This class implements the menu screen. When the game is
  * loaded the user is presented with this menu screen from

@@ -35,7 +35,6 @@ public class Settings implements SceneInterface {
     private SceneManager sceneManager;
     private Scene settingsScene;
     private Group root;
-    private double numOfBalls = 1.00;
     final Slider ballSpeedSetting = new Slider(1, 2, Main.speedMultiplier);
     final Slider numberOfBallSetting = new Slider(1, 3, Main.numOfBalls);
     final Slider numberOfPaddleSetting = new Slider(1, 2, Main.numberOfPaddles);

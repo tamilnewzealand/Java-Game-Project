@@ -1,14 +1,16 @@
 package EtruarutaGUI;
 
-
 import warlords2600.*;
-
 import java.util.ArrayList;
-import java.util.Random;
 
 /**
- * Created by adilb on 31/03/2017.
+ * This is the controller class for each AI in the game
+ *
+ * @author Adil Bhayani <abha808@aucklanduni.ac.nz>
+ * @author Sakayan Sitsabesan <ssit662@aucklanduni.ac.nz>
+ * @version 0.1.0
  */
+
 public class AIController {
     private General general;
     private int movementCounter = 15;

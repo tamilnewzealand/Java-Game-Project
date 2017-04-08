@@ -7,12 +7,9 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.Background;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
-import javafx.scene.paint.Color;
-import javafx.scene.control.Labeled;
 
 /**
  * This class generates GUI components needed in the game

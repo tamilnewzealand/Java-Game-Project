@@ -1,6 +1,5 @@
 package EtruarutaGUI;
 
-import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
