@@ -116,11 +116,14 @@ public class PlayNow implements SceneInterface {
                     case ENTER:
                         if (paused && escaping) {
                             Main.gameMode = 0;
-                            game.setFinished(true);
+                            game.setFinished();
                             playNowScene.removeEventHandler(KeyEvent.KEY_PRESSED, keyPressHandler);
                             playNowScene.removeEventHandler(KeyEvent.KEY_RELEASED, keyReleaseHandler);
                             sceneManager.goToMenuScene(sceneManager);
                         }
+                        break;
+                    case PAGE_DOWN:
+                        endGame();
                         break;
                     case P:
                         if (paused) {
@@ -392,35 +395,7 @@ public class PlayNow implements SceneInterface {
                     if (game.isCountingDown()) gc.fillText(game.getCountdownRemaining(), Main.WIDTH / 2, 60);
                     else gc.fillText(game.getTimeRemaining(), Main.WIDTH / 2, 60);
 
-                    if (game.isFinished()) {
-                        playNowScene.removeEventHandler(KeyEvent.KEY_PRESSED, keyPressHandler);
-                        playNowScene.removeEventHandler(KeyEvent.KEY_RELEASED, keyReleaseHandler);
-                        if (true || game.generals[0].hasWon()) {
-                            switch (Main.gameMode) {
-                                case 2:
-                                    Main.gameMode = 3;
-                                    Main.playerScore += (game.generals[0].wallCount() * 10);
-                                    sceneManager.goToPlayNowScene(sceneManager);
-                                    break;
-                                case 4:
-                                    Main.gameMode = 5;
-                                    Main.playerScore += (game.generals[0].wallCount() * 10);
-                                    sceneManager.goToPlayNowScene(sceneManager);
-                                    break;
-                                case 6:
-                                    Main.gameMode = 7;
-                                    Main.playerScore += (game.generals[0].wallCount() * 10);
-                                    sceneManager.goToPlayNowScene(sceneManager);
-                                    break;
-                                default:
-                                    Main.gameMode = 0;
-                                    sceneManager.goToMenuScene(sceneManager);
-                            }
-                        } else {
-                            Main.gameMode = 0;
-                            sceneManager.goToMenuScene(sceneManager);
-                        }
-                    }
+                    if (game.isFinished()) endGame();
 
                     if (paused && !escaping)
                         gc.fillText("Paused", Main.WIDTH / 2, Main.HEIGHT / 2);
@@ -433,5 +408,42 @@ public class PlayNow implements SceneInterface {
         }.start();
 
         return gc;
+    }
+
+    private void endGame() {
+        playNowScene.removeEventHandler(KeyEvent.KEY_PRESSED, keyPressHandler);
+        playNowScene.removeEventHandler(KeyEvent.KEY_RELEASED, keyReleaseHandler);
+        game.setFinished();
+        if (true || game.generals[0].hasWon()) {
+            switch (Main.gameMode) {
+                case 0:
+                    Main.gameMode = -1;
+                    Main.playerScore = (game.generals[0].wallCount() * 10);
+                    Main.multiScore = (game.generals[1].wallCount() * 10);
+                    sceneManager.goToPlayNowScene(sceneManager);
+                    break;
+                case 2:
+                    Main.gameMode = 3;
+                    Main.playerScore += (game.generals[0].wallCount() * 10);
+                    sceneManager.goToPlayNowScene(sceneManager);
+                    break;
+                case 4:
+                    Main.gameMode = 5;
+                    Main.playerScore += (game.generals[0].wallCount() * 10);
+                    sceneManager.goToPlayNowScene(sceneManager);
+                    break;
+                case 6:
+                    Main.gameMode = 7;
+                    Main.playerScore += (game.generals[0].wallCount() * 10);
+                    sceneManager.goToPlayNowScene(sceneManager);
+                    break;
+                default:
+                    Main.gameMode = 0;
+                    sceneManager.goToMenuScene(sceneManager);
+            }
+        } else {
+            Main.gameMode = 0;
+            sceneManager.goToMenuScene(sceneManager);
+        }
     }
 }

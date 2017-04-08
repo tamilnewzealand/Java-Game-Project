@@ -34,6 +34,7 @@ public class Main extends Application {
     public static int gameMode = 0;
     public static String playerName;
     public static int playerScore = 0;
+    public static int multiScore = 0;
     public static double speedMultiplier = 1.00;
     public static int numberOfBalls = 1;
     public static double numOfBalls = 1.00;

@@ -341,8 +341,8 @@ public class Game{
         return "0:" + String.format("%02d",time);
     }
 
-    public void setFinished(boolean finished){
-        isFinished = finished;
+    public void setFinished(){
+        isFinished = true;
     }
 
 
