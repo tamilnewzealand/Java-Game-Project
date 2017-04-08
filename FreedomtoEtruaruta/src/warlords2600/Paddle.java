@@ -16,6 +16,7 @@ public class Paddle implements IObject {
     private boolean sizeIncreased = false;
     private int previousWidth;
     private int widthUpCounter = 0;
+    private boolean holdingBall = false;
 
     /**
      * Constructor for paddle class
@@ -185,5 +186,13 @@ public class Paddle implements IObject {
                 this.width = previousWidth;
             }
         }
+    }
+
+    public void setHoldingBall(boolean holdingBall){
+        this.holdingBall = holdingBall;
+    }
+
+    public boolean isHoldingBall(){
+        return holdingBall;
     }
 }

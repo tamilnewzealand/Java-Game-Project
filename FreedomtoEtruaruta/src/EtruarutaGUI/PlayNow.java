@@ -4,13 +4,18 @@ import javafx.animation.AnimationTimer;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
+import javafx.scene.transform.Rotate;
 import warlords2600.*;
 
 /**
@@ -34,6 +39,9 @@ public class PlayNow implements SceneInterface {
     private boolean paused = false;
     private boolean escaping = false;
     private String generalAMovement, generalBMovement, generalCMovement, generalDMovement;
+    private Image arrowPointer = new Image ("arrowPointer.png");
+    private ImageView arrowPointerIV = new ImageView();
+    int rotation = 0;
 
     /**
      * Constructor for PlayNow class
@@ -62,6 +70,11 @@ public class PlayNow implements SceneInterface {
         playNowScene.addEventHandler(KeyEvent.KEY_PRESSED, keyPressHandler);
         playNowScene.addEventHandler(KeyEvent.KEY_RELEASED, keyReleaseHandler);
 
+        arrowPointerIV.setImage(arrowPointer);
+        //arrowPointerIV.setScaleX(0.25);
+        //arrowPointerIV.setScaleY(0.25);
+        arrowPointerIV.setVisible(false);
+        root.getChildren().add(arrowPointerIV);
 
         return playNowScene;
     }
@@ -76,13 +89,29 @@ public class PlayNow implements SceneInterface {
                 boolean freezed = paused || game.isCountingDown();
                 switch (keyEvent.getCode()) {
                     case LEFT:
-                        if (!freezed && Main.gameMode != 99) {
-                            game.generalsMovement[0] = "left";
+                        if (!freezed && Main.gameMode != 99 ) {
+                            if (!game.generals[0].paddle.isHoldingBall()) {
+                                game.generalsMovement[0] = "left";
+                            }else{
+                                if (rotation < 60) {
+                                    Paddle paddle = game.generals[0].paddle;
+                                    arrowPointerIV.getTransforms().add(new Rotate(2, paddle.calcXPos() + paddle.getWidth()/2, paddle.calcYPos() + game.balls[0].getHeight() + paddle.getHeight()));
+                                    rotation += 2;
+                                }
+                            }
                         }
                         break;
                     case RIGHT:
                         if (!freezed && Main.gameMode != 99) {
-                            game.generalsMovement[0] = "right";
+                            if (!game.generals[0].paddle.isHoldingBall()) {
+                                game.generalsMovement[0] = "right";
+                            }else{
+                                if (rotation > -60) {
+                                    Paddle paddle = game.generals[0].paddle;
+                                    arrowPointerIV.getTransforms().add(new Rotate(-2, paddle.calcXPos() + paddle.getWidth()/2 , paddle.calcYPos() + game.balls[0].getHeight() + paddle.getHeight()));
+                                    rotation -= 2;
+                                }
+                            }
                         }
                         break;
                     case UP:
@@ -354,6 +383,15 @@ public class PlayNow implements SceneInterface {
                             gc.drawImage(ballHoldSkillCoolDown, 215, 5, game.generals[0].getCurrentSkill().getWidth(), game.generals[0].getCurrentSkill().getHeight());
                         }
                     }
+
+                    //if (game.generals[0].paddle.isHoldingBall()){
+                        Paddle paddle = game.generals[0].paddle;
+                        arrowPointerIV.setX(paddle.calcXPos() + paddle.getWidth()/2 - 17);
+                        arrowPointerIV.setY(paddle.calcYPos() + game.balls[0].getHeight() + paddle.getHeight() + 10);
+                        arrowPointerIV.setVisible(true);
+                   // }
+
+
                 }
             }
 

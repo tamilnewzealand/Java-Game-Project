@@ -28,7 +28,7 @@ public abstract class Skill {
     }
 
 
-    abstract public void activateEffect(Ball[] balls, int generalsPos);
+    abstract public void activateEffect(Ball[] balls);
 
     abstract public String getSkillName();
 

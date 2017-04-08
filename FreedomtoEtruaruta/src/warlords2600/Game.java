@@ -83,7 +83,6 @@ public class Game{
             for (int a = 0; a < balls.length; a++) {
                 ball = balls[a];
                 boolean ballHit = false;
-                boolean hitBricks = false;
                 if (!ball.getHitLastTick() && ball.getCollisionCounter() <= 0) {
                     for (int i = 0; i < powerUps.size(); i++) {
                         if (!ballHit && (!powerUps.get(i).isHit())) {
@@ -112,7 +111,16 @@ public class Game{
                     }
                     outerLoop:
                     for (int i = 0; i < generals.length; i++) {
-                        if (!ballHit && (!generals[i].isDead())) ballHit = objectCollision(generals[i].paddle, ballHit);
+                        if (!ballHit && (!generals[i].isDead())){
+                            if (ball.getWillBeHeld() && i == 0){
+                                ballHit = objectCollision(generals[i].paddle,ballHit,false);
+                                if (ballHit){
+                                    holdBall();
+                                }
+                            }else {
+                                ballHit = objectCollision(generals[i].paddle, ballHit);
+                            }
+                        }
                         if (!ballHit && (!generals[i].isDead()) && Main.numberOfPaddles == 2) ballHit = objectCollision(generals[i].paddleFollower, ballHit);
                         if (!ballHit && (!generals[i].isDead())) {
                             ballHit = objectCollision(generals[i], ballHit);
@@ -433,5 +441,15 @@ public class Game{
             }
             ball.setUnexplosive();
             SoundManager.playExplosion();
+        }
+
+        private void holdBall(){
+            ball.setBallHeld();
+            generals[0].paddle.setHoldingBall(true);
+            ball.setXPos(generals[0].paddle.calcXPos()+ generals[0].paddle.getWidth()/2 - ball.getWidth()/2 );
+            ball.setYPos(generals[0].paddle.calcYPos()+ generals[0].paddle.getHeight());
+            for (int i = 0; i < balls.length; i++){
+                balls[i].setWillBeHeld(false);
+            }
         }
     }

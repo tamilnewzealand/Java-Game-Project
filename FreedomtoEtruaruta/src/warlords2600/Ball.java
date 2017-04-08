@@ -18,7 +18,8 @@ public class Ball{
     private int spedUpCounter = 0;
     private int previousXSpeed, previousYSpeed;
     private boolean isExplosive = false;
-    private int madeExplosiveByGeneralPos = -1;
+    private boolean willBeHeld = false;
+    private boolean isHeld = false;
 
     /**
      * Constructor for the ball class
@@ -271,10 +272,9 @@ public class Ball{
         }
     }
 
-    public void setExplosive(int generalPos){
+    public void setExplosive(){
         if (!isExplosive) {
             isExplosive = true;
-            madeExplosiveByGeneralPos = generalPos;
         }
     }
 
@@ -287,4 +287,31 @@ public class Ball{
     public boolean isExplosive(){
         return isExplosive;
     }
+
+    public void setWillBeHeld(boolean willBeHeld){
+        if (willBeHeld) {
+            if (!this.willBeHeld) {
+                this.willBeHeld = true;
+            }
+        }else{
+            this.willBeHeld = false;
+        }
+    }
+
+    public void setBallHeld(){
+        if (willBeHeld){
+            isHeld = true;
+            xSpeed = 0;
+            ySpeed = 0;
+        }
+    }
+
+    public boolean getWillBeHeld(){
+       return willBeHeld;
+    }
+
+    public boolean isHeld(){
+        return isHeld;
+    }
+
 }

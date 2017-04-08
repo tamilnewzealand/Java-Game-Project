@@ -5,10 +5,10 @@ package warlords2600;
  */
 public class ExplosiveBall extends Skill {
 
-    public void activateEffect(Ball[] balls, int generalsPos){
+    public void activateEffect(Ball[] balls){
         for (int i = 0; i < balls.length; i++){
             if (!balls[i].isExplosive()){
-                balls[i].setExplosive(generalsPos);
+                balls[i].setExplosive();
             }
         }
     }

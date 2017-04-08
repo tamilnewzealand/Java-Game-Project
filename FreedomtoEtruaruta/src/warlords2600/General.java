@@ -209,7 +209,7 @@ public class General implements IObject {
 
     public void triggerSkill(Ball[] balls){
         if (!skillTriggered) {
-            skillsArray[skillsIndex].activateEffect(balls, pos);
+            skillsArray[skillsIndex].activateEffect(balls);
             skillTriggered = true;
         }
     }
