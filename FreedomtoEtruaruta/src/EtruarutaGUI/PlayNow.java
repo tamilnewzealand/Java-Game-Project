@@ -66,6 +66,9 @@ public class PlayNow implements SceneInterface {
         return playNowScene;
     }
 
+    /**
+     * Handles the keyboard input for the game
+     */
     private void HandleInputs() {
         keyPressHandler = new EventHandler<KeyEvent>() {
             @Override
@@ -227,36 +230,115 @@ public class PlayNow implements SceneInterface {
      * @return GraphicsContext with the animation for the game drawn on to
      */
     public GraphicsContext renderGame(GraphicsContext gc) {
+        //Loading the graphics
+        Image space = new Image("space.png");
         Image ballImage = new Image("ball.png");
         Image spedUpBall = new Image("fastBall.png");
-        Image paddleImages[] = new Image[4];
         Image brickImage = new Image("brick.png");
         Image generalImage = new Image("general.png");
-        Image markerImages[] = new Image[4];
-        Image markerReadyImages[] = new Image[4];
-        Image explosiveSkill = new Image("explosiveSkill.png");
-        Image explosiveBall = new Image ("explosiveBall.png");
-
-        markerImages[0] = new Image("xMarkerA.png");
-        markerImages[1] = new Image("xMarkerB.png");
-        markerImages[2] = new Image("xMarkerC.png");
-        markerImages[3] = new Image("xMarkerD.png");
-
-        markerReadyImages[0] = new Image("xMarkerAReady.png");
-        markerReadyImages[1] = new Image("xMarkerBReady.png");
-        markerReadyImages[2] = new Image("xMarkerCReady.png");
-        markerReadyImages[3] = new Image("xMarkerDReady.png");
-
-        paddleImages[0] = new Image("paddleA.png");
-        paddleImages[1] = new Image("paddleB.png");
-        paddleImages[2] = new Image("paddleC.png");
-        paddleImages[3] = new Image("paddleD.png");
-
-        Image space = new Image("space.png");
         Image speedImage = new Image("speedUp.png");
         Image paddleSizeUpImage = new Image("paddleSizeUp.png");
-        gc.drawImage(space, 0, 0, Main.WIDTH, Main.HEIGHT);
+        Image explosiveSkill = new Image("explosiveSkill.png");
+        Image explosiveBall = new Image ("explosiveBall.png");
+        Image paddleImages[] = {new Image("paddleA.png"), new Image("paddleB.png"), new Image("paddleC.png"), new Image("paddleD.png")};
+        Image markerImages[] = {new Image("xMarkerA.png"), new Image("xMarkerB.png"), new Image("xMarkerC.png"), new Image("xMarkerD.png")};
+        Image markerReadyImages[] = {new Image("xMarkerAReady.png"), new Image("xMarkerBReady.png"), new Image("xMarkerCReady.png"), new Image("xMarkerDReady.png")};
 
+        // setting up the font for drawing text onto the canvas
+        gc.setFill(Color.WHITE);
+        Font theFont = Font.font("Kavivanar", 54);
+        gc.setTextAlign(TextAlignment.CENTER);
+        gc.setFont(theFont);
+
+        initGame();
+        SoundManager.playBackground();
+
+        new AnimationTimer() {
+            private long lastUpdate = 0;
+
+            public void handle(long currentNanoTime) {
+                // Sets the rendering speed to 60fps
+                if ((currentNanoTime - lastUpdate >= 16666666) && !game.isFinished()) {
+                    lastUpdate = currentNanoTime;
+                    // Clear the canvas
+                    gc.clearRect(0, 0, Main.WIDTH, Main.WIDTH);
+
+                    // background image clears canvas
+                    gc.drawImage(space, 0, 0, Main.WIDTH, Main.HEIGHT);
+
+                    // draws out all the powerups that are in play at the moment
+                    for (int i = 0; i < game.powerUps.size(); i++) {
+                        if (!game.powerUps.get(i).isHit()) {
+                            if (game.powerUps.get(i).getPowerUpName().equals("Speed Up"))
+                                gc.drawImage(speedImage, game.powerUps.get(i).calcXPos(), game.powerUps.get(i).calcYPos(), game.powerUps.get(i).getWidth(), game.powerUps.get(i).getHeight());
+                            else if (game.powerUps.get(i).getPowerUpName().equals("Paddle Size Up"))
+                                gc.drawImage(paddleSizeUpImage, game.powerUps.get(i).calcXPos(), game.powerUps.get(i).calcYPos(), game.powerUps.get(i).getWidth(), game.powerUps.get(i).getHeight());
+                        }
+                    }
+
+                    // draws out all the ghost markers for any dead players
+                    if (game.markers.size() > 0) {
+                        for (int i = 0; i < game.markers.size(); i++) {
+                            if (game.markers.get(i).getReady()) gc.drawImage(markerReadyImages[game.markers.get(i).getPos()], game.markers.get(i).calcXPos(), game.markers.get(i).calcYPos(), game.markers.get(i).getWidth(), game.markers.get(i).getHeight());
+                            else gc.drawImage(markerImages[game.markers.get(i).getPos()], game.markers.get(i).calcXPos(), game.markers.get(i).calcYPos(), game.markers.get(i).getWidth(), game.markers.get(i).getHeight());
+                        }
+                    }
+
+                    // draws out all the balls and sped up balls in the game canvas
+                    for (int a = 0; a < game.balls.length; a++) {
+                        if (game.balls[a].isExplosive()) gc.drawImage(explosiveBall, game.balls[a].getXPos(), game.balls[a].getYPos(), game.balls[a].getWidth(), game.balls[a].getHeight());
+                        else if (!game.balls[a].getSpedUp()) gc.drawImage(ballImage, game.balls[a].getXPos(), game.balls[a].getYPos(), game.balls[a].getWidth(), game.balls[a].getHeight());
+                        else gc.drawImage(spedUpBall, game.balls[a].getXPos(), game.balls[a].getYPos(), game.balls[a].getWidth(), game.balls[a].getHeight());
+                    }
+
+                    // draws out each generals' paddles, general and walls
+                    for (int k = 0; k < game.generals.length; k++) {
+                        if (!game.generals[k].isDead()) {
+                            gc.drawImage(paddleImages[k], game.generals[k].paddle.calcXPos(), game.generals[k].paddle.calcYPos(), game.generals[k].paddle.getWidth(), game.generals[k].paddle.getHeight());
+                            if (Main.numberOfPaddles > 1.50)
+                                gc.drawImage(paddleImages[k], game.generals[k].paddleFollower.calcXPos(), game.generals[k].paddleFollower.calcYPos(), game.generals[k].paddleFollower.getWidth(), game.generals[k].paddleFollower.getHeight());
+                        }
+                        for (int i = 0; i < 3; i++) {
+                            for (int j = 0; j < 5; j++) {
+                                if (!game.generals[k].wall[i][j].isDestroyed())
+                                    gc.drawImage(brickImage, game.generals[k].wall[i][j].calcXPos(), game.generals[k].wall[i][j].calcYPos(), game.generals[k].wall[i][j].getWidth(), game.generals[k].wall[i][j].getHeight());
+                            }
+                        }
+                        if (!game.generals[k].isDead())
+                            gc.drawImage(generalImage, game.generals[k].calcXPos(), game.generals[k].calcYPos(), game.generals[k].getWidth(), game.generals[k].getHeight());
+                    }
+
+                    // check if game is counting down or paused or in play and ticks the appropriate counter
+                    if (game.isCountingDown()) game.countdownTick();
+                    else if (!paused) game.tick();
+
+                    // shows the remaining time in game or if counting down the time till game starts
+                    if (game.isCountingDown()) gc.fillText(game.getCountdownRemaining(), Main.WIDTH / 2, 60);
+                    else gc.fillText(game.getTimeRemaining(), Main.WIDTH / 2, 60);
+
+                    // calls the end game method to handle the end of a game
+                    if (game.isFinished()) endGame();
+
+                    // Shows the paused text overlay if the game is paused
+                    if (paused && !escaping) gc.fillText("Paused", Main.WIDTH / 2, Main.HEIGHT / 2);
+
+                    // Shows the conformation prompt when a player tries to leave the game
+                    if (paused && escaping) gc.fillText("Press enter to exit", Main.WIDTH / 2, Main.HEIGHT / 2);
+
+                    if (game.generals[0].getCurrentSkill().getSkillName() == "Explosive Ball" && !game.generals[0].isDead())
+                        gc.drawImage(explosiveSkill,215,5,game.generals[0].getCurrentSkill().getWidth(),game.generals[0].getCurrentSkill().getHeight());
+                }
+            }
+
+        }.start();
+
+        return gc;
+    }
+
+    /**
+     * Instantiates all the game objects necessary for this game
+     */
+    private void initGame() {
         Brick[][] wallA = new Brick[3][5];
         Brick[][] wallB = new Brick[3][5];
         Brick[][] wallC = new Brick[3][5];
@@ -322,103 +404,12 @@ public class PlayNow implements SceneInterface {
         if (Main.gameMode == 0) game = new Game(balls, generalA, generalB, generalC, generalD);
         else if (Main.gameMode == 99) game = new Game(balls, generalA, generalB, generalC, generalD);
         else game = new Game(balls, generalA, generalB, generalC, generalD);
-
-        gc.setFill(Color.WHITE);
-        gc.setLineWidth(2);
-        Font theFont = Font.font("Kavivanar", 54);
-        gc.setTextAlign(TextAlignment.CENTER);
-        gc.setFont(theFont);
-
-        SoundManager.playBackground();
-
-        new AnimationTimer() {
-            private long lastUpdate = 0;
-
-            public void handle(long currentNanoTime) {
-                if ((currentNanoTime - lastUpdate >= 16666666) && !game.isFinished()) {
-                    lastUpdate = currentNanoTime;
-                    // Clear the canvas
-                    gc.clearRect(0, 0, Main.WIDTH, Main.WIDTH);
-
-                    // background image clears canvas
-                    gc.drawImage(space, 0, 0);
-
-                    for (int i = 0; i < game.powerUps.size(); i++) {
-                        if (!game.powerUps.get(i).isHit()) {
-                            if (game.powerUps.get(i).getPowerUpName().equals("Speed Up")) {
-                                gc.drawImage(speedImage, game.powerUps.get(i).calcXPos(), game.powerUps.get(i).calcYPos(), game.powerUps.get(i).getWidth(), game.powerUps.get(i).getHeight());
-                            } else if (game.powerUps.get(i).getPowerUpName().equals("Paddle Size Up")) {
-                                gc.drawImage(paddleSizeUpImage, game.powerUps.get(i).calcXPos(), game.powerUps.get(i).calcYPos(), game.powerUps.get(i).getWidth(), game.powerUps.get(i).getHeight());
-                            }
-                        }
-                    }
-
-                    if (game.markers.size() > 0) {
-                        for (int i = 0; i < game.markers.size(); i++) {
-                            if (game.markers.get(i).getReady()) {
-                                gc.drawImage(markerReadyImages[game.markers.get(i).getPos()], game.markers.get(i).calcXPos(), game.markers.get(i).calcYPos(), game.markers.get(i).getWidth(), game.markers.get(i).getHeight());
-                            } else {
-                                gc.drawImage(markerImages[game.markers.get(i).getPos()], game.markers.get(i).calcXPos(), game.markers.get(i).calcYPos(), game.markers.get(i).getWidth(), game.markers.get(i).getHeight());
-                            }
-                        }
-                    }
-
-                    for (int a = 0; a < game.balls.length; a++) {
-                        if (game.balls[a].isExplosive()){
-                            gc.drawImage(explosiveBall, game.balls[a].getXPos(), game.balls[a].getYPos(), game.balls[a].getWidth(), game.balls[a].getHeight());
-                        }
-                        else if (!game.balls[a].getSpedUp()) {
-                            gc.drawImage(ballImage, game.balls[a].getXPos(), game.balls[a].getYPos(), game.balls[a].getWidth(), game.balls[a].getHeight());
-                        } else {
-                            gc.drawImage(spedUpBall, game.balls[a].getXPos(), game.balls[a].getYPos(), game.balls[a].getWidth(), game.balls[a].getHeight());
-                        }
-                    }
-
-                    for (int k = 0; k < game.generals.length; k++) {
-                        if (!game.generals[k].isDead()) {
-                            gc.drawImage(paddleImages[k], game.generals[k].paddle.calcXPos(), game.generals[k].paddle.calcYPos(), game.generals[k].paddle.getWidth(), game.generals[k].paddle.getHeight());
-                            if (Main.numberOfPaddles > 1.50) {
-                                gc.drawImage(paddleImages[k], game.generals[k].paddleFollower.calcXPos(), game.generals[k].paddleFollower.calcYPos(), game.generals[k].paddleFollower.getWidth(), game.generals[k].paddleFollower.getHeight());
-                            }
-                        }
-                        for (int i = 0; i < 3; i++) {
-                            for (int j = 0; j < 5; j++) {
-                                if (!game.generals[k].wall[i][j].isDestroyed())
-                                    gc.drawImage(brickImage, game.generals[k].wall[i][j].calcXPos(), game.generals[k].wall[i][j].calcYPos(), game.generals[k].wall[i][j].getWidth(), game.generals[k].wall[i][j].getHeight());
-                            }
-                        }
-                        if (!game.generals[k].isDead())
-                            gc.drawImage(generalImage, game.generals[k].calcXPos(), game.generals[k].calcYPos(), game.generals[k].getWidth(), game.generals[k].getHeight());
-                    }
-
-                    if (game.isCountingDown()) {
-                        game.countdownTick();
-                    } else if (!paused) {
-                        game.tick();
-                    }
-
-                    if (game.isCountingDown()) gc.fillText(game.getCountdownRemaining(), Main.WIDTH / 2, 60);
-                    else gc.fillText(game.getTimeRemaining(), Main.WIDTH / 2, 60);
-
-                    if (game.isFinished()) endGame();
-
-                    if (paused && !escaping)
-                        gc.fillText("Paused", Main.WIDTH / 2, Main.HEIGHT / 2);
-                }
-                if (paused && escaping) {
-                    gc.fillText("Press enter to exit", Main.WIDTH / 2, Main.HEIGHT / 2);
-                }
-
-                if (game.generals[0].getCurrentSkill().getSkillName() == "Explosive Ball" && !game.generals[0].isDead()){
-                    gc.drawImage(explosiveSkill,215,5,game.generals[0].getCurrentSkill().getWidth(),game.generals[0].getCurrentSkill().getHeight());
-                }
-            }
-
-        }.start();
-
-        return gc;
     }
 
+    /**
+     * Handles the end of the game. Sets the game mode to the
+     * appropriate value and changes the scene to the appropriate scene.
+     */
     private void endGame() {
         playNowScene.removeEventHandler(KeyEvent.KEY_PRESSED, keyPressHandler);
         playNowScene.removeEventHandler(KeyEvent.KEY_RELEASED, keyReleaseHandler);
