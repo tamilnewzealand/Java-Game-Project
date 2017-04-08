@@ -1,23 +1,13 @@
 package EtruarutaGUI;
 
-import javafx.animation.AnimationTimer;
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Button;
-import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
-import javafx.scene.media.MediaView;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
 import javafx.scene.web.WebView;
-
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -74,9 +64,9 @@ public class Intro implements SceneInterface {
     {
         public void run()
         {
-            System.out.println("Timer triggered");
             timer.cancel();
             timer.purge();
+            System.out.println("Timer triggered");
             Platform.runLater(new Runnable() {
                 public void run() {
                     introScene.removeEventHandler(KeyEvent.KEY_PRESSED, keyPressHandler);
@@ -91,6 +81,8 @@ public class Intro implements SceneInterface {
         keyPressHandler = new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent keyEvent) {
+                timer.cancel();
+                timer.purge();
                 introScene.removeEventHandler(KeyEvent.KEY_PRESSED, keyPressHandler);
                 webView.getEngine().load(null); // Set the webview to null so video doesn't play in background
                 sceneManager.goToMenuScene(sceneManager);
