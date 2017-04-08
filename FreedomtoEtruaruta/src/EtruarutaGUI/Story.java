@@ -82,19 +82,19 @@ public class Story implements SceneInterface {
         switch (Main.gameMode) {
             case 1:
                 addStoryAText();
-                webView.getEngine().load("https://www.youtube.com/embed/DmJhGD98lP8?autoplay=1&controls=0&disablekb=1&modestbranding=1&rel=0&showinfo=0");
+                webView.getEngine().load("https://www.youtube.com/embed/bumX659SFlE?autoplay=1&controls=0&disablekb=1&modestbranding=1&rel=0&showinfo=0&loop=1&playlist=bumX659SFlE");
                 Main.gameMode = 2;
                 addMenuButton();
                 break;
             case 3:
                 addStoryBText();
-                webView.getEngine().load("https://www.youtube.com/embed/DmJhGD98lP8?autoplay=1&controls=0&disablekb=1&modestbranding=1&rel=0&showinfo=0");
+                webView.getEngine().load("https://www.youtube.com/embed/cxYr4V3dNT0?autoplay=1&controls=0&disablekb=1&modestbranding=1&rel=0&showinfo=0&loop=1&playlist=cxYr4V3dNT0");
                 Main.gameMode = 4;
                 addMenuButton();
                 break;
             case 5:
                 addStoryCText();
-                webView.getEngine().load("https://www.youtube.com/embed/DmJhGD98lP8?autoplay=1&controls=0&disablekb=1&modestbranding=1&rel=0&showinfo=0");
+                webView.getEngine().load("https://www.youtube.com/embed/Rlh9bfPTBNs?autoplay=1&controls=0&disablekb=1&modestbranding=1&rel=0&showinfo=0&loop=1&playlist=Rlh9bfPTBNs");//Awaiting approval from author
                 Main.gameMode = 6;
                 addMenuButton();
                 break;
@@ -280,7 +280,6 @@ public class Story implements SceneInterface {
     }
 
     private void resetColours(){
-        System.out.println(Main.gameMode);
         if (Main.gameMode != 7) {
             for (int i = 0; i < buttonsArray.length; i++) {
                 buttonsArray[i].setTextFill(Paint.valueOf("#FFFFFF"));
