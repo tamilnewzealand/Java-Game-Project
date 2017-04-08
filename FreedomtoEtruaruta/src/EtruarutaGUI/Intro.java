@@ -35,6 +35,7 @@ public class Intro implements SceneInterface {
     private Group root;
     private EventHandler<KeyEvent> keyPressHandler;
     private WebView webView = new WebView();
+    private Timer timer;
 
     /**
      * Constructor for Intro class
@@ -60,7 +61,7 @@ public class Intro implements SceneInterface {
 
         root.getChildren().add(webView);
 
-        Timer timer = new Timer();
+        timer = new Timer();
         timer.schedule(task,22000l);
 
         handleInputs();
@@ -73,6 +74,9 @@ public class Intro implements SceneInterface {
     {
         public void run()
         {
+            System.out.println("Timer triggered");
+            timer.cancel();
+            timer.purge();
             Platform.runLater(new Runnable() {
                 public void run() {
                     introScene.removeEventHandler(KeyEvent.KEY_PRESSED, keyPressHandler);

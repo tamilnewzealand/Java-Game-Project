@@ -82,7 +82,7 @@ public class Story implements SceneInterface {
         switch (Main.gameMode) {
             case -1:
                 addResultsText();
-                webView.getEngine().load("https://www.youtube.com/embed/DmJhGD98lP8?autoplay=1&controls=0&disablekb=1&modestbranding=1&rel=0&showinfo=0");
+                webView.getEngine().load("https://www.youtube.com/embed/FiZ_9fNrH38?autoplay=1&controls=0&disablekb=1&modestbranding=1&rel=0&showinfo=0&loop=1&playlist=FiZ_9fNrH38");
                 Main.playerScore = 0;
                 Main.playerName = null;
                 break;
