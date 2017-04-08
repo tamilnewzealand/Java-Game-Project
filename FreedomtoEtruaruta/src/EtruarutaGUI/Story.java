@@ -234,7 +234,7 @@ public class Story implements SceneInterface {
         });
         buttonsArray[1] = returnToMenuButton;
 
-        if (Main.gameMode == 7){
+        if (Main.gameMode == 7 || Main.gameMode == -1){
             returnToMenuButton.setTextFill(Paint.valueOf("#FF3333"));
             buttonsArray[0] = returnToMenuButton;
         }
@@ -284,7 +284,7 @@ public class Story implements SceneInterface {
     }
 
     private void resetColours(){
-        if (Main.gameMode != 7) {
+        if (Main.gameMode != 7 && Main.gameMode != -1) {
             for (int i = 0; i < buttonsArray.length; i++) {
                 buttonsArray[i].setTextFill(Paint.valueOf("#FFFFFF"));
             }
