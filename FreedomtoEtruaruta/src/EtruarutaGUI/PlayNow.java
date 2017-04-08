@@ -95,7 +95,7 @@ public class PlayNow implements SceneInterface {
                             }else{
                                 if (rotation < 60) {
                                     Paddle paddle = game.generals[0].paddle;
-                                    arrowPointerIV.getTransforms().add(new Rotate(2, paddle.calcXPos() + paddle.getWidth()/2, paddle.calcYPos() + game.balls[0].getHeight() + paddle.getHeight()));
+                                    arrowPointerIV.getTransforms().add(new Rotate(2, paddle.calcXPos() + paddle.getWidth()/2, paddle.calcYPos() + game.balls[0].getHeight()/2 + paddle.getHeight()));
                                     rotation += 2;
                                 }
                             }
@@ -108,7 +108,7 @@ public class PlayNow implements SceneInterface {
                             }else{
                                 if (rotation > -60) {
                                     Paddle paddle = game.generals[0].paddle;
-                                    arrowPointerIV.getTransforms().add(new Rotate(-2, paddle.calcXPos() + paddle.getWidth()/2 , paddle.calcYPos() + game.balls[0].getHeight() + paddle.getHeight()));
+                                    arrowPointerIV.getTransforms().add(new Rotate(-2, paddle.calcXPos() + paddle.getWidth()/2 , paddle.calcYPos() + game.balls[0].getHeight()/2 + paddle.getHeight()));
                                     rotation -= 2;
                                 }
                             }
@@ -384,12 +384,12 @@ public class PlayNow implements SceneInterface {
                         }
                     }
 
-                    //if (game.generals[0].paddle.isHoldingBall()){
+                    if (game.generals[0].paddle.isHoldingBall() && !game.generals[0].isDead()){
                         Paddle paddle = game.generals[0].paddle;
                         arrowPointerIV.setX(paddle.calcXPos() + paddle.getWidth()/2 - 17);
                         arrowPointerIV.setY(paddle.calcYPos() + game.balls[0].getHeight() + paddle.getHeight() + 10);
                         arrowPointerIV.setVisible(true);
-                   // }
+                    }
 
 
                 }

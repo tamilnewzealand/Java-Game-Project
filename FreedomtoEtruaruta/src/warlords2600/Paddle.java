@@ -88,10 +88,12 @@ public class Paddle implements IObject {
      * Moves the paddle one speed unit to the right direction
      */
     public void moveRight() {
-        if (pos == 0 || pos == 3) {
-            if (theta > polarSpeed) theta -= polarSpeed;
-        }else{
-            if (theta < Math.PI / 2 - polarSpeed) theta += polarSpeed;
+        if (!holdingBall) {
+            if (pos == 0 || pos == 3) {
+                if (theta > polarSpeed) theta -= polarSpeed;
+            } else {
+                if (theta < Math.PI / 2 - polarSpeed) theta += polarSpeed;
+            }
         }
     }
 
@@ -99,10 +101,12 @@ public class Paddle implements IObject {
      * Moves the paddle one speed unit to the left direction
      */
     public void moveLeft() {
-        if (pos == 0 || pos == 3) {
-            if (theta < Math.PI / 2 - polarSpeed) theta += polarSpeed;
-        }else{
-            if (theta > polarSpeed) theta -= polarSpeed;
+        if (!holdingBall) {
+            if (pos == 0 || pos == 3) {
+                if (theta < Math.PI / 2 - polarSpeed) theta += polarSpeed;
+            } else {
+                if (theta > polarSpeed) theta -= polarSpeed;
+            }
         }
     }
 
