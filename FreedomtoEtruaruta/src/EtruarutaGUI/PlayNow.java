@@ -84,12 +84,20 @@ public class PlayNow implements SceneInterface {
                         break;
                     case UP:
                         if (!freezed && Main.gameMode != 99) {
-                            if (game.generals[0].isDead()) game.generalsMovement[0] = "up";
+                            if (game.generals[0].isDead()) {
+                                game.generalsMovement[0] = "up";
+                            }else{
+                                game.generals[0].increaseSkillsIndex();
+                            }
                         }
                         break;
                     case DOWN:
                         if (!freezed && Main.gameMode != 99) {
-                            if (game.generals[0].isDead()) game.generalsMovement[0] = "down";
+                            if (game.generals[0].isDead()){
+                                game.generalsMovement[0] = "down";
+                            }else{
+                                game.generals[0].decreaseSkillsIndex();
+                            }
                         }
                         break;
                     case SHIFT:
@@ -100,6 +108,10 @@ public class PlayNow implements SceneInterface {
                                         game.generatePowerUp(game.markers.get(i).calcXPos(), game.markers.get(i).calcYPos());
                                         game.markers.get(i).resetReadyCounter();
                                     }
+                                }
+                            }else{
+                                if(!game.generals[0].isSkillTriggered()){ //If the skill has not been triggered
+                                    game.generals[0].triggerSkill(game.balls); // Trigger the currently selected skill
                                 }
                             }
                         }
@@ -235,6 +247,7 @@ public class PlayNow implements SceneInterface {
         Image markerImages[] = new Image[4];
         Image markerReadyImages[] = new Image[4];
         Image explosiveSkill = new Image("explosiveSkill.png");
+        Image explosiveSkillCoolDown = new Image("explosiveSkillCoolDown.png");
         Image explosiveBall = new Image ("explosiveBall.png");
 
         markerImages[0] = new Image("xMarkerA.png");
@@ -409,8 +422,12 @@ public class PlayNow implements SceneInterface {
                     gc.fillText("Press enter to exit", Main.WIDTH / 2, Main.HEIGHT / 2);
                 }
 
-                if (game.generals[0].getCurrentSkill().getSkillName() == "Explosive Ball" && !game.generals[0].isDead()){
-                    gc.drawImage(explosiveSkill,215,5,game.generals[0].getCurrentSkill().getWidth(),game.generals[0].getCurrentSkill().getHeight());
+                if (game.generals[0].getCurrentSkill().getSkillName() == "Explosive Ball" && !game.generals[0].isDead()) {
+                    if (!game.generals[0].isSkillTriggered()) {
+                        gc.drawImage(explosiveSkill, 215, 5, game.generals[0].getCurrentSkill().getWidth(), game.generals[0].getCurrentSkill().getHeight());
+                    } else{
+                        gc.drawImage(explosiveSkillCoolDown, 215, 5, game.generals[0].getCurrentSkill().getWidth(), game.generals[0].getCurrentSkill().getHeight());
+                    }
                 }
             }
 

@@ -5,13 +5,16 @@ package warlords2600;
  */
 public class ExplosiveBall extends Skill {
 
-    public void activateEffect(Ball[] balls, General[] generals){
+    public void activateEffect(Ball[] balls, int generalsPos){
         for (int i = 0; i < balls.length; i++){
-            balls[i].setExplosive(true);
+            if (!balls[i].isExplosive()){
+                balls[i].setExplosive(generalsPos);
+            }
         }
     }
 
     public String getSkillName(){
         return "Explosive Ball";
     }
+
 }

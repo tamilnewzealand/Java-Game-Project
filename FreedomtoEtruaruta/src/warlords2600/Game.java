@@ -83,6 +83,7 @@ public class Game{
             for (int a = 0; a < balls.length; a++) {
                 ball = balls[a];
                 boolean ballHit = false;
+                boolean hitBricks = false;
                 if (!ball.getHitLastTick() && ball.getCollisionCounter() <= 0) {
                     for (int i = 0; i < powerUps.size(); i++) {
                         if (!ballHit && (!powerUps.get(i).isHit())) {
@@ -126,9 +127,15 @@ public class Game{
                             for (int j = 0; j < generals[i].wall.length; j++) {
                                 for (int k = 0; k < generals[i].wall[j].length; k++) {
                                     if (!generals[i].wall[j][k].isDestroyed()){
-                                        if (!ballHit) ballHit = objectCollision(generals[i].wall[j][k], ballHit);
+                                        if (!ballHit) {
+                                            ballHit = objectCollision(generals[i].wall[j][k], ballHit);
+                                        }
                                         if (ballHit) {
-                                            generals[i].wall[j][k].destroyBrick();
+                                            if (!ball.isExplosive()) {
+                                                generals[i].wall[j][k].destroyBrick();
+                                            } else{
+                                                explosion(i,j,ball); //Cause the explosion.
+                                            }
                                             break outerLoop;
                                         }
                                     }
@@ -416,5 +423,15 @@ public class Game{
                         break;
                 }
             }
+        }
+
+        private void explosion(int i, int j, Ball ball){
+            for (int k = 0; k < generals[i].wall[j].length; k++){
+                if (!generals[i].wall[j][k].isDestroyed()){
+                    generals[i].wall[j][k].destroyBrick();
+                }
+            }
+            ball.setUnexplosive();
+            SoundManager.playExplosion();
         }
     }

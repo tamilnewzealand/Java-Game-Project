@@ -18,6 +18,7 @@ public class Ball{
     private int spedUpCounter = 0;
     private int previousXSpeed, previousYSpeed;
     private boolean isExplosive = false;
+    private int madeExplosiveByGeneralPos = -1;
 
     /**
      * Constructor for the ball class
@@ -270,8 +271,17 @@ public class Ball{
         }
     }
 
-    public void setExplosive(boolean explosive){
-        isExplosive = explosive;
+    public void setExplosive(int generalPos){
+        if (!isExplosive) {
+            isExplosive = true;
+            madeExplosiveByGeneralPos = generalPos;
+        }
+    }
+
+    public void setUnexplosive(){
+        if (isExplosive){
+            isExplosive = false;
+        }
     }
 
     public boolean isExplosive(){

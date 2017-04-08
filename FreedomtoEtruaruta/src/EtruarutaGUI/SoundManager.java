@@ -51,5 +51,13 @@ public class SoundManager {
         ac.play();
     }
 
+    /**
+     * Plays the explosion sound effect.
+     */
+    public static void playExplosion() {
+        String url = new File("explosion.wav").toURI().toString();
+        AudioClip ac = new AudioClip(url);
+        ac.play();
+    }
 
 }

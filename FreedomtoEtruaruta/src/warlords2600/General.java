@@ -17,6 +17,7 @@ public class General implements IObject {
     public Brick[][] wall;
     private Skill[] skillsArray = new Skill[1];
     private int skillsIndex = 0;
+    private boolean skillTriggered = false;
     private int height = 25, width = 25, r, pos = 0;
     private double theta;
     private boolean dead = false, won = false;
@@ -197,6 +198,17 @@ public class General implements IObject {
             skillsIndex--;
         }else{
             skillsIndex = skillsArray.length - 1;
+        }
+    }
+
+    public boolean isSkillTriggered(){
+        return skillTriggered;
+    }
+
+    public void triggerSkill(Ball[] balls){
+        if (!skillTriggered) {
+            skillsArray[skillsIndex].activateEffect(balls, pos);
+            skillTriggered = true;
         }
     }
 }

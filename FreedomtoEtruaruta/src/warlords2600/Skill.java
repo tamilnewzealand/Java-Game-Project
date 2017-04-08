@@ -30,24 +30,8 @@ public abstract class Skill {
         return height;
     }
 
-    /**
-     *
-     * @return  whether the skill has been triggered
-     */
-    public boolean isTriggered(){
-        return triggered;
-    }
 
-    /**
-     *
-     * @param triggered
-     */
-    public void setTriggered(boolean triggered){
-        this.triggered = triggered;
-    }
-
-
-    abstract public void activateEffect(Ball[] balls, General[] generals);
+    abstract public void activateEffect(Ball[] balls, int generalsPos);
 
     abstract public String getSkillName();
 
