@@ -41,7 +41,7 @@ public class PlayNow implements SceneInterface {
     private String generalAMovement, generalBMovement, generalCMovement, generalDMovement;
     private Image arrowPointer = new Image ("arrowPointer.png");
     private ImageView arrowPointerIV = new ImageView();
-    int rotation = 0;
+    private int previousAngle = 0;
 
     /**
      * Constructor for PlayNow class
@@ -71,8 +71,6 @@ public class PlayNow implements SceneInterface {
         playNowScene.addEventHandler(KeyEvent.KEY_RELEASED, keyReleaseHandler);
 
         arrowPointerIV.setImage(arrowPointer);
-        //arrowPointerIV.setScaleX(0.25);
-        //arrowPointerIV.setScaleY(0.25);
         arrowPointerIV.setVisible(false);
         root.getChildren().add(arrowPointerIV);
 
@@ -93,11 +91,7 @@ public class PlayNow implements SceneInterface {
                             if (!game.generals[0].paddle.isHoldingBall()) {
                                 game.generalsMovement[0] = "left";
                             }else{
-                                if (rotation < 60) {
-                                    Paddle paddle = game.generals[0].paddle;
-                                    arrowPointerIV.getTransforms().add(new Rotate(2, paddle.calcXPos() + paddle.getWidth()/2, paddle.calcYPos() + game.balls[0].getHeight()/2 + paddle.getHeight()));
-                                    rotation += 2;
-                                }
+                                game.increaseBallHoldAngle();
                             }
                         }
                         break;
@@ -106,11 +100,7 @@ public class PlayNow implements SceneInterface {
                             if (!game.generals[0].paddle.isHoldingBall()) {
                                 game.generalsMovement[0] = "right";
                             }else{
-                                if (rotation > -60) {
-                                    Paddle paddle = game.generals[0].paddle;
-                                    arrowPointerIV.getTransforms().add(new Rotate(-2, paddle.calcXPos() + paddle.getWidth()/2 , paddle.calcYPos() + game.balls[0].getHeight()/2 + paddle.getHeight()));
-                                    rotation -= 2;
-                                }
+                                game.decreaseBallHoldAngle();
                             }
                         }
                         break;
@@ -385,10 +375,17 @@ public class PlayNow implements SceneInterface {
                     }
 
                     if (game.generals[0].paddle.isHoldingBall() && !game.generals[0].isDead()){
-                        Paddle paddle = game.generals[0].paddle;
-                        arrowPointerIV.setX(paddle.calcXPos() + paddle.getWidth()/2 - 17);
-                        arrowPointerIV.setY(paddle.calcYPos() + game.balls[0].getHeight() + paddle.getHeight() + 10);
+                        arrowPointerIV.getTransforms().add(new Rotate(-previousAngle, game.getArrowXPivot() , game.getArrowYPivot()));
+
+                        game.calculateArrowPosition();
+                        arrowPointerIV.setX(game.getArrowXPosition());
+                        arrowPointerIV.setY(game.getArrowYPosition());
+
                         arrowPointerIV.setVisible(true);
+                        arrowPointerIV.getTransforms().add(new Rotate(game.getBallHoldAngle(), game.getArrowXPivot(), game.getArrowYPivot()));
+                        previousAngle = game.getBallHoldAngle();
+                    }else{
+                        arrowPointerIV.setVisible(false);
                     }
 
 

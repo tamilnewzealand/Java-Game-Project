@@ -3,6 +3,8 @@ package warlords2600;
 import EtruarutaGUI.AIController;
 import EtruarutaGUI.Main;
 import EtruarutaGUI.SoundManager;
+import javafx.scene.transform.Rotate;
+
 import java.util.ArrayList;
 
 /**
@@ -26,8 +28,9 @@ public class Game{
     public ArrayList<PowerUp> powerUps = new ArrayList<PowerUp>();
     public SpeedUp speedUp;
     public ArrayList<AIController> AIs = new ArrayList<AIController>();
-
+    private int ballHoldAngle = 0;
     public ArrayList<Marker> markers = new ArrayList<>();
+    private ArrowPointer arrow = new ArrowPointer();
 
     private int[] deadPos;
 
@@ -208,7 +211,7 @@ public class Game{
                 }
             }
 
-            if (timeElapsed % 600 == 0){
+            if (timeElapsed % 50 == 0){
                 generatePowerUp();
             }
 
@@ -226,6 +229,9 @@ public class Game{
                     }
                 }
             }
+
+            calculateArrowPivots();
+            generals[0].paddle.checkStillHoldingBall(balls, arrow);
     }
 
 
@@ -451,5 +457,41 @@ public class Game{
             for (int i = 0; i < balls.length; i++){
                 balls[i].setWillBeHeld(false);
             }
+        }
+
+        public void decreaseBallHoldAngle(){
+            arrow.decreaseAngle();
+        }
+
+        public void increaseBallHoldAngle(){
+            arrow.increaseAngle();
+        }
+
+        public int getBallHoldAngle(){
+            return arrow.getAngle();
+        }
+
+        public void calculateArrowPivots(){
+            arrow.calcPivots(generals[0].paddle, ball);
+        }
+
+        public void calculateArrowPosition(){
+            arrow.calcPos(generals[0].paddle,ball);
+        }
+
+        public int getArrowXPosition(){
+            return arrow.getxPos();
+        }
+
+        public int getArrowYPosition(){
+            return arrow.getyPos();
+        }
+
+        public int getArrowXPivot(){
+            return arrow.getxPivot();
+        }
+
+        public int getArrowYPivot(){
+            return arrow.getyPivot();
         }
     }

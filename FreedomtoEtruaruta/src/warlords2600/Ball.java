@@ -301,6 +301,7 @@ public class Ball{
     public void setBallHeld(){
         if (willBeHeld){
             isHeld = true;
+            willBeHeld = false;
             xSpeed = 0;
             ySpeed = 0;
         }
@@ -312,6 +313,19 @@ public class Ball{
 
     public boolean isHeld(){
         return isHeld;
+    }
+
+    public void unHeld(){
+        isHeld = false;
+    }
+
+    public void launch(ArrowPointer arrow){
+        spedup = false;
+        int angle = arrow.getAngle();
+        int velocity = 15;
+        xSpeed =(int) (-velocity * Math.sin(angle * Math.PI / 180));
+        ySpeed = (int) (velocity * Math.cos(angle * Math.PI / 180));
+
     }
 
 }

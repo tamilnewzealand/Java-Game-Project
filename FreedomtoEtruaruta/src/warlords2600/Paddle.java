@@ -17,6 +17,7 @@ public class Paddle implements IObject {
     private int previousWidth;
     private int widthUpCounter = 0;
     private boolean holdingBall = false;
+    private int ballHoldCount = 0;
 
     /**
      * Constructor for paddle class
@@ -194,9 +195,30 @@ public class Paddle implements IObject {
 
     public void setHoldingBall(boolean holdingBall){
         this.holdingBall = holdingBall;
+        if (holdingBall){
+            ballHoldCount = 120;
+        }
     }
 
     public boolean isHoldingBall(){
         return holdingBall;
+    }
+
+    public void checkStillHoldingBall(Ball[] balls, ArrowPointer arrow){
+        if (ballHoldCount > 0){
+            ballHoldCount--;
+        }else{
+            holdingBall = false;
+            releaseBall(balls, arrow);
+        }
+    }
+
+    private void releaseBall(Ball[] balls, ArrowPointer arrow){
+        for (int i = 0; i < balls.length; i++){
+            if (balls[i].isHeld()){
+                balls[i].unHeld();
+                balls[i].launch(arrow);
+            }
+        }
     }
 }
