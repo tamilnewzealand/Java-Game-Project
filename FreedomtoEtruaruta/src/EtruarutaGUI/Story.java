@@ -255,7 +255,11 @@ public class Story implements SceneInterface {
                         break;
                     case ENTER:
                         closeWebView();
-                        if (optionNumber == 0) {
+                        storyScene.removeEventHandler(KeyEvent.KEY_PRESSED, keyPressHandler);
+                        if (Main.gameMode == -1 || Main.gameMode == 7) {
+                            sceneManager.goToMenuScene(sceneManager);
+                            Main.gameMode = 0;
+                        } else if (optionNumber == 0) {
                             if (Main.gameMode == 2) {
                                 Main.playerName = name.textProperty().getValue();
                             }
@@ -264,7 +268,6 @@ public class Story implements SceneInterface {
                             sceneManager.goToMenuScene(sceneManager);
                             Main.gameMode = 0;
                         }
-                        storyScene.removeEventHandler(KeyEvent.KEY_PRESSED, keyPressHandler);
                         break;
                     case UP:
                         optionChanger();
@@ -273,21 +276,6 @@ public class Story implements SceneInterface {
                         optionChanger();
                         break;
                 }
-                /*
-                if (keyEvent.getCode() == KeyCode.ESCAPE) {
-                    sceneManager.goToMenuScene(sceneManager);
-                    closeWebView();
-                    storyScene.removeEventHandler(KeyEvent.KEY_PRESSED, keyPressHandler);
-                } else if (keyEvent.getCode() == KeyCode.ENTER) {
-                    closeWebView();
-                    if (Main.gameMode == 2) {
-                        Main.playerName = name.textProperty().getValue();
-                        if (!((Main.playerName == null) ||(Main.playerName == ""))) {
-                            sceneManager.goToGameScene(sceneManager);
-                            storyScene.removeEventHandler(KeyEvent.KEY_PRESSED, keyPressHandler);
-                        }
-                    }
-                }*/
             }
         };
     }
