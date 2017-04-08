@@ -30,6 +30,7 @@ public class Intro implements SceneInterface {
     private Scene introScene;
     private Group root;
     private EventHandler<KeyEvent> keyPressHandler;
+    private WebView webView = new WebView();
 
     /**
      * Constructor for Intro class
@@ -50,11 +51,10 @@ public class Intro implements SceneInterface {
         Canvas canvas = new Canvas(Main.WIDTH, Main.HEIGHT);
         root.getChildren().add(canvas);
 
-        WebView webview = new WebView();
-        webview.getEngine().load("https://www.youtube.com/embed/DmJhGD98lP8?autoplay=1&controls=0&disablekb=1&modestbranding=1&rel=0&showinfo=0");
-        webview.setPrefSize(Main.WIDTH, Main.HEIGHT);
+        webView.getEngine().load("https://www.youtube.com/embed/DmJhGD98lP8?autoplay=1&controls=0&disablekb=1&modestbranding=1&rel=0&showinfo=0");
+        webView.setPrefSize(Main.WIDTH, Main.HEIGHT);
 
-        root.getChildren().add(webview);
+        root.getChildren().add(webView);
 
         handleInputs();
         introScene.addEventHandler(KeyEvent.KEY_PRESSED, keyPressHandler);
@@ -67,6 +67,7 @@ public class Intro implements SceneInterface {
             @Override
             public void handle(KeyEvent keyEvent) {
                 introScene.removeEventHandler(KeyEvent.KEY_PRESSED, keyPressHandler);
+                webView.getEngine().load(null); // Set the webview to null so video doesn't play in background
                 sceneManager.goToMenuScene(sceneManager);
             }
         };

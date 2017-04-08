@@ -3,22 +3,21 @@ package EtruarutaGUI;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
+import javafx.scene.Cursor;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
 import javafx.scene.web.WebView;
-
-import javax.xml.crypto.dsig.keyinfo.KeyValue;
 
 /**
  * This class presents the story scene. The user
@@ -35,6 +34,9 @@ public class Story implements SceneInterface {
     private Group root;
     private TextField name;
     private EventHandler<KeyEvent> keyPressHandler;
+    private WebView webView = new WebView();
+    private Button[] buttonsArray = new Button[2];
+    private int optionNumber = 0;
 
     /**
      * Constructor for Story class
@@ -58,9 +60,8 @@ public class Story implements SceneInterface {
         GraphicsContext gc = canvas.getGraphicsContext2D();
         gc = GUIComponent.createAnimationBackground(gc);
 
-        WebView webview = new WebView();
-        webview.setPrefSize(Main.WIDTH, Main.HEIGHT);
-        root.getChildren().add(webview);
+        webView.setPrefSize(Main.WIDTH, Main.HEIGHT);
+        root.getChildren().add(webView);
 
         if (Main.gameMode == 1) {
             //Creating a GridPane container
@@ -81,25 +82,25 @@ public class Story implements SceneInterface {
         switch (Main.gameMode) {
             case 1:
                 addStoryAText();
-                webview.getEngine().load("https://www.youtube.com/embed/DmJhGD98lP8?autoplay=1&controls=0&disablekb=1&modestbranding=1&rel=0&showinfo=0");
+                webView.getEngine().load("https://www.youtube.com/embed/DmJhGD98lP8?autoplay=1&controls=0&disablekb=1&modestbranding=1&rel=0&showinfo=0");
                 Main.gameMode = 2;
                 addMenuButton();
                 break;
             case 3:
                 addStoryBText();
-                webview.getEngine().load("https://www.youtube.com/embed/DmJhGD98lP8?autoplay=1&controls=0&disablekb=1&modestbranding=1&rel=0&showinfo=0");
+                webView.getEngine().load("https://www.youtube.com/embed/DmJhGD98lP8?autoplay=1&controls=0&disablekb=1&modestbranding=1&rel=0&showinfo=0");
                 Main.gameMode = 4;
                 addMenuButton();
                 break;
             case 5:
                 addStoryCText();
-                webview.getEngine().load("https://www.youtube.com/embed/DmJhGD98lP8?autoplay=1&controls=0&disablekb=1&modestbranding=1&rel=0&showinfo=0");
+                webView.getEngine().load("https://www.youtube.com/embed/DmJhGD98lP8?autoplay=1&controls=0&disablekb=1&modestbranding=1&rel=0&showinfo=0");
                 Main.gameMode = 6;
                 addMenuButton();
                 break;
             case 7:
                 addWinMessageText();
-                webview.getEngine().load("https://www.youtube.com/embed/DmJhGD98lP8?autoplay=1&controls=0&disablekb=1&modestbranding=1&rel=0&showinfo=0");
+                webView.getEngine().load("https://www.youtube.com/embed/DmJhGD98lP8?autoplay=1&controls=0&disablekb=1&modestbranding=1&rel=0&showinfo=0");
                 ScoreManager.addScore(Main.playerName, Main.playerScore);
                 Main.gameMode = 0;
                 break;
@@ -160,50 +161,141 @@ public class Story implements SceneInterface {
             @Override
             public void handle(ActionEvent event) {
                 storyScene.removeEventHandler(KeyEvent.KEY_PRESSED, keyPressHandler);
+                closeWebView();
                 if (Main.gameMode == 2) {
                     Main.playerName = name.textProperty().getValue();
-                    if (!((Main.playerName == null) ||(Main.playerName == ""))) {
-                        sceneManager.goToGameScene(sceneManager);
-                    }
-                } else sceneManager.goToGameScene(sceneManager);
+                }
+                sceneManager.goToGameScene(sceneManager);
             }
         });
 
+        menuButton.setOnMouseEntered(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent me) {
+                storyScene.setCursor(Cursor.HAND); //Change cursor to hand
+                resetColours();
+                optionNumber = 0;
+                colourText(0);
+            }
+        });
+        menuButton.setOnMouseExited(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent me) {
+                storyScene.setCursor(Cursor.DEFAULT); //Change cursor to default
+            }
+        });
+        buttonsArray[0] = menuButton;
+        menuButton.setTextFill(Paint.valueOf("#FF3333"));
         root.getChildren().add(menuButton);
     }
 
     private void addExitButton() {
-        Button menuButton = GUIComponent.createButton("Return to Main Menu", 30, 540);
+        Button returnToMenuButton = GUIComponent.createButton("Return to Main Menu", 30, 540);
 
-        menuButton.setOnAction(new EventHandler<ActionEvent>() {
+        returnToMenuButton.setOnAction(new EventHandler<ActionEvent>(){
             @Override
             public void handle(ActionEvent event) {
                 Main.gameMode = 0;
                 storyScene.removeEventHandler(KeyEvent.KEY_PRESSED, keyPressHandler);
                 sceneManager.goToMenuScene(sceneManager);
+                closeWebView();
             }
         });
 
-        root.getChildren().add(menuButton);
+        returnToMenuButton.setOnMouseEntered(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent me) {
+                storyScene.setCursor(Cursor.HAND); //Change cursor to hand
+                resetColours();
+                colourText(1);
+                optionNumber = 1;
+            }
+        });
+        returnToMenuButton.setOnMouseExited(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent me) {
+                storyScene.setCursor(Cursor.DEFAULT); //Change cursor to default
+            }
+        });
+        if (Main.gameMode == 7){
+            buttonsArray[0] = returnToMenuButton;
+        }else{
+            buttonsArray[1] = returnToMenuButton;
+        }
+        root.getChildren().add(returnToMenuButton);
     }
 
     private void handleInputs(){
         keyPressHandler = new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent keyEvent) {
-                storyScene.removeEventHandler(KeyEvent.KEY_PRESSED, keyPressHandler);
+                switch(keyEvent.getCode()){
+                    case ESCAPE:
+                        closeWebView();
+                        storyScene.removeEventHandler(KeyEvent.KEY_PRESSED, keyPressHandler);
+                        sceneManager.goToMenuScene(sceneManager);
+                        Main.gameMode = 0;
+                        break;
+                    case ENTER:
+                        closeWebView();
+                        if (optionNumber == 0) {
+                            if (Main.gameMode == 2) {
+                                Main.playerName = name.textProperty().getValue();
+                            }
+                            sceneManager.goToGameScene(sceneManager);
+                        } else if (optionNumber == 1){
+                            sceneManager.goToMenuScene(sceneManager);
+                            Main.gameMode = 0;
+                        }
+                        storyScene.removeEventHandler(KeyEvent.KEY_PRESSED, keyPressHandler);
+                        break;
+                    case UP:
+                        optionChanger();
+                        break;
+                    case DOWN:
+                        optionChanger();
+                        break;
+                }
+                /*
                 if (keyEvent.getCode() == KeyCode.ESCAPE) {
                     sceneManager.goToMenuScene(sceneManager);
+                    closeWebView();
+                    storyScene.removeEventHandler(KeyEvent.KEY_PRESSED, keyPressHandler);
                 } else if (keyEvent.getCode() == KeyCode.ENTER) {
+                    closeWebView();
                     if (Main.gameMode == 2) {
                         Main.playerName = name.textProperty().getValue();
                         if (!((Main.playerName == null) ||(Main.playerName == ""))) {
                             sceneManager.goToGameScene(sceneManager);
+                            storyScene.removeEventHandler(KeyEvent.KEY_PRESSED, keyPressHandler);
                         }
-                    } else sceneManager.goToGameScene(sceneManager);
-                }
-
+                    }
+                }*/
             }
         };
+    }
+
+    private void closeWebView(){
+        webView.getEngine().load(null); // Set the webview to null so video doesn't play in background
+    }
+
+    private void resetColours(){
+        for (int i = 0; i < buttonsArray.length; i++){
+            buttonsArray[i].setTextFill(Paint.valueOf("#FFFFFF"));
+        }
+    }
+
+    private void colourText(int optionNumber){
+        buttonsArray[optionNumber].setTextFill(Paint.valueOf("#FF3333"));
+    }
+
+    private void optionChanger(){
+        if (optionNumber == 0) {
+            optionNumber = 1;
+        }else{
+            optionNumber = 0;
+        }
+        resetColours();
+        colourText(optionNumber);
     }
 }
