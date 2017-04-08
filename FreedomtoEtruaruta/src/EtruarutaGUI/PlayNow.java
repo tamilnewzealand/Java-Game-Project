@@ -253,6 +253,9 @@ public class PlayNow implements SceneInterface {
         Image explosiveSkill = new Image("explosiveSkill.png");
         Image explosiveSkillCoolDown = new Image("explosiveSkillCoolDown.png");
         Image explosiveBall = new Image ("explosiveBall.png");
+        Image ballHoldSkill = new Image ("ballHoldSkill.png");
+        Image ballHoldSkillCoolDown = new Image ("ballHoldSkillCoolDown.png");
+
         Image paddleImages[] = {new Image("paddleA.png"), new Image("paddleB.png"), new Image("paddleC.png"), new Image("paddleD.png")};
         Image markerImages[] = {new Image("xMarkerA.png"), new Image("xMarkerB.png"), new Image("xMarkerC.png"), new Image("xMarkerD.png")};
         Image markerReadyImages[] = {new Image("xMarkerAReady.png"), new Image("xMarkerBReady.png"), new Image("xMarkerCReady.png"), new Image("xMarkerDReady.png")};
@@ -338,14 +341,17 @@ public class PlayNow implements SceneInterface {
                     // Shows the conformation prompt when a player tries to leave the game
                     if (paused && escaping) gc.fillText("Press enter to exit", Main.WIDTH / 2, Main.HEIGHT / 2);
 
-                    if (game.generals[0].getCurrentSkill().getSkillName() == "Explosive Ball" && !game.generals[0].isDead())
-                        gc.drawImage(explosiveSkill,215,5,game.generals[0].getCurrentSkill().getWidth(),game.generals[0].getCurrentSkill().getHeight());
-
                     if (game.generals[0].getCurrentSkill().getSkillName() == "Explosive Ball" && !game.generals[0].isDead()) {
                         if (!game.generals[0].isSkillTriggered()) {
                             gc.drawImage(explosiveSkill, 215, 5, game.generals[0].getCurrentSkill().getWidth(), game.generals[0].getCurrentSkill().getHeight());
                         } else{
                             gc.drawImage(explosiveSkillCoolDown, 215, 5, game.generals[0].getCurrentSkill().getWidth(), game.generals[0].getCurrentSkill().getHeight());
+                        }
+                    }else if (game.generals[0].getCurrentSkill().getSkillName() == "Ball Hold" && !game.generals[0].isDead()){
+                        if (!game.generals[0].isSkillTriggered()) {
+                            gc.drawImage(ballHoldSkill, 215, 5, game.generals[0].getCurrentSkill().getWidth(), game.generals[0].getCurrentSkill().getHeight());
+                        } else{
+                            gc.drawImage(ballHoldSkillCoolDown, 215, 5, game.generals[0].getCurrentSkill().getWidth(), game.generals[0].getCurrentSkill().getHeight());
                         }
                     }
                 }

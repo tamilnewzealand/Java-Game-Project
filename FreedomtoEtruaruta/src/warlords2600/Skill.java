@@ -1,9 +1,7 @@
 package warlords2600;
 
 /**
- * This class models a powerup in the game.
- * This class implements IObject to enable easy
- * collision detection.
+ * This class models a Skill in the game.
  *
  * @author Adil Bhayani <abha808@aucklanduni.ac.nz>
  * @author Sakayan Sitsabesan <ssit662@aucklanduni.ac.nz>
@@ -11,8 +9,7 @@ package warlords2600;
  */
 
 public abstract class Skill {
-    private int width = 40,height = 40;
-    private boolean triggered = false;
+    private int width = 50,height = 50;
 
     /**
      *
