@@ -15,6 +15,8 @@ public class General implements IObject {
     public Paddle paddle;
     public Paddle paddleFollower;
     public Brick[][] wall;
+    private Skill[] skillsArray = new Skill[1];
+    private int skillsIndex = 0;
     private int height = 25, width = 25, r, pos = 0;
     private double theta;
     private boolean dead = false, won = false;
@@ -33,6 +35,7 @@ public class General implements IObject {
         this.paddle = paddle;
         this.wall = wall;
         this.pos = pos;
+        this.skillsArray[0] = new ExplosiveBall();
     }
 
     /**
@@ -48,6 +51,7 @@ public class General implements IObject {
     public General(int r, double theta, Paddle paddle, Paddle paddleFollower, Brick[][] wall, int pos) {
         this(r, theta, paddle, wall, pos);
         this.paddleFollower = paddleFollower;
+        this.skillsArray[0] = new ExplosiveBall();
     }
 
     /**
@@ -174,5 +178,25 @@ public class General implements IObject {
      */
     public int getPos(){
         return pos;
+    }
+
+    public Skill getCurrentSkill(){
+        return skillsArray[skillsIndex];
+    }
+
+    public void increaseSkillsIndex(){
+        if (skillsIndex < skillsArray.length - 1){
+            skillsIndex++;
+        }else{
+            skillsIndex = 0;
+        }
+    }
+
+    public void decreaseSkillsIndex(){
+        if (skillsIndex > 0){
+            skillsIndex--;
+        }else{
+            skillsIndex = skillsArray.length - 1;
+        }
     }
 }

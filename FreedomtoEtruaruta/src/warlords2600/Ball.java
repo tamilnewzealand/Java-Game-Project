@@ -17,6 +17,7 @@ public class Ball{
     private boolean spedup = false;
     private int spedUpCounter = 0;
     private int previousXSpeed, previousYSpeed;
+    private boolean isExplosive = false;
 
     /**
      * Constructor for the ball class
@@ -267,5 +268,13 @@ public class Ball{
                 }
             }
         }
+    }
+
+    public void setExplosive(boolean explosive){
+        isExplosive = explosive;
+    }
+
+    public boolean isExplosive(){
+        return isExplosive;
     }
 }

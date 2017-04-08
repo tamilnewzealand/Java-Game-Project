@@ -234,6 +234,8 @@ public class PlayNow implements SceneInterface {
         Image generalImage = new Image("general.png");
         Image markerImages[] = new Image[4];
         Image markerReadyImages[] = new Image[4];
+        Image explosiveSkill = new Image("explosiveSkill.png");
+        Image explosiveBall = new Image ("explosiveBall.png");
 
         markerImages[0] = new Image("xMarkerA.png");
         markerImages[1] = new Image("xMarkerB.png");
@@ -302,15 +304,15 @@ public class PlayNow implements SceneInterface {
             double randomY = Math.random() * 10 - 5;
 
             if (randomX > 0) { //Speed boost for ball
-                randomX += 5;
+                randomX += 6;
             } else {
-                randomX -= 5;
+                randomX -= 6;
             }
 
             if (randomY > 0) {
-                randomY += 5;
+                randomY += 6;
             } else {
-                randomY -= 5;
+                randomY -= 6;
             }
 
             balls[a].setXVelocity((int) (Main.speedMultiplier * randomX));
@@ -362,7 +364,10 @@ public class PlayNow implements SceneInterface {
                     }
 
                     for (int a = 0; a < game.balls.length; a++) {
-                        if (!game.balls[a].getSpedUp()) {
+                        if (game.balls[a].isExplosive()){
+                            gc.drawImage(explosiveBall, game.balls[a].getXPos(), game.balls[a].getYPos(), game.balls[a].getWidth(), game.balls[a].getHeight());
+                        }
+                        else if (!game.balls[a].getSpedUp()) {
                             gc.drawImage(ballImage, game.balls[a].getXPos(), game.balls[a].getYPos(), game.balls[a].getWidth(), game.balls[a].getHeight());
                         } else {
                             gc.drawImage(spedUpBall, game.balls[a].getXPos(), game.balls[a].getYPos(), game.balls[a].getWidth(), game.balls[a].getHeight());
@@ -402,6 +407,10 @@ public class PlayNow implements SceneInterface {
                 }
                 if (paused && escaping) {
                     gc.fillText("Press enter to exit", Main.WIDTH / 2, Main.HEIGHT / 2);
+                }
+
+                if (game.generals[0].getCurrentSkill().getSkillName() == "Explosive Ball" && !game.generals[0].isDead()){
+                    gc.drawImage(explosiveSkill,215,5,game.generals[0].getCurrentSkill().getWidth(),game.generals[0].getCurrentSkill().getHeight());
                 }
             }
 
