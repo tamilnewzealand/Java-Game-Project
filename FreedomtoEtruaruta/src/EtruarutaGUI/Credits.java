@@ -12,24 +12,24 @@ import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
 
 /**
- * This class presents the instructions scene. The user
- * is presented with the instructions for playing the game.
+ * This class presents the credits scene. The user
+ * is presented with the credits for the game.
  *
  * @author Adil Bhayani <abha808@aucklanduni.ac.nz>
  * @author Sakayan Sitsabesan <ssit662@aucklanduni.ac.nz>
  * @version 0.1.0
  */
 
-public class Instructions implements SceneInterface {
+public class Credits implements SceneInterface {
     private SceneManager sceneManager;
-    private Scene instructionsScene;
+    private Scene creditsScene;
     private Group root;
 
     /**
-     * Constructor for Instructions class
+     * Constructor for Credits class
      * @param sceneManager SceneManager currently being used
      */
-    public Instructions(SceneManager sceneManager) {
+    public Credits(SceneManager sceneManager) {
         this.sceneManager = sceneManager;
     }
 
@@ -39,7 +39,7 @@ public class Instructions implements SceneInterface {
     @Override
     public Scene init(int width, int height) {
         root = new Group();
-        instructionsScene = new Scene(root, width, height, Color.AZURE);
+        creditsScene = new Scene(root, width, height, Color.AZURE);
 
         Canvas canvas = new Canvas( Main.WIDTH, Main.HEIGHT );
         root.getChildren().add( canvas );
@@ -48,29 +48,25 @@ public class Instructions implements SceneInterface {
         gc = GUIComponent.createAnimationBackground(gc);
 
         addTitle();
-        addInstructionsText();
+        addCreditsText();
         addMenuButton();
 
-        return instructionsScene;
+        return creditsScene;
     }
 
     private void addTitle() {
-        Text titleText = GUIComponent.createText("Instructions", 365, 90, 54);
+        Text titleText = GUIComponent.createText("Credits", 365, 90, 54);
 
         root.getChildren().add(titleText);
     }
 
-    private void addInstructionsText() {
-        String text = "Single Player Controls: \n" +
-                "Press LEFT/RIGHT to move\n" +
-                "Press UP/DOWN to change skill or move when ghost\n" +
-                "Press SPACE to activate power-up/skill\n" +
-                "Multiplayer Controls: \n" +
-                "Press A/D to move \n" +
-                "Press W/S to move when ghost \n" +
-                "Press E to activate power-up";
+    private void addCreditsText() {
+        String text = "167563__benboncan__jet-whoosh.wav - Benboncan \n" + "https://www.freesound.org/people/Benboncan/sounds/167563/ - No changes made \n\n" +
+                "stock footage scifi spaceship jupiter flyby 2 - \nhttps://www.youtube.com/watch?v=bumX659SFlE \n\n" +
+                "stock footage spaceship Goliath class heavy freighter departs Earth - \nhttps://www.youtube.com/watch?v=cxYr4V3dNT0 \n\n" +
+                "Spaceship Battle in Atmosphere - https://www.youtube.com/watch?v=Rlh9bfPTBNs - Approval \nreceived from author \n\n";
 
-        Text instructionsText = GUIComponent.createText(text, 50, 150, 30);
+        Text instructionsText = GUIComponent.createText(text, 50, 150, 24);
 
         root.getChildren().add(instructionsText);
     }

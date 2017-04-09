@@ -31,7 +31,7 @@ public class Menu implements SceneInterface {
     private Group root;
     private EventHandler<KeyEvent> keyPressHandler;
     private int optionNumber = 0;
-    private Button[] buttonsArray = new Button[7];
+    private Button[] buttonsArray = new Button[8];
 
     /**
      * Constructor for Menu class
@@ -63,6 +63,7 @@ public class Menu implements SceneInterface {
         addDemoButton();
         addHighScoresButton();
         addSettingsButton();
+        addCreditsButton();
         addExitButton();
 
         handleInputs();
@@ -262,8 +263,39 @@ public class Menu implements SceneInterface {
         root.getChildren().add(settingsButton);
     }
 
+    private void addCreditsButton() {
+        Button creditsButton = GUIComponent.createButton("Credits", 426, 540);
+
+        creditsButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                sceneManager.goToCreditsScene(sceneManager);
+                menuScene.removeEventHandler(KeyEvent.KEY_PRESSED, keyPressHandler);
+            }
+        });
+
+        creditsButton.setOnMouseEntered(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent me) {
+                menuScene.setCursor(Cursor.HAND); //Change cursor to hand
+                optionNumber = 6;
+                resetColours();
+                colourText(6);
+            }
+        });
+        creditsButton.setOnMouseExited(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent me) {
+                menuScene.setCursor(Cursor.DEFAULT); //Change cursor to default
+            }
+        });
+
+        buttonsArray[6] = creditsButton;
+        root.getChildren().add(creditsButton);
+    }
+
     private void addExitButton() {
-        Button exitButton = GUIComponent.createButton("Exit", 426, 540);
+        Button exitButton = GUIComponent.createButton("Exit", 426, 600);
 
         exitButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -277,9 +309,9 @@ public class Menu implements SceneInterface {
             @Override
             public void handle(MouseEvent me) {
                 menuScene.setCursor(Cursor.HAND); //Change cursor to hand
-                optionNumber = 6;
+                optionNumber = 7;
                 resetColours();
-                colourText(6);
+                colourText(7);
             }
         });
         exitButton.setOnMouseExited(new EventHandler<MouseEvent>() {
@@ -288,7 +320,7 @@ public class Menu implements SceneInterface {
                 menuScene.setCursor(Cursor.DEFAULT); //Change cursor to default
             }
         });
-        buttonsArray[6] = exitButton;
+        buttonsArray[7] = exitButton;
         root.getChildren().add(exitButton);
     }
 
@@ -301,13 +333,13 @@ public class Menu implements SceneInterface {
                         if (optionNumber > 0) {
                             optionNumber--;
                         } else {
-                            optionNumber = 6;
+                            optionNumber = 7;
                         }
                         resetColours();
                         colourText(optionNumber);
                         break;
                     case DOWN:
-                        if (optionNumber < 6) {
+                        if (optionNumber < 7) {
                             optionNumber++;
                         } else {
                             optionNumber = 0;

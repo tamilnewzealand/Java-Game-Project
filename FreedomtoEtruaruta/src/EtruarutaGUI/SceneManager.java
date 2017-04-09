@@ -112,6 +112,17 @@ public class SceneManager {
     }
 
     /**
+     * Sets the scene to be the Credits Scene
+     * @param sceneManager SceneManager currently being used
+     */
+    public void goToCreditsScene(SceneManager sceneManager) {
+        animation.stop();
+        Credits credits = new Credits(sceneManager);
+        Scene creditsScene = credits.init(Main.WIDTH, Main.HEIGHT);
+        stage.setScene(creditsScene);
+    }
+
+    /**
      * Sets the scene to be the High Score Scene
      * @param sceneManager SceneManager currently being used
      */
