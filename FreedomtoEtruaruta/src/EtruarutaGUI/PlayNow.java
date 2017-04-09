@@ -109,7 +109,9 @@ public class PlayNow implements SceneInterface {
                             if (game.generals[0].isDead()) {
                                 game.generalsMovement[0] = "up";
                             }else{
-                                game.generals[0].increaseSkillsIndex();
+                                if (game.isSinglePlayer()) {
+                                    game.generals[0].increaseSkillsIndex();
+                                }
                             }
                         }
                         break;
@@ -118,7 +120,9 @@ public class PlayNow implements SceneInterface {
                             if (game.generals[0].isDead()){
                                 game.generalsMovement[0] = "down";
                             }else{
-                                game.generals[0].decreaseSkillsIndex();
+                                if (game.isSinglePlayer()) {
+                                    game.generals[0].decreaseSkillsIndex();
+                                }
                             }
                         }
                         break;
@@ -132,7 +136,7 @@ public class PlayNow implements SceneInterface {
                                     }
                                 }
                             }else{
-                                if(!game.generals[0].isSkillTriggered()){ //If the skill has not been triggered
+                                if(!game.generals[0].isSkillTriggered() && game.isSinglePlayer()){ //If the skill has not been triggered
                                     game.generals[0].triggerSkill(game.balls); // Trigger the currently selected skill
                                 }
                             }
@@ -360,21 +364,23 @@ public class PlayNow implements SceneInterface {
                     // Shows the conformation prompt when a player tries to leave the game
                     if (paused && escaping) gc.fillText("Press enter to exit", Main.WIDTH / 2, Main.HEIGHT / 2);
 
-                    if (game.generals[0].getCurrentSkill().getSkillName() == "Explosive Ball" && !game.generals[0].isDead()) {
-                        if (!game.generals[0].isSkillTriggered()) {
-                            gc.drawImage(explosiveSkill, 215, 5, game.generals[0].getCurrentSkill().getWidth(), game.generals[0].getCurrentSkill().getHeight());
-                        } else{
-                            gc.drawImage(explosiveSkillCoolDown, 215, 5, game.generals[0].getCurrentSkill().getWidth(), game.generals[0].getCurrentSkill().getHeight());
-                        }
-                    }else if (game.generals[0].getCurrentSkill().getSkillName() == "Ball Hold" && !game.generals[0].isDead()){
-                        if (!game.generals[0].isSkillTriggered()) {
-                            gc.drawImage(ballHoldSkill, 215, 5, game.generals[0].getCurrentSkill().getWidth(), game.generals[0].getCurrentSkill().getHeight());
-                        } else{
-                            gc.drawImage(ballHoldSkillCoolDown, 215, 5, game.generals[0].getCurrentSkill().getWidth(), game.generals[0].getCurrentSkill().getHeight());
+                    if (game.isSinglePlayer()) {
+                        if (game.generals[0].getCurrentSkill().getSkillName() == "Explosive Ball" && !game.generals[0].isDead()) {
+                            if (!game.generals[0].isSkillTriggered()) {
+                                gc.drawImage(explosiveSkill, 215, 5, game.generals[0].getCurrentSkill().getWidth(), game.generals[0].getCurrentSkill().getHeight());
+                            } else {
+                                gc.drawImage(explosiveSkillCoolDown, 215, 5, game.generals[0].getCurrentSkill().getWidth(), game.generals[0].getCurrentSkill().getHeight());
+                            }
+                        } else if (game.generals[0].getCurrentSkill().getSkillName() == "Ball Hold" && !game.generals[0].isDead()) {
+                            if (!game.generals[0].isSkillTriggered()) {
+                                gc.drawImage(ballHoldSkill, 215, 5, game.generals[0].getCurrentSkill().getWidth(), game.generals[0].getCurrentSkill().getHeight());
+                            } else {
+                                gc.drawImage(ballHoldSkillCoolDown, 215, 5, game.generals[0].getCurrentSkill().getWidth(), game.generals[0].getCurrentSkill().getHeight());
+                            }
                         }
                     }
 
-                    if (game.generals[0].paddle.isHoldingBall() && !game.generals[0].isDead()){
+                    if (game.generals[0].paddle.isHoldingBall() && !game.generals[0].isDead() && game.isSinglePlayer()){
                         arrowPointerIV.getTransforms().add(new Rotate(-previousAngle, game.getArrowXPivot() , game.getArrowYPivot()));
 
                         game.calculateArrowPosition();

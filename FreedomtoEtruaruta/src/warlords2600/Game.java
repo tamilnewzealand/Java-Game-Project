@@ -211,7 +211,7 @@ public class Game{
                 }
             }
 
-            if (timeElapsed % 50 == 0){
+            if (timeElapsed % 600 == 0){
                 generatePowerUp();
             }
 
@@ -493,5 +493,12 @@ public class Game{
 
         public int getArrowYPivot(){
             return arrow.getyPivot();
+        }
+
+        public boolean isSinglePlayer(){
+            if (Main.gameMode == 2 || Main.gameMode == 4 || Main.gameMode == 6){
+                return true;
+            }
+            return false;
         }
     }
