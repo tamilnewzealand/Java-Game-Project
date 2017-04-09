@@ -33,12 +33,4 @@ public abstract class Skill {
 
     abstract public String getSkillName();
 
-    public boolean skillExecuted(){
-        return executed;
-    }
-
-    public void setExecuted(boolean executed){
-        this.executed = executed;
-    }
-
 }

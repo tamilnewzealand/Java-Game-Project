@@ -38,10 +38,10 @@ public class PlayNow implements SceneInterface {
     private EventHandler<KeyEvent> keyReleaseHandler;
     private boolean paused = false;
     private boolean escaping = false;
-    private String generalAMovement, generalBMovement, generalCMovement, generalDMovement;
     private Image arrowPointer = new Image ("arrowPointer.png");
-    private ImageView arrowPointerIV = new ImageView();
-    private int previousAngle = 0;
+    private ImageView[] arrows = new ImageView[3];
+
+
 
     /**
      * Constructor for PlayNow class
@@ -70,9 +70,12 @@ public class PlayNow implements SceneInterface {
         playNowScene.addEventHandler(KeyEvent.KEY_PRESSED, keyPressHandler);
         playNowScene.addEventHandler(KeyEvent.KEY_RELEASED, keyReleaseHandler);
 
-        arrowPointerIV.setImage(arrowPointer);
-        arrowPointerIV.setVisible(false);
-        root.getChildren().add(arrowPointerIV);
+        for (int i = 0; i < arrows.length; i++){
+            arrows[i] = new ImageView();
+            arrows[i].setImage(arrowPointer);
+            arrows[i].setVisible(false);
+            root.getChildren().add(arrows[i]);
+        }
 
         return playNowScene;
     }
@@ -154,6 +157,7 @@ public class PlayNow implements SceneInterface {
                             }else{
                                 if(!game.generals[0].isSkillTriggered() && game.isSinglePlayer()){ //If the skill has not been triggered
                                     game.generals[0].triggerSkill(game.balls); // Trigger the currently selected skill
+                                    game.skillUsedAtleastOnce = true;
                                 }
                             }
                         }
@@ -402,21 +406,23 @@ public class PlayNow implements SceneInterface {
                         }
                     }
                     if ((game.generals[0].paddle.isHoldingBall() || paddleFollowerHolding) && !game.generals[0].isDead() && game.isSinglePlayer()){
-                        arrowPointerIV.getTransforms().add(new Rotate(-previousAngle, game.getArrowXPivot() , game.getArrowYPivot()));
+                        arrows[game.arrowsIndex].getTransforms().add(new Rotate(-game.previousAngle, game.getArrowXPivot() , game.getArrowYPivot()));
 
                         if (game.generals[0].paddle.isHoldingBall()) {
                             game.calculateArrowPosition(true);
                         }else{
                             game.calculateArrowPosition(false);
                         }
-                        arrowPointerIV.setX(game.getArrowXPosition());
-                        arrowPointerIV.setY(game.getArrowYPosition());
+                        arrows[game.arrowsIndex].setX(game.getArrowXPosition());
+                        arrows[game.arrowsIndex].setY(game.getArrowYPosition());
 
-                        arrowPointerIV.setVisible(true);
-                        arrowPointerIV.getTransforms().add(new Rotate(game.getBallHoldAngle(), game.getArrowXPivot(), game.getArrowYPivot()));
-                        previousAngle = game.getBallHoldAngle();
+                        arrows[game.arrowsIndex].setVisible(true);
+                        arrows[game.arrowsIndex].getTransforms().add(new Rotate(game.getBallHoldAngle(), game.getArrowXPivot(), game.getArrowYPivot()));
+                        game.previousAngle = game.getBallHoldAngle();
                     }else{
-                        arrowPointerIV.setVisible(false);
+                        for (int i = 0; i < game.arrowsIndex+1; i ++) {
+                            arrows[i].setVisible(false);
+                        }
                     }
 
 

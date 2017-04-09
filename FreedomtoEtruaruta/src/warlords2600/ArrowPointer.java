@@ -54,4 +54,8 @@ public class ArrowPointer {
         return yPos;
     }
 
+    public void resetAngle(){
+        angle = 0;
+    }
+
 }

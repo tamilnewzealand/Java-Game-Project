@@ -31,6 +31,10 @@ public class Game{
     public ArrayList<Marker> markers = new ArrayList<>();
     private ArrowPointer arrow = new ArrowPointer();
     private boolean heldByFirstPaddle = true;
+    private boolean skillsReady = true;
+    public boolean skillUsedAtleastOnce = false;
+    public int previousAngle = 0;
+    public int arrowsIndex = -1;
 
     private int[] deadPos;
 
@@ -119,6 +123,8 @@ public class Game{
                                 ballHit = objectCollision(generals[i].paddle,ballHit,false);//Collision with general 0's first paddle
                                 if (ballHit){
                                     holdBall(true);
+                                    arrowsIndex += 1;
+                                    previousAngle = 0;
                                 }
                             }else {
                                 ballHit = objectCollision(generals[i].paddle, ballHit);
@@ -129,6 +135,8 @@ public class Game{
                                 ballHit = objectCollision(generals[i].paddleFollower,ballHit,false);//Collision with general 0's second paddle
                                 if (ballHit){
                                     holdBall(false);
+                                    arrowsIndex += 1;
+                                    previousAngle = 0;
                                 }
                             }else {
                                 ballHit = objectCollision(generals[i].paddleFollower, ballHit);
@@ -141,7 +149,7 @@ public class Game{
                                 generalHit = true;
                                 SoundManager.playGeneralDeath();
 
-                                if (isSinglePlayer() && i != 0){
+                                if (isSinglePlayer() && i != 0 && skillsReady & skillUsedAtleastOnce){
                                     resetSkills();
                                 }
                                 break outerLoop;
@@ -260,7 +268,7 @@ public class Game{
                 }
             }
             if (!ballStillHeld){
-                checkExecuteSkill("Ball Hold");
+                skillsReady = true;
             }
 
     }
@@ -488,7 +496,7 @@ public class Game{
                 }
             }
             if (allExploded){
-                checkExecuteSkill("Explosive Ball");
+                skillsReady = true;
             }
         }
 
@@ -563,21 +571,7 @@ public class Game{
         }
 
         private void resetSkills(){
-
+            generals[0].resetAllSkills();
         }
 
-        private void allSkills(){
-
-        }
-
-        private void checkExecuteSkill(String name){
-            Skill[] skills = generals[0].getSkills();
-            for (int i = 0; i < skills.length; i++){
-                if (skills[i].getSkillName() == name){
-                    System.out.println(name + "  executed");
-                    skills[i].setExecuted(true);
-                    break;
-                }
-            }
-        }
     }

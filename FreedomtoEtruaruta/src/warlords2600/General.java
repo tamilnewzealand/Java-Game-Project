@@ -217,4 +217,8 @@ public class General implements IObject {
     public Skill[] getSkills(){
         return skillsArray;
     }
+
+    public void resetAllSkills(){
+        skillTriggered = false;
+    }
 }

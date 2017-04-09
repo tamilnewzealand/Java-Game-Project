@@ -213,7 +213,7 @@ public class Paddle implements IObject {
         }else{
             holdingBall = false;
             releaseBall(balls, arrow);
-            stillHolding = true;
+            stillHolding = false;
         }
         return stillHolding;
     }
