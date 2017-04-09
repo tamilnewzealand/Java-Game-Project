@@ -185,7 +185,9 @@ public class Paddle implements IObject {
     public void checkDecreaseWidth(){
         if (sizeIncreased){
             if (widthUpCounter > 0){
-                widthUpCounter--;
+                if (!holdingBall) {
+                    widthUpCounter--;
+                }
             } else{
                 sizeIncreased = false;
                 this.width = previousWidth;
