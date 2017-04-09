@@ -3,7 +3,6 @@ package warlords2600;
 import EtruarutaGUI.AIController;
 import EtruarutaGUI.Main;
 import EtruarutaGUI.SoundManager;
-import javafx.scene.transform.Rotate;
 
 import java.util.ArrayList;
 
@@ -31,7 +30,7 @@ public class Game{
     private int ballHoldAngle = 0;
     public ArrayList<Marker> markers = new ArrayList<>();
     private ArrowPointer arrow = new ArrowPointer();
-    private boolean heldByFirstPaddle;
+    private boolean heldByFirstPaddle = true;
 
     private int[] deadPos;
 
@@ -141,6 +140,10 @@ public class Game{
                                 generals[i].killGeneral();
                                 generalHit = true;
                                 SoundManager.playGeneralDeath();
+
+                                if (isSinglePlayer() && i != 0){
+                                    resetSkills();
+                                }
                                 break outerLoop;
                             }
                         }
@@ -256,14 +259,8 @@ public class Game{
                     ballStillHeld = false;
                 }
             }
-            if (ballStillHeld){
-                Skill[] skills = generals[0].getSkills();
-                for (int i = 0; i < skills.length; i++) {
-                    if (skills[i].getSkillName() == "Ball Hold") {
-                        skills[i].setExecuted(true);
-                        break;
-                    }
-                }
+            if (!ballStillHeld){
+                checkExecuteSkill("Ball Hold");
             }
 
     }
@@ -491,13 +488,7 @@ public class Game{
                 }
             }
             if (allExploded){
-                Skill[] skills = generals[0].getSkills();
-                for (int i = 0; i < skills.length; i++){
-                    if (skills[i].getSkillName() == "Explosive Ball"){
-                        skills[i].setExecuted(true);
-                        break;
-                    }
-                }
+                checkExecuteSkill("Explosive Ball");
             }
         }
 
@@ -569,5 +560,24 @@ public class Game{
                 return true;
             }
             return false;
+        }
+
+        private void resetSkills(){
+
+        }
+
+        private void allSkills(){
+
+        }
+
+        private void checkExecuteSkill(String name){
+            Skill[] skills = generals[0].getSkills();
+            for (int i = 0; i < skills.length; i++){
+                if (skills[i].getSkillName() == name){
+                    System.out.println(name + "  executed");
+                    skills[i].setExecuted(true);
+                    break;
+                }
+            }
         }
     }

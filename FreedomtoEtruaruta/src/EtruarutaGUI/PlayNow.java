@@ -88,8 +88,16 @@ public class PlayNow implements SceneInterface {
                 switch (keyEvent.getCode()) {
                     case LEFT:
                         if (!freezed && Main.gameMode != 99 ) {
-                            if (!game.generals[0].paddle.isHoldingBall() && !game.generals[0].paddleFollower.isHoldingBall()) {
-                                game.generalsMovement[0] = "left";
+                            if (!game.generals[0].paddle.isHoldingBall()) {
+                                if (Main.numberOfPaddles > 1.50){
+                                    if (!game.generals[0].paddleFollower.isHoldingBall()){
+                                        game.generalsMovement[0] = "left";
+                                    }else{
+                                        game.increaseBallHoldAngle();
+                                    }
+                                }else{
+                                    game.generalsMovement[0] = "left";
+                                }
                             }else{
                                 game.increaseBallHoldAngle();
                             }
@@ -97,8 +105,16 @@ public class PlayNow implements SceneInterface {
                         break;
                     case RIGHT:
                         if (!freezed && Main.gameMode != 99) {
-                            if (!game.generals[0].paddle.isHoldingBall()  && !game.generals[0].paddleFollower.isHoldingBall()) {
-                                game.generalsMovement[0] = "right";
+                            if (!game.generals[0].paddle.isHoldingBall()) {
+                                if (Main.numberOfPaddles > 1.50){
+                                    if (!game.generals[0].paddleFollower.isHoldingBall()){
+                                        game.generalsMovement[0] = "right";
+                                    }else{
+                                        game.decreaseBallHoldAngle();
+                                    }
+                                }else{
+                                    game.generalsMovement[0] = "right";
+                                }
                             }else{
                                 game.decreaseBallHoldAngle();
                             }
@@ -379,8 +395,13 @@ public class PlayNow implements SceneInterface {
                             }
                         }
                     }
-
-                    if ((game.generals[0].paddle.isHoldingBall() || game.generals[0].paddleFollower.isHoldingBall()) && !game.generals[0].isDead() && game.isSinglePlayer()){
+                    boolean paddleFollowerHolding = false;
+                    if (Main.numberOfPaddles > 1.50){
+                        if (game.generals[0].paddleFollower.isHoldingBall()){
+                            paddleFollowerHolding = true;
+                        }
+                    }
+                    if ((game.generals[0].paddle.isHoldingBall() || paddleFollowerHolding) && !game.generals[0].isDead() && game.isSinglePlayer()){
                         arrowPointerIV.getTransforms().add(new Rotate(-previousAngle, game.getArrowXPivot() , game.getArrowYPivot()));
 
                         if (game.generals[0].paddle.isHoldingBall()) {
