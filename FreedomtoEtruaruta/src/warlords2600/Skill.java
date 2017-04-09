@@ -10,6 +10,7 @@ package warlords2600;
 
 public abstract class Skill {
     private int width = 50,height = 50;
+    private boolean executed = false;
 
     /**
      *
@@ -31,5 +32,13 @@ public abstract class Skill {
     abstract public void activateEffect(Ball[] balls);
 
     abstract public String getSkillName();
+
+    public boolean skillExecuted(){
+        return executed;
+    }
+
+    public void setExecuted(boolean executed){
+        this.executed = executed;
+    }
 
 }

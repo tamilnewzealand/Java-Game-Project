@@ -88,7 +88,7 @@ public class PlayNow implements SceneInterface {
                 switch (keyEvent.getCode()) {
                     case LEFT:
                         if (!freezed && Main.gameMode != 99 ) {
-                            if (!game.generals[0].paddle.isHoldingBall()) {
+                            if (!game.generals[0].paddle.isHoldingBall() && !game.generals[0].paddleFollower.isHoldingBall()) {
                                 game.generalsMovement[0] = "left";
                             }else{
                                 game.increaseBallHoldAngle();
@@ -97,7 +97,7 @@ public class PlayNow implements SceneInterface {
                         break;
                     case RIGHT:
                         if (!freezed && Main.gameMode != 99) {
-                            if (!game.generals[0].paddle.isHoldingBall()) {
+                            if (!game.generals[0].paddle.isHoldingBall()  && !game.generals[0].paddleFollower.isHoldingBall()) {
                                 game.generalsMovement[0] = "right";
                             }else{
                                 game.decreaseBallHoldAngle();
@@ -380,10 +380,14 @@ public class PlayNow implements SceneInterface {
                         }
                     }
 
-                    if (game.generals[0].paddle.isHoldingBall() && !game.generals[0].isDead() && game.isSinglePlayer()){
+                    if ((game.generals[0].paddle.isHoldingBall() || game.generals[0].paddleFollower.isHoldingBall()) && !game.generals[0].isDead() && game.isSinglePlayer()){
                         arrowPointerIV.getTransforms().add(new Rotate(-previousAngle, game.getArrowXPivot() , game.getArrowYPivot()));
 
-                        game.calculateArrowPosition();
+                        if (game.generals[0].paddle.isHoldingBall()) {
+                            game.calculateArrowPosition(true);
+                        }else{
+                            game.calculateArrowPosition(false);
+                        }
                         arrowPointerIV.setX(game.getArrowXPosition());
                         arrowPointerIV.setY(game.getArrowYPosition());
 

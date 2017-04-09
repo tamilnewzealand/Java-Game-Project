@@ -15,7 +15,7 @@ public class General implements IObject {
     public Paddle paddle;
     public Paddle paddleFollower;
     public Brick[][] wall;
-    private Skill[] skillsArray = new Skill[2];
+    private final Skill[] skillsArray = new Skill[2];
     private int skillsIndex = 0;
     private boolean skillTriggered = false;
     private int height = 25, width = 25, r, pos = 0;
@@ -212,5 +212,9 @@ public class General implements IObject {
             skillsArray[skillsIndex].activateEffect(balls);
             skillTriggered = true;
         }
+    }
+
+    public Skill[] getSkills(){
+        return skillsArray;
     }
 }

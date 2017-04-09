@@ -303,6 +303,7 @@ public class Ball{
             isHeld = true;
             willBeHeld = false;
             spedup = false;
+            spedUpCounter = 0;
             xSpeed = 0;
             ySpeed = 0;
         }

@@ -206,13 +206,16 @@ public class Paddle implements IObject {
         return holdingBall;
     }
 
-    public void checkStillHoldingBall(Ball[] balls, ArrowPointer arrow){
+    public boolean checkStillHoldingBall(Ball[] balls, ArrowPointer arrow){
+        boolean stillHolding = true;
         if (ballHoldCount > 0){
             ballHoldCount--;
         }else{
             holdingBall = false;
             releaseBall(balls, arrow);
+            stillHolding = true;
         }
+        return stillHolding;
     }
 
     private void releaseBall(Ball[] balls, ArrowPointer arrow){

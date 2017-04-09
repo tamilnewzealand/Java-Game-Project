@@ -31,6 +31,7 @@ public class Game{
     private int ballHoldAngle = 0;
     public ArrayList<Marker> markers = new ArrayList<>();
     private ArrowPointer arrow = new ArrowPointer();
+    private boolean heldByFirstPaddle;
 
     private int[] deadPos;
 
@@ -116,15 +117,24 @@ public class Game{
                     for (int i = 0; i < generals.length; i++) {
                         if (!ballHit && (!generals[i].isDead())){
                             if (ball.getWillBeHeld() && i == 0){
-                                ballHit = objectCollision(generals[i].paddle,ballHit,false);
+                                ballHit = objectCollision(generals[i].paddle,ballHit,false);//Collision with general 0's first paddle
                                 if (ballHit){
-                                    holdBall();
+                                    holdBall(true);
                                 }
                             }else {
                                 ballHit = objectCollision(generals[i].paddle, ballHit);
                             }
                         }
-                        if (!ballHit && (!generals[i].isDead()) && Main.numberOfPaddles == 2) ballHit = objectCollision(generals[i].paddleFollower, ballHit);
+                        if (!ballHit && (!generals[i].isDead()) && Main.numberOfPaddles == 2){
+                            if (ball.getWillBeHeld() && i == 0){
+                                ballHit = objectCollision(generals[i].paddleFollower,ballHit,false);//Collision with general 0's second paddle
+                                if (ballHit){
+                                    holdBall(false);
+                                }
+                            }else {
+                                ballHit = objectCollision(generals[i].paddleFollower, ballHit);
+                            }
+                        }
                         if (!ballHit && (!generals[i].isDead())) {
                             ballHit = objectCollision(generals[i], ballHit);
                             if (ballHit){
@@ -146,6 +156,7 @@ public class Game{
                                                 generals[i].wall[j][k].destroyBrick();
                                             } else{
                                                 explosion(i,j,ball); //Cause the explosion.
+                                                checkAllExploded(balls);
                                             }
                                             break outerLoop;
                                         }
@@ -229,9 +240,32 @@ public class Game{
                     }
                 }
             }
+            if (heldByFirstPaddle){
+                calculateArrowPivots(true);
+            }else{
+                calculateArrowPivots(false);
+            }
 
-            calculateArrowPivots();
-            generals[0].paddle.checkStillHoldingBall(balls, arrow);
+            boolean ballStillHeld = true;
+            if (heldByFirstPaddle) {
+                if (!generals[0].paddle.checkStillHoldingBall(balls, arrow)) {
+                    ballStillHeld = false;
+                }
+            }else{
+                if (!generals[0].paddleFollower.checkStillHoldingBall(balls, arrow)) {
+                    ballStillHeld = false;
+                }
+            }
+            if (ballStillHeld){
+                Skill[] skills = generals[0].getSkills();
+                for (int i = 0; i < skills.length; i++) {
+                    if (skills[i].getSkillName() == "Ball Hold") {
+                        skills[i].setExecuted(true);
+                        break;
+                    }
+                }
+            }
+
     }
 
 
@@ -449,11 +483,37 @@ public class Game{
             SoundManager.playExplosion();
         }
 
-        private void holdBall(){
+        private void checkAllExploded(Ball[] balls){
+            boolean allExploded = true;
+            for (int i = 0; i < balls.length; i ++){
+                if (balls[i].isExplosive()){
+                    allExploded = false;
+                }
+            }
+            if (allExploded){
+                Skill[] skills = generals[0].getSkills();
+                for (int i = 0; i < skills.length; i++){
+                    if (skills[i].getSkillName() == "Explosive Ball"){
+                        skills[i].setExecuted(true);
+                        break;
+                    }
+                }
+            }
+        }
+
+        private void holdBall(boolean firstPaddle){
             ball.setBallHeld();
-            generals[0].paddle.setHoldingBall(true);
-            ball.setXPos(generals[0].paddle.calcXPos()+ generals[0].paddle.getWidth()/2 - ball.getWidth()/2 );
-            ball.setYPos(generals[0].paddle.calcYPos()+ generals[0].paddle.getHeight());
+            if (firstPaddle) {
+                generals[0].paddle.setHoldingBall(true);
+                ball.setXPos(generals[0].paddle.calcXPos() + generals[0].paddle.getWidth() / 2 - ball.getWidth() / 2);
+                ball.setYPos(generals[0].paddle.calcYPos() + generals[0].paddle.getHeight());
+                heldByFirstPaddle = true;
+            }else{
+                generals[0].paddleFollower.setHoldingBall(true);
+                ball.setXPos(generals[0].paddleFollower.calcXPos() + generals[0].paddleFollower.getWidth() / 2 - ball.getWidth() / 2);
+                ball.setYPos(generals[0].paddleFollower.calcYPos() + generals[0].paddleFollower.getHeight());
+                heldByFirstPaddle = false;
+            }
             for (int i = 0; i < balls.length; i++){
                 balls[i].setWillBeHeld(false);
             }
@@ -471,12 +531,21 @@ public class Game{
             return arrow.getAngle();
         }
 
-        public void calculateArrowPivots(){
-            arrow.calcPivots(generals[0].paddle, ball);
+        public void calculateArrowPivots(boolean firstPaddle){
+            if (firstPaddle){
+                arrow.calcPivots(generals[0].paddle, ball);
+            }else{
+                arrow.calcPivots(generals[0].paddleFollower, ball);
+            }
         }
 
-        public void calculateArrowPosition(){
-            arrow.calcPos(generals[0].paddle,ball);
+        public void calculateArrowPosition(boolean firstPaddle){
+            if (firstPaddle) {
+                arrow.calcPos(generals[0].paddle, ball);
+            }else{
+                arrow.calcPos(generals[0].paddleFollower, ball);
+                System.out.println(generals[0].paddleFollower.calcXPos());
+            }
         }
 
         public int getArrowXPosition(){

@@ -35,6 +35,7 @@ public class ArrowPointer {
     public int getyPivot(){
         return yPivot;
     }
+
     public void calcPivots(Paddle paddle, Ball ball){
         xPivot = paddle.calcXPos() + paddle.getWidth()/2;
         yPivot = paddle.calcYPos() + ball.getHeight()/2 + paddle.getHeight();
