@@ -10,6 +10,7 @@ import javafx.scene.control.Button;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 
 /**
  * This class presents the instructions scene. The user
@@ -61,22 +62,23 @@ public class Instructions implements SceneInterface {
     }
 
     private void addInstructionsText() {
-        String text = "Single Player Controls: \n" +
+        String text = "Single Player Controls:\n" +
                 "Press LEFT/RIGHT to move\n" +
                 "Press UP/DOWN to change skill or move when ghost\n" +
-                "Press SPACE to activate power-up/skill\n" +
-                "Multiplayer Controls: \n" +
-                "Press A/D to move \n" +
-                "Press W/S to move when ghost \n" +
+                "Press Shift to activate skill or generate power-up when ghost\n" +
+                "Multiplayer Controls:\n" +
+                "Player one:\nUnchanged\n"+
+                "Player two:\n"+
+                "Press A/D to move\n" +
+                "Press W/S to move when ghost\n" +
                 "Press E to activate power-up";
 
         Text instructionsText = GUIComponent.createText(text, 50, 150, 30);
-
         root.getChildren().add(instructionsText);
     }
 
     private void addMenuButton() {
-        Button menuButton = GUIComponent.createButton("Back to Menu", 30, 540);
+        Button menuButton = GUIComponent.createButton("Back to Menu", 30, 590);
 
         menuButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
