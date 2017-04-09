@@ -198,7 +198,7 @@ public class Paddle implements IObject {
     public void setHoldingBall(boolean holdingBall){
         this.holdingBall = holdingBall;
         if (holdingBall){
-            ballHoldCount = 120;
+            ballHoldCount = 100;
         }
     }
 
