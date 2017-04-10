@@ -11,7 +11,7 @@
 apply plugin: 'java'
 apply plugin: 'application'
 
-mainClassName = 'EtruarutaGUI.Main'
+mainClassName = 'etruaruta.Main'
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
