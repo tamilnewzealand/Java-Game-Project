@@ -7,7 +7,7 @@ import etruaruta.Main;
  *
  * @author Adil Bhayani <abha808@aucklanduni.ac.nz>
  * @author Sakayan Sitsabesan <ssit662@aucklanduni.ac.nz>
- * @version 0.1.0
+ * @version 0.5.0
  */
 
 public class General implements IObject {
@@ -165,6 +165,10 @@ public class General implements IObject {
         return r;
     }
 
+    /**
+     *
+     * @return the number of walls that have yet to be destroyed
+     */
     public int wallCount () {
         int wallCount = 0;
         for (int i = 0; i < wall.length; i++) {
@@ -183,10 +187,17 @@ public class General implements IObject {
         return pos;
     }
 
+    /**
+     *
+     * @return the currently enabled skill for the player
+     */
     public Skill getCurrentSkill(){
         return skillsArray[skillsIndex];
     }
 
+    /**
+     * Moves the currently enabled skill up the skill ladder
+     */
     public void increaseSkillsIndex(){
         if (skillsIndex < skillsArray.length - 1){
             skillsIndex++;
@@ -194,7 +205,9 @@ public class General implements IObject {
             skillsIndex = 0;
         }
     }
-
+    /**
+     * Moves the currently enabled skill down the skill ladder
+     */
     public void decreaseSkillsIndex(){
         if (skillsIndex > 0){
             skillsIndex--;
@@ -203,10 +216,18 @@ public class General implements IObject {
         }
     }
 
+    /**
+     *
+     * @return whether the current skill is being used
+     */
     public boolean isSkillTriggered(){
         return skillTriggered;
     }
 
+    /**
+     *
+     * @param balls array of all the balls in play
+     */
     public void triggerSkill(Ball[] balls){
         if (!skillTriggered) {
             skillsArray[skillsIndex].activateEffect(balls);
@@ -214,10 +235,17 @@ public class General implements IObject {
         }
     }
 
+    /**
+     *
+     * @return all the skills that are available to the player
+     */
     public Skill[] getSkills(){
         return skillsArray;
     }
 
+    /**
+     * Resets all skills that are currently active
+     */
     public void resetAllSkills(){
         skillTriggered = false;
     }

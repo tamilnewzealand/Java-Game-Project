@@ -9,7 +9,7 @@ import java.util.ArrayList;
  *
  * @author Adil Bhayani <abha808@aucklanduni.ac.nz>
  * @author Sakayan Sitsabesan <ssit662@aucklanduni.ac.nz>
- * @version 0.1.0
+ * @version 0.5.0
  */
 
 public class AIController {
@@ -17,14 +17,18 @@ public class AIController {
     private int movementCounter = 15;
     private boolean movingUp = false, movingRight = false, movingDown = false, movingLeft = false;
 
-    public void AIController(){
-
-    }
-
+    /**
+     *
+     * @param general the general this AI controller controls
+     */
     public void setGeneral(General general){
         this.general = general;
     }
 
+    /**
+     * Moves the paddle appropriately to defend the general
+     * @param balls the balls that are in play
+     */
     public void movePaddle(Ball[] balls){
         int lowestDistanceIndex = findClosestBall(balls);
         Ball ball = balls[lowestDistanceIndex];
@@ -49,6 +53,11 @@ public class AIController {
         }
     }
 
+    /**
+     *
+     * @param ball ball to calculate distance from
+     * @return distance to ball
+     */
     private double calculateDistance(Ball ball){
         int ballXPos = ball.getXPos();
         int ballYPos = ball.getYPos();
@@ -60,6 +69,11 @@ public class AIController {
     }
 
 
+    /**
+     * This method moves the ghost marker
+     * @param markerIn the marker this AIController controls
+     * @param powerUps the power ups that can be used
+     */
     public void moveMarker(Marker markerIn, ArrayList<PowerUp> powerUps){
         if (Main.gameMode == 99 || (Main.gameMode == 0 && general.getPos() != 2 && general.getPos() != 0) || (Main.gameMode == 2 && general.getPos() != 0)  || (Main.gameMode == 4  && general.getPos() != 0)|| (Main.gameMode == 6  && general.getPos() != 0)) {
             if (movementCounter <= 0) {
@@ -90,6 +104,9 @@ public class AIController {
         }
     }
 
+    /**
+     * Resets all movement flags
+     */
     private void resetMovement(){
         movingUp = false;
         movingRight = false;
@@ -97,6 +114,11 @@ public class AIController {
         movingLeft = false;
     }
 
+    /**
+     * Checks if a power up has been deployed
+     * @param markerIn the marker this AIController controls
+     * @param powerUps the power ups that can be used
+     */
     private void checkDeployPowerUp(Marker markerIn, ArrayList<PowerUp> powerUps){
         if (markerIn.getReady()){
             powerUps.add(new SpeedUp());
@@ -105,6 +127,11 @@ public class AIController {
         }
     }
 
+    /**
+     *
+     * @param balls array of all the balls in play
+     * @return the closest ball in play
+     */
     private int findClosestBall(Ball[] balls){
         int lowestIndex = 0;
         int minimumDistance = 9999;

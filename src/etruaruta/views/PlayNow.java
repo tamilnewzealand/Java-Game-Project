@@ -29,7 +29,7 @@ import java.io.*;
  *
  * @author Adil Bhayani <abha808@aucklanduni.ac.nz>
  * @author Sakayan Sitsabesan <ssit662@aucklanduni.ac.nz>
- * @version 0.1.0
+ * @version 0.5.0
  */
 
 public class PlayNow implements SceneInterface {
@@ -43,8 +43,6 @@ public class PlayNow implements SceneInterface {
     private boolean escaping = false;
     private Image arrowPointer = new Image ("arrowPointer.png");
     private ImageView[] arrows = new ImageView[3];
-
-
 
     /**
      * Constructor for PlayNow class

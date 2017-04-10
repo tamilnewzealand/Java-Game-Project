@@ -5,7 +5,7 @@ package etruaruta.models;
  *
  * @author Adil Bhayani <abha808@aucklanduni.ac.nz>
  * @author Sakayan Sitsabesan <ssit662@aucklanduni.ac.nz>
- * @version 0.1.0
+ * @version 0.5.0
  */
 
 public abstract class Skill {
@@ -28,9 +28,16 @@ public abstract class Skill {
         return height;
     }
 
-
+    /**
+     *
+     * @param balls the balls to apply the skill to
+     */
     abstract public void activateEffect(Ball[] balls);
 
+    /**
+     *
+     * @return string with the name of the skill
+     */
     abstract public String getSkillName();
 
 }

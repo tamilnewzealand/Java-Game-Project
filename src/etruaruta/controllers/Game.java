@@ -11,9 +11,8 @@ import java.util.ArrayList;
  *
  * @author Adil Bhayani <abha808@aucklanduni.ac.nz>
  * @author Sakayan Sitsabesan <ssit662@aucklanduni.ac.nz>
- * @version 0.1.0
+ * @version 0.5.0
  */
-
 
 public class Game{
 
@@ -38,14 +37,6 @@ public class Game{
     private int[] deadPos;
 
     public String[] generalsMovement = {"", "", "", ""};
-
-    public Game(Ball ball, General generalA, General generalB, Brick brick) {
-        this.ball = ball;
-        this.generals = new General[2];
-        this.generals[0] = generalA;
-        this.generals[1] = generalB;
-        this.generals[0].wall[0][0] = brick;
-    }
 
     public Game(Ball[] balls, General generalA, General generalB, General generalC, General generalD) {
         this.balls = balls;

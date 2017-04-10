@@ -9,7 +9,7 @@ import javafx.stage.Stage;
  *
  * @autho Adil Bhayani <abha808@aucklanduni.ac.nz>
  * @author Sakayan Sitsabesan <ssit662@aucklanduni.ac.nz>
- * @version 0.1.0
+ * @version 0.5.0
  */
 public class Main extends Application {
 
