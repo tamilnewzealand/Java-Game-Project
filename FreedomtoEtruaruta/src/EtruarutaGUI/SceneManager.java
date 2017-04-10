@@ -1,10 +1,19 @@
 package EtruarutaGUI;
 
-import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.scene.image.Image;
+
+/**
+ * The game uses one JavaFX stage, this class handles all scene
+ * changes necessary for the game. Provides public methods to
+ * switch from one game scene to another.
+ *
+ * @author Adil Bhayani <abha808@aucklanduni.ac.nz>
+ * @author Sakayan Sitsabesan <ssit662@aucklanduni.ac.nz>
+ * @version 0.1.0
+ */
 
 public class SceneManager {
 
@@ -23,6 +32,17 @@ public class SceneManager {
     }
 
     /**
+     * Sets the scene to be the intro Scene
+     * @param sceneManager SceneManager currently being used
+     */
+    public void goToIntroScene(SceneManager sceneManager) {
+        animation.stop();
+        Intro intro = new Intro(sceneManager);
+        Scene introScene = intro.init(Main.WIDTH, Main.HEIGHT);
+        stage.setScene(introScene);
+    }
+
+    /**
      * Sets the scene to be the Menu Scene
      * @param sceneManager SceneManager currently being used
      */
@@ -37,7 +57,43 @@ public class SceneManager {
      * Sets the scene to be the Play Now Scene
      * @param sceneManager SceneManager currently being used
      */
+    public void goToGameScene(SceneManager sceneManager) {
+        animation.stop();
+        PlayNow playNow = new PlayNow(sceneManager);
+        Scene playNowScene = playNow.init(Main.WIDTH, Main.HEIGHT);
+        stage.setScene(playNowScene);
+    }
+
+    /**
+     * Sets the scene to be the Play Now Scene
+     * @param sceneManager SceneManager currently being used
+     */
     public void goToPlayNowScene(SceneManager sceneManager) {
+        if (Main.gameMode == 0) Main.gameMode = 1;
+        animation.stop();
+        Story story = new Story(sceneManager);
+        Scene storyScene = story.init(Main.WIDTH, Main.HEIGHT);
+        stage.setScene(storyScene);
+    }
+
+    /**
+     * Sets the scene to be the Multiplayer Scene
+     * @param sceneManager SceneManager currently being used
+     */
+    public void goToMultiplayerScene(SceneManager sceneManager) {
+        Main.gameMode = 0;
+        animation.stop();
+        PlayNow playNow = new PlayNow(sceneManager);
+        Scene playNowScene = playNow.init(Main.WIDTH, Main.HEIGHT);
+        stage.setScene(playNowScene);
+    }
+
+    /**
+     * Sets the scene to be the Demo Scene
+     * @param sceneManager SceneManager currently being used
+     */
+    public void goToDemoScene(SceneManager sceneManager) {
+        Main.gameMode = 99;
         animation.stop();
         PlayNow playNow = new PlayNow(sceneManager);
         Scene playNowScene = playNow.init(Main.WIDTH, Main.HEIGHT);
@@ -53,6 +109,17 @@ public class SceneManager {
         Instructions instructions = new Instructions(sceneManager);
         Scene instructionsScene = instructions.init(Main.WIDTH, Main.HEIGHT);
         stage.setScene(instructionsScene);
+    }
+
+    /**
+     * Sets the scene to be the Credits Scene
+     * @param sceneManager SceneManager currently being used
+     */
+    public void goToCreditsScene(SceneManager sceneManager) {
+        animation.stop();
+        Credits credits = new Credits(sceneManager);
+        Scene creditsScene = credits.init(Main.WIDTH, Main.HEIGHT);
+        stage.setScene(creditsScene);
     }
 
     /**
@@ -75,13 +142,5 @@ public class SceneManager {
         Settings settings = new Settings(sceneManager);
         Scene settingsScene = settings.init(Main.WIDTH, Main.HEIGHT);
         stage.setScene(settingsScene);
-    }
-
-
-    private void setGameLoop(KeyFrame frame) {
-        animation = new Timeline();
-        animation.setCycleCount(Timeline.INDEFINITE);
-        animation.getKeyFrames().add(frame);
-        animation.play();
     }
 }

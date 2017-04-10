@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
+import javafx.scene.Cursor;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.geometry.Insets;
@@ -12,19 +13,33 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.GridPane;
+
+/**
+ * This class presents the settings scene. The user
+ * is presented with the settings for configuring
+ * advanced options for playing the game.
+ *
+ * @author Adil Bhayani <abha808@aucklanduni.ac.nz>
+ * @author Sakayan Sitsabesan <ssit662@aucklanduni.ac.nz>
+ * @version 0.1.0
+ */
 
 public class Settings implements SceneInterface {
     private SceneManager sceneManager;
     private Scene settingsScene;
     private Group root;
-    final Slider opacityLevel = new Slider(0, 1, 1);
-    final Label opacityCaption = new Label("Opacity Level:");
-    final Label opacityValue = new Label(Double.toString(opacityLevel.getValue()));
-
+    final Slider ballSpeedSetting = new Slider(1, 2, Main.speedMultiplier);
+    final Slider numberOfBallSetting = new Slider(1, 3, Main.numOfBalls);
+    final Slider numberOfPaddleSetting = new Slider(1, 2, Main.numberOfPaddles);
+    final Slider paddleSizeSetting = new Slider(0.5, 2.5, Main.paddleSize);
+    private Button menuButton = GUIComponent.createButton("Back to Menu", 244, 580);
     /**
      * Constructor for Settings class
      * @param sceneManager SceneManager currently being used
@@ -41,55 +56,107 @@ public class Settings implements SceneInterface {
         root = new Group();
         settingsScene = new Scene(root, width, height, Color.AZURE);
 
-        Canvas canvas = new Canvas( 1024, 768 );
+        Canvas canvas = new Canvas( Main.WIDTH, Main.HEIGHT );
         root.getChildren().add( canvas );
 
         GraphicsContext gc = canvas.getGraphicsContext2D();
         Image space = new Image( "space.png" );
         gc.drawImage( space, 0, 0 );
-
-        Slider sliderA = new Slider(0, 1, 0.5);
+        SoundManager.playBackground();
+        
+        addMenuButton();
 
         GridPane grid = new GridPane();
-        grid.setPadding(new Insets(10, 10, 10, 10));
+        grid.setPadding(new Insets(150, 100, 100, 325));
         grid.setVgap(10);
         grid.setHgap(70);
 
-        settingsScene.setRoot(grid);
+        final Label ballSpeed = new Label("Ball Speed:");
+        final Label numberOfBalls = new Label("Number of Balls:");
+        final Label numberOfPaddles = new Label("Number of Paddles:");
+        final Label paddleSize = new Label("Paddle Size:");
 
-        GridPane.setConstraints(opacityCaption, 0, 1);
-        grid.getChildren().add(opacityCaption);
+        Font theFont = Font.font("Kavivanar", 24);
 
+        ballSpeed.setTextFill(Color.WHITE);
+        ballSpeed.setFont(theFont);
+        GridPane.setConstraints(ballSpeed, 0, 1);
+        grid.getChildren().add(ballSpeed);
 
-        opacityLevel.valueProperty().addListener(new ChangeListener<Number>() {
+        numberOfBalls.setTextFill(Color.WHITE);
+        numberOfBalls.setFont(theFont);
+        GridPane.setConstraints(numberOfBalls, 0, 2);
+        grid.getChildren().add(numberOfBalls);
+
+        numberOfPaddles.setTextFill(Color.WHITE);
+        numberOfPaddles.setFont(theFont);
+        GridPane.setConstraints(numberOfPaddles, 0, 3);
+        grid.getChildren().add(numberOfPaddles);
+
+        paddleSize.setTextFill(Color.WHITE);
+        paddleSize.setFont(theFont);
+        GridPane.setConstraints(paddleSize, 0, 4);
+        grid.getChildren().add(paddleSize);
+
+        ballSpeedSetting.valueProperty().addListener(new ChangeListener<Number>() {
             public void changed(ObservableValue<? extends Number> ov,
                                 Number old_val, Number new_val) {
-                //System.out.println(new_val.doubleValue());
-                opacityValue.setText(String.format("%.2f", new_val));
+               Main.speedMultiplier = new_val.doubleValue();
+               menuButton.requestFocus();
             }
         });
 
-        GridPane.setConstraints(opacityLevel, 1, 1);
-        grid.getChildren().add(opacityLevel);
+        numberOfBallSetting.valueProperty().addListener(new ChangeListener<Number>() {
+            public void changed(ObservableValue<? extends Number> ov,
+                                Number old_val, Number new_val) {
+                Main.numOfBalls = new_val.doubleValue();
+                Main.numberOfBalls = (int)Math.round(Main.numOfBalls);
+                menuButton.requestFocus();
+            }
+        });
 
+        numberOfPaddleSetting.valueProperty().addListener(new ChangeListener<Number>() {
+            public void changed(ObservableValue<? extends Number> ov,
+                                Number old_val, Number new_val) {
+                Main.numberOfPaddles = new_val.doubleValue();
+                menuButton.requestFocus();
+            }
+        });
 
-        GridPane.setConstraints(opacityValue, 2, 1);
-        grid.getChildren().add(opacityValue);
+        paddleSizeSetting.valueProperty().addListener(new ChangeListener<Number>() {
+            public void changed(ObservableValue<? extends Number> ov,
+                                Number old_val, Number new_val) {
+                Main.paddleSize = new_val.doubleValue();
+                menuButton.requestFocus();
+            }
+        });
+
+        GridPane.setConstraints(ballSpeedSetting, 1, 1);
+        grid.getChildren().add(ballSpeedSetting);
+
+        GridPane.setConstraints(numberOfBallSetting, 1, 2);
+        grid.getChildren().add(numberOfBallSetting);
+
+        GridPane.setConstraints(numberOfPaddleSetting, 1, 3);
+        grid.getChildren().add(numberOfPaddleSetting);
+
+        GridPane.setConstraints(paddleSizeSetting, 1, 4);
+        grid.getChildren().add(paddleSizeSetting);
+        root.getChildren().add(grid);
 
         addTitle();
-        addMenuButton();
+        configureSliders();
 
         return settingsScene;
     }
 
     private void addTitle() {
-        Text titleText = UIGenerator.createText("Settings", 392, 90, 54);
+        Text titleText = GUIComponent.createText("Settings", 392, 90, 54);
 
         root.getChildren().add(titleText);
     }
 
     private void addMenuButton() {
-        Button menuButton = UIGenerator.createButton("Back to Menu", 244, 580);
 
         menuButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -98,6 +165,38 @@ public class Settings implements SceneInterface {
             }
         });
 
+        menuButton.setOnMouseEntered(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                settingsScene.setCursor(Cursor.HAND);
+            }
+        });
+
+        menuButton.setOnMouseExited(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                settingsScene.setCursor(Cursor.DEFAULT);
+            }
+        });
+
+        menuButton.setTextFill(Paint.valueOf("#FF3333"));
+        menuButton.defaultButtonProperty().bind(menuButton.focusedProperty());
         root.getChildren().add(menuButton);
+    }
+
+    private void configureSliders(){
+        ballSpeedSetting.setShowTickLabels(true);
+
+        numberOfBallSetting.setShowTickLabels(true);
+        numberOfBallSetting.setMinorTickCount(1);
+        numberOfBallSetting.setMajorTickUnit(2);
+        numberOfBallSetting.setSnapToTicks(true);
+
+        numberOfPaddleSetting.setShowTickLabels(true);
+        numberOfPaddleSetting.setMinorTickCount(1);
+        numberOfPaddleSetting.setMajorTickUnit(2);
+        numberOfPaddleSetting.setSnapToTicks(true);
+
+        paddleSizeSetting.setShowTickLabels(true);
     }
 }
