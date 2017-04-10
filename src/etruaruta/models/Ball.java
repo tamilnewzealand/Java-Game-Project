@@ -272,32 +272,40 @@ public class Ball{
         }
     }
 
+    /**
+     * Sets the ball as explosive if it already isn't
+     */
     public void setExplosive(){
-        if (!isExplosive) {
-            isExplosive = true;
-        }
+        if (!isExplosive) isExplosive = true;
     }
 
+    /**
+     * Un sets teh explosive ball effect
+     */
     public void setUnexplosive(){
-        if (isExplosive){
-            isExplosive = false;
-        }
+        if (isExplosive) isExplosive = false;
     }
 
+    /**
+     *
+     * @return the whether the ball is currently explosive
+     */
     public boolean isExplosive(){
         return isExplosive;
     }
 
+    /**
+     *
+     * @param willBeHeld whether the ball will be held
+     */
     public void setWillBeHeld(boolean willBeHeld){
-        if (willBeHeld) {
-            if (!this.willBeHeld) {
-                this.willBeHeld = true;
-            }
-        }else{
-            this.willBeHeld = false;
-        }
+        if (willBeHeld && (!this.willBeHeld)) this.willBeHeld = true;
+        else this.willBeHeld = false;
     }
 
+    /**
+     * Sets the ball as being held
+     */
     public void setBallHeld(){
         if (willBeHeld){
             isHeld = true;
@@ -309,18 +317,33 @@ public class Ball{
         }
     }
 
+    /**
+     *
+     * @return whether the ball will be held
+     */
     public boolean getWillBeHeld(){
        return willBeHeld;
     }
 
+    /**
+     *
+     * @return whether the ball is held
+     */
     public boolean isHeld(){
         return isHeld;
     }
 
+    /**
+     * Releases the hold on the ball
+     */
     public void unHeld(){
         isHeld = false;
     }
 
+    /**
+     * Launches the ball in the direction of the arrow
+     * @param arrow the pointer arrow marking the direction
+     */
     public void launch(ArrowPointer arrow){
         int angle = arrow.getAngle();
         int velocity = 15;
@@ -328,5 +351,4 @@ public class Ball{
         ySpeed = (int) (velocity * Math.cos(angle * Math.PI / 180));
 
     }
-
 }

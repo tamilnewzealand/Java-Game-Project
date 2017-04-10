@@ -35,7 +35,6 @@ public class AIController {
         if (Main.gameMode == 99 || (Main.gameMode == 0 && general.getPos() != 2 && general.getPos() != 0) || (Main.gameMode == 2 && general.getPos() != 0)  || (Main.gameMode == 4  && general.getPos() != 0) || (Main.gameMode == 6  && general.getPos() != 0)) {
             double distanceBefore = calculateDistance(ball);
             if (distanceBefore > 75 + general.paddle.getWidth()/2) {//Stops paddle moving when close to ball
-                //System.out.println(distanceBefore);
                 general.paddle.moveLeft();
                 if(Main.numberOfPaddles > 1.50) general.paddleFollower.moveRight();
                 double distanceAfter = calculateDistance(ball);

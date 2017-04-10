@@ -305,7 +305,6 @@ public class PlayNow implements SceneInterface {
         Image markerReadyImages[] = {new Image("xMarkerAReady.png"), new Image("xMarkerBReady.png"), new Image("xMarkerCReady.png"), new Image("xMarkerDReady.png")};
 
         // setting up the font for drawing text onto the canvas
-
         try {
             final Font theFont = Font.loadFont(new FileInputStream(new File("Kavivanar.TTF")), 54);
             gc.setFill(Color.WHITE);
@@ -390,6 +389,7 @@ public class PlayNow implements SceneInterface {
                     // Shows the conformation prompt when a player tries to leave the game
                     if (paused && escaping) gc.fillText("Press enter to exit", Main.WIDTH / 2, Main.HEIGHT / 2);
 
+                    // Shows the skill ladder and skills that are being used when in single player mode
                     if (game.isSinglePlayer()) {
                         if (game.generals[0].getCurrentSkill().getSkillName() == "Explosive Ball" && !game.generals[0].isDead()) {
                             if (!game.generals[0].isSkillTriggered()) {
@@ -405,33 +405,26 @@ public class PlayNow implements SceneInterface {
                             }
                         }
                     }
-                    boolean paddleFollowerHolding = false;
-                    if (Main.numberOfPaddles > 1.50){
-                        if (game.generals[0].paddleFollower.isHoldingBall()){
-                            paddleFollowerHolding = true;
-                        }
-                    }
+                    boolean paddleFollowerHolding = ((Main.numberOfPaddles > 1.50) && (game.generals[0].paddleFollower.isHoldingBall()));
+
+                    // Shows the ball being held by a paddle if the hold skill has been activated
                     if ((game.generals[0].paddle.isHoldingBall() || paddleFollowerHolding) && !game.generals[0].isDead() && game.isSinglePlayer()){
                         arrows[game.arrowsIndex].getTransforms().add(new Rotate(-game.previousAngle, game.getArrowXPivot() , game.getArrowYPivot()));
 
-                        if (game.generals[0].paddle.isHoldingBall()) {
-                            game.calculateArrowPosition(true);
-                        }else{
-                            game.calculateArrowPosition(false);
-                        }
+                        if (game.generals[0].paddle.isHoldingBall()) game.calculateArrowPosition(true);
+                        else game.calculateArrowPosition(false);
+
                         arrows[game.arrowsIndex].setX(game.getArrowXPosition());
                         arrows[game.arrowsIndex].setY(game.getArrowYPosition());
 
                         arrows[game.arrowsIndex].setVisible(true);
                         arrows[game.arrowsIndex].getTransforms().add(new Rotate(game.getBallHoldAngle(), game.getArrowXPivot(), game.getArrowYPivot()));
                         game.previousAngle = game.getBallHoldAngle();
-                    }else{
+                    } else {
                         for (int i = 0; i < game.arrowsIndex+1; i ++) {
                             arrows[i].setVisible(false);
                         }
                     }
-
-
                 }
             }
 

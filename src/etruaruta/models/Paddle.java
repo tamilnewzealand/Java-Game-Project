@@ -195,6 +195,10 @@ public class Paddle implements IObject {
         }
     }
 
+    /**
+     *
+     * @param holdingBall whether the ball is currently being held
+     */
     public void setHoldingBall(boolean holdingBall){
         this.holdingBall = holdingBall;
         if (holdingBall){
@@ -202,10 +206,20 @@ public class Paddle implements IObject {
         }
     }
 
+    /**
+     *
+     * @return whether the ball is currently being held
+     */
     public boolean isHoldingBall(){
         return holdingBall;
     }
 
+    /**
+     *
+     * @param balls the balls in the game
+     * @param arrow the arrow showing direction the ball will head in
+     * @return whether the ball is currently still being held
+     */
     public boolean checkStillHoldingBall(Ball[] balls, ArrowPointer arrow){
         boolean stillHolding = true;
         if (ballHoldCount > 0){
@@ -218,6 +232,11 @@ public class Paddle implements IObject {
         return stillHolding;
     }
 
+    /**
+     *
+     * @param balls the balls in the game
+     * @param arrow the arrow showing direction the ball will head in
+     */
     private void releaseBall(Ball[] balls, ArrowPointer arrow){
         for (int i = 0; i < balls.length; i++){
             if (balls[i].isHeld()){
