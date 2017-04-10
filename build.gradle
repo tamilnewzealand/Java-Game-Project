@@ -29,23 +29,8 @@ sourceSets {
             srcDirs = ["src"]
         }
     }
-	test {
-        java {
-            srcDirs = ["src"]
-        }
-    }
 }
 
 repositories {
 	mavenCentral()
-}
-
-dependencies {
-	compile 'junit:junit:4.12'
-}
-
-test {
-	testLogging {
-		events "passed", "skipped", "failed"
-	}
 }
