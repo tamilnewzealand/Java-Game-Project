@@ -336,7 +336,9 @@ public class Story implements SceneInterface {
     }
 
     private void colourText(int optionNumber){
-        buttonsArray[optionNumber].setTextFill(Paint.valueOf("#FF3333"));
+        if (Main.gameMode != 7 && Main.gameMode != -1 ){
+            buttonsArray[optionNumber].setTextFill(Paint.valueOf("#FF3333"));
+        }
     }
 
     private void optionChanger(boolean up){
