@@ -175,7 +175,7 @@ public class PlayNow implements SceneInterface {
                     case ENTER:
                         if (paused && escaping) {
                             Main.gameMode = 0;
-                            game.setFinished();
+                            game.endGame();
                             playNowScene.removeEventHandler(KeyEvent.KEY_PRESSED, keyPressHandler);
                             playNowScene.removeEventHandler(KeyEvent.KEY_RELEASED, keyReleaseHandler);
                             sceneManager.goToMenuScene(sceneManager);
@@ -324,6 +324,7 @@ public class PlayNow implements SceneInterface {
                 // Sets the rendering speed to 60fps
                 if ((currentNanoTime - lastUpdate >= 16666666) && !game.isFinished()) {
                     lastUpdate = currentNanoTime;
+                    System.out.println("Working");
                     // Clear the canvas
                     gc.clearRect(0, 0, Main.WIDTH, Main.WIDTH);
 
@@ -511,8 +512,9 @@ public class PlayNow implements SceneInterface {
     private void endGame() {
         playNowScene.removeEventHandler(KeyEvent.KEY_PRESSED, keyPressHandler);
         playNowScene.removeEventHandler(KeyEvent.KEY_RELEASED, keyReleaseHandler);
-        game.setFinished();
-        if (true || game.generals[0].hasWon()) {
+        game.endGame();
+        if (game.generals[0].hasWon()) {
+            Main.draw = ((game.generals[1].hasWon()) || (game.generals[2].hasWon()) || (game.generals[3].hasWon()));
             switch (Main.gameMode) {
                 case 0:
                     Main.gameMode = -1;
@@ -537,11 +539,14 @@ public class PlayNow implements SceneInterface {
                     break;
                 default:
                     Main.gameMode = 0;
+                    Main.playerScore = 0;
+                    Main.playerName = null;
                     sceneManager.goToMenuScene(sceneManager);
             }
         } else {
-            Main.gameMode = 0;
-            sceneManager.goToMenuScene(sceneManager);
+            Main.gameMode = 8;
+            Main.playerScore = (game.generals[0].wallCount() * 10);
+            sceneManager.goToPlayNowScene(sceneManager);
         }
     }
 }

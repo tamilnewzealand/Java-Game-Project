@@ -114,12 +114,18 @@ public class Story implements SceneInterface {
                 Main.playerScore = 0;
                 Main.playerName = null;
                 break;
+            case 8:
+                addLostMessageText();
+                webView.getEngine().load("https://www.youtube.com/embed/DmJhGD98lP8?autoplay=1&controls=0&disablekb=1&modestbranding=1&rel=0&showinfo=0");
+                Main.playerScore = 0;
+                Main.playerName = null;
             default:
                 break;
         }
         addExitButton();
         handleInputs();
         storyScene.addEventHandler(KeyEvent.KEY_PRESSED, keyPressHandler);
+        Main.draw = false;
 
         return storyScene;
     }
@@ -135,8 +141,10 @@ public class Story implements SceneInterface {
     }
 
     private void addStoryBText() {
-        String text = "Current Score: " + Main.playerScore +
-                "\nIt is now 2602, you have been able to maintain a ceasefire with the invaders for the last 30 years and\n" +
+        String text;
+        if (Main.draw) text = "Better luck next time! \n Current Score: " + Main.playerScore;
+        else text = "Well Done! \n Current Score: " + Main.playerScore;
+        text += "\nIt is now 2602, you have been able to maintain a ceasefire with the invaders for the last 30 years and\n" +
                 "keep them at bay orbiting the planet Etruaruta. Intelligence reports suggest that they are planning a\n" +
                 "new attack against the planet when the citizens are celebrating Republic Day. Are you ready for the\n" +
                 "next invasion?";
@@ -146,8 +154,10 @@ public class Story implements SceneInterface {
     }
 
     private void addStoryCText() {
-        String text = "Current Score: " + Main.playerScore +
-                "\nAfter three months of fierce fighting, the Earthlings and Martians have banded together and sent\n" +
+        String text;
+        if (Main.draw) text = "Better luck next time! \n Current Score: " + Main.playerScore;
+        else text = "Well Done! \n Current Score: " + Main.playerScore;
+        text += "\nAfter three months of fierce fighting, the Earthlings and Martians have banded together and sent\n" +
                 "you into exile in orbit. The locals have been enslaved and you are facing an eminent loss. The locals\n" +
                 "are planning a coup to send out the invaders. Will you be able to defeat the invaders and give\n" +
                 "Freedom to the people of Etruaruta?";
@@ -157,10 +167,19 @@ public class Story implements SceneInterface {
     }
 
     private void addWinMessageText() {
-        String text = "Well Done " + Main.playerName + ", you have successfully gained freedom for Etruaruta!!!\n" +
+        String text;
+        if (Main.draw) text = "Better luck next time ";
+        else text = "Well Done ";
+        text += Main.playerName + ", you have successfully gained freedom for Etruaruta!!!\n" +
                 "Your Score: " + Main.playerScore;
         Text instructionsText = GUIComponent.createText(text, 50, 150, 30);
 
+        root.getChildren().add(instructionsText);
+    }
+
+    private void addLostMessageText() {
+        String text = "Better luck next time...";
+        Text instructionsText = GUIComponent.createText(text, 50, 150, 30);
         root.getChildren().add(instructionsText);
     }
 

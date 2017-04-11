@@ -42,6 +42,7 @@ public class Main extends Application {
     public static double numOfBalls = 1.00;
     public static double numberOfPaddles = 1.00;
     public static double paddleSize = 1.00;
+    public static boolean draw = false;
 
     @Override
     public void start(Stage primaryStage) {

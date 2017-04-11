@@ -231,14 +231,7 @@ public class Game{
             }
         }
 
-        // if time exceeded, game is ended and high scores are calculated
-        if (timeElapsed > 3600) {
-            isFinished = true;
-            hiScore = Math.max(Math.max(generals[0].wallCount(), generals[1].wallCount()), Math.max(generals[2].wallCount(), generals[3].wallCount()));
-            for (int i = 0; i < generals.length; i++) {
-                if (hiScore == generals[i].wallCount()) generals[i].setWon();
-            }
-        }
+        if (timeElapsed > 3600) endGame();
 
         // generates power ups every 20 seconds
         if (timeElapsed % 600 == 0) generatePowerUp();
@@ -269,6 +262,17 @@ public class Game{
         }
         if (!ballStillHeld) skillsReady = true;
 
+    }
+
+    /**
+     * Marks the game as finished and calculates the winner
+     */
+    public void endGame() {
+        isFinished = true;
+        hiScore = Math.max(Math.max(generals[0].wallCount(), generals[1].wallCount()), Math.max(generals[2].wallCount(), generals[3].wallCount()));
+        for (int i = 0; i < generals.length; i++) {
+            if (hiScore == generals[i].wallCount()) generals[i].setWon();
+        }
     }
 
     /**
@@ -406,13 +410,6 @@ public class Game{
     public String getCountdownRemaining() {
         int time = (countDown / 30);
         return "0:" + String.format("%02d",time);
-    }
-
-    /**
-     * Sets the game as having finished
-     */
-    public void setFinished(){
-        isFinished = true;
     }
 
     /**
