@@ -14,6 +14,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
@@ -21,6 +22,9 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
 import javafx.scene.web.WebView;
+
+import static javafx.scene.input.KeyCode.DOWN;
+import static javafx.scene.input.KeyCode.UP;
 
 /**
  * This class presents the story scene. The user
@@ -78,6 +82,20 @@ public class Story implements SceneInterface {
             name.setPrefColumnCount(10);
             name.getText();
             GridPane.setConstraints(name, 0, 0);
+            name.setOnKeyPressed(new EventHandler<KeyEvent>() {
+                @Override
+                public void handle(KeyEvent t) {
+                    if (t.getCode() == UP){
+                        root.requestFocus();
+                        colourText(1);
+                        optionNumber = 1;
+                    }else if (t.getCode() == DOWN){
+                        root.requestFocus();
+                        optionNumber = 0;
+                        colourText(0);
+                    }
+                }
+            });
             grid.getChildren().add(name);
             root.getChildren().add(grid);
         }
@@ -295,10 +313,10 @@ public class Story implements SceneInterface {
                         }
                         break;
                     case UP:
-                        optionChanger();
+                        optionChanger(true);
                         break;
                     case DOWN:
-                        optionChanger();
+                        optionChanger(false);
                         break;
                 }
             }
@@ -321,13 +339,33 @@ public class Story implements SceneInterface {
         buttonsArray[optionNumber].setTextFill(Paint.valueOf("#FF3333"));
     }
 
-    private void optionChanger(){
-        if (optionNumber == 0) {
-            optionNumber = 1;
+    private void optionChanger(boolean up){
+        if (Main.gameMode != 2) {
+            if (optionNumber == 0) {
+                optionNumber = 1;
+            } else {
+                optionNumber = 0;
+            }
+            resetColours();
+            colourText(optionNumber);
         }else{
-            optionNumber = 0;
+            resetColours();
+            if (optionNumber == 0){
+                if (up){
+                    optionNumber = -1;
+                    name.requestFocus();
+                }else{
+                    optionNumber = 1;
+                    colourText(optionNumber);
+                }
+            }else if (optionNumber == 1) {
+                if (up) {
+                    optionNumber = 0;
+                    colourText(optionNumber);
+                } else {
+                    name.requestFocus();
+                }
+            }
         }
-        resetColours();
-        colourText(optionNumber);
     }
 }

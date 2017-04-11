@@ -423,7 +423,7 @@ public class Game{
      * Generates a power up at a random location
      */
     public void generatePowerUp(){
-        generatePowerUp((int)Math.random() * 424 + 350,(int)Math.random() * 608 + 50);
+        generatePowerUp((int)(Math.random() * 424 + 350),(int)(Math.random() * 608 + 50));
     }
 
     /**

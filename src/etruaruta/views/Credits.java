@@ -5,11 +5,13 @@ import etruaruta.GUIComponent;
 import etruaruta.controllers.SceneManager;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.Cursor;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
@@ -81,6 +83,20 @@ public class Credits implements SceneInterface {
             @Override
             public void handle(ActionEvent event) {
                 sceneManager.goToMenuScene(sceneManager);
+            }
+        });
+
+        menuButton.setOnMouseEntered(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                creditsScene.setCursor(Cursor.HAND);
+            }
+        });
+
+        menuButton.setOnMouseExited(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                creditsScene.setCursor(Cursor.DEFAULT);
             }
         });
         menuButton.setTextFill(Paint.valueOf("#FF3333"));
