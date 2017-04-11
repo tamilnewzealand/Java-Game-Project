@@ -324,7 +324,7 @@ public class PlayNow implements SceneInterface {
                 // Sets the rendering speed to 60fps
                 if ((currentNanoTime - lastUpdate >= 16666666) && !game.isFinished()) {
                     lastUpdate = currentNanoTime;
-                    System.out.println("Working");
+
                     // Clear the canvas
                     gc.clearRect(0, 0, Main.WIDTH, Main.WIDTH);
 

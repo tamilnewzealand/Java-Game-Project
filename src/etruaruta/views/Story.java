@@ -222,8 +222,11 @@ public class Story implements SceneInterface {
                 storyScene.setCursor(Cursor.DEFAULT); //Change cursor to default
             }
         });
-        buttonsArray[0] = menuButton;
-        menuButton.setTextFill(Paint.valueOf("#FF3333"));
+        if (!(Main.gameMode == 7 || Main.gameMode == -1 || Main.gameMode == 8)){
+            buttonsArray[0] = menuButton;
+            menuButton.setTextFill(Paint.valueOf("#FF3333"));
+        }
+
         root.getChildren().add(menuButton);
     }
 
@@ -255,11 +258,12 @@ public class Story implements SceneInterface {
                 storyScene.setCursor(Cursor.DEFAULT); //Change cursor to default
             }
         });
-        buttonsArray[1] = returnToMenuButton;
 
-        if (Main.gameMode == 7 || Main.gameMode == -1){
+        if (Main.gameMode == 7 || Main.gameMode == -1 || Main.gameMode == 8){
             returnToMenuButton.setTextFill(Paint.valueOf("#FF3333"));
             buttonsArray[0] = returnToMenuButton;
+        } else {
+            buttonsArray[1] = returnToMenuButton;
         }
         root.getChildren().add(returnToMenuButton);
     }
@@ -278,7 +282,7 @@ public class Story implements SceneInterface {
                     case ENTER:
                         closeWebView();
                         storyScene.removeEventHandler(KeyEvent.KEY_PRESSED, keyPressHandler);
-                        if (Main.gameMode == -1 || Main.gameMode == 7) {
+                        if (Main.gameMode == -1 || Main.gameMode == 7 || Main.gameMode == 8) {
                             sceneManager.goToMenuScene(sceneManager);
                             Main.gameMode = 0;
                         } else if (optionNumber == 0) {
