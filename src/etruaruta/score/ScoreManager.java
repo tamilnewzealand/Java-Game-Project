@@ -113,10 +113,29 @@ public class ScoreManager {
         int i = 0;
         int x = scores.size();
         if (x > max) x = max;
+
         while (i < x) {
-            highscoreString += (i + 1) + ".\t" + scores.get(i).getName() + "\t\t" + scores.get(i).getScore() + "\n";
+
+            highscoreString += (i + 1) + ". " + scores.get(i).getName() + "\n";
+
             i++;
         }
         return highscoreString;
+    }
+
+    public static String getHighscoreValues(){
+        String highscoreValues = "";
+
+        ArrayList<Score> scores;
+        scores = getScores();
+        int i = 0;
+        int x = scores.size();
+        if (x > 10) x = 10;
+
+        while (i < x) {
+            highscoreValues += scores.get(i).getScore() + "\n";
+            i++;
+        }
+        return highscoreValues;
     }
 }
