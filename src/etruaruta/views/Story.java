@@ -142,8 +142,8 @@ public class Story implements SceneInterface {
 
     private void addStoryBText() {
         String text;
-        if (Main.draw) text = "Better luck next time! \n Current Score: " + Main.playerScore;
-        else text = "Well Done! \n Current Score: " + Main.playerScore;
+        if (Main.draw) text = "You remain undefeated but so do some of your enemies! Better luck next round!\nCurrent Score: " + Main.playerScore;
+        else text = "Well Done!\nCurrent Score: " + Main.playerScore;
         text += "\nIt is now 2602, you have been able to maintain a ceasefire with the invaders for the last 30 years and\n" +
                 "keep them at bay orbiting the planet Etruaruta. Intelligence reports suggest that they are planning a\n" +
                 "new attack against the planet when the citizens are celebrating Republic Day. Are you ready for the\n" +
@@ -155,8 +155,8 @@ public class Story implements SceneInterface {
 
     private void addStoryCText() {
         String text;
-        if (Main.draw) text = "Better luck next time! \n Current Score: " + Main.playerScore;
-        else text = "Well Done! \n Current Score: " + Main.playerScore;
+        if (Main.draw) text = "You remain undefeated but so do your enemies! Better luck next round!\nCurrent Score: " + Main.playerScore;
+        else text = "Well Done!\nCurrent Score: " + Main.playerScore;
         text += "\nAfter three months of fierce fighting, the Earthlings and Martians have banded together and sent\n" +
                 "you into exile in orbit. The locals have been enslaved and you are facing an eminent loss. The locals\n" +
                 "are planning a coup to send out the invaders. Will you be able to defeat the invaders and give\n" +
@@ -167,10 +167,9 @@ public class Story implements SceneInterface {
     }
 
     private void addWinMessageText() {
-        String text;
-        if (Main.draw) text = "Better luck next time ";
-        else text = "Well Done ";
-        text += Main.playerName + ", you have successfully gained freedom for Etruaruta!!!\n" +
+        String text = "";
+        if (Main.draw) text = "Having been unable to defeat your enemies you negotiate to form\na peace treaty.\n";
+        text += Main.playerName + "Well done you have successfully gained freedom for Etruaruta!!!\n" +
                 "Your Score: " + Main.playerScore;
         Text instructionsText = GUIComponent.createText(text, 50, 150, 30);
 
@@ -178,7 +177,7 @@ public class Story implements SceneInterface {
     }
 
     private void addLostMessageText() {
-        String text = "Better luck next time...";
+        String text = "You have been defeated. Better luck next time...";
         Text instructionsText = GUIComponent.createText(text, 50, 150, 30);
         root.getChildren().add(instructionsText);
     }

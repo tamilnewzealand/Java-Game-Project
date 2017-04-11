@@ -413,6 +413,13 @@ public class Game{
     }
 
     /**
+     *
+     * @return the countDown as an integer
+     */
+    public int getCountDown(){
+        return countDown;
+    }
+    /**
      * Generates a power up at a random location
      */
     public void generatePowerUp(){

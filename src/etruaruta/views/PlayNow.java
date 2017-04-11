@@ -349,13 +349,17 @@ public class PlayNow implements SceneInterface {
                         }
                     }
 
-                    // draws out all the balls and sped up balls in the game canvas
-                    for (int a = 0; a < game.balls.length; a++) {
-                        if (game.balls[a].isExplosive()) gc.drawImage(explosiveBall, game.balls[a].getXPos(), game.balls[a].getYPos(), game.balls[a].getWidth(), game.balls[a].getHeight());
-                        else if (!game.balls[a].getSpedUp()) gc.drawImage(ballImage, game.balls[a].getXPos(), game.balls[a].getYPos(), game.balls[a].getWidth(), game.balls[a].getHeight());
-                        else gc.drawImage(spedUpBall, game.balls[a].getXPos(), game.balls[a].getYPos(), game.balls[a].getWidth(), game.balls[a].getHeight());
+                    // draws out all the balls and sped up balls in the game canvas once game starts
+                    if (game.getCountDown() <= 0) {
+                        for (int a = 0; a < game.balls.length; a++) {
+                            if (game.balls[a].isExplosive())
+                                gc.drawImage(explosiveBall, game.balls[a].getXPos(), game.balls[a].getYPos(), game.balls[a].getWidth(), game.balls[a].getHeight());
+                            else if (!game.balls[a].getSpedUp())
+                                gc.drawImage(ballImage, game.balls[a].getXPos(), game.balls[a].getYPos(), game.balls[a].getWidth(), game.balls[a].getHeight());
+                            else
+                                gc.drawImage(spedUpBall, game.balls[a].getXPos(), game.balls[a].getYPos(), game.balls[a].getWidth(), game.balls[a].getHeight());
+                        }
                     }
-
                     // draws out each generals' paddles, general and walls
                     for (int k = 0; k < game.generals.length; k++) {
                         if (!game.generals[k].isDead()) {

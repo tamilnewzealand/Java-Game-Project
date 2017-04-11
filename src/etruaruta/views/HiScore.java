@@ -53,7 +53,7 @@ public class HiScore implements SceneInterface {
         SoundManager.playBackground();
 
         addTitle();
-        addHiScoreText();
+        addHighScoreText();
         addHiscoreValues();
         addMenuButton();
 
@@ -66,11 +66,11 @@ public class HiScore implements SceneInterface {
         root.getChildren().add(titleText);
     }
 
-    private void addHiScoreText() {
+    private void addHighScoreText() {
         String text = ScoreManager.getHighscoreString();
-        Text hiScoreText = GUIComponent.createText(text, 353, 150, 26);
+        Text highScoreText = GUIComponent.createText(text, 353, 150, 26);
 
-        root.getChildren().add(hiScoreText);
+        root.getChildren().add(highScoreText);
     }
 
     private void addHiscoreValues(){
