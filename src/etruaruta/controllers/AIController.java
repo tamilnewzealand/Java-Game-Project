@@ -31,7 +31,8 @@ public class AIController {
      */
     public void movePaddle(Ball[] balls){
         int lowestDistanceIndex = findClosestBall(balls);
-        Ball ball = balls[lowestDistanceIndex];
+        Ball ball = balls[lowestDistanceIndex]; //Get the closest ball to the paddle
+        //First we check if the AI paddle is active in this game mode.
         if (Main.gameMode == 99 || (Main.gameMode == 0 && general.getPos() != 2 && general.getPos() != 0) || (Main.gameMode == 2 && general.getPos() != 0)  || (Main.gameMode == 4  && general.getPos() != 0) || (Main.gameMode == 6  && general.getPos() != 0)) {
             double distanceBefore = calculateDistance(ball);
             if (distanceBefore > 75 + general.paddle.getWidth()/2) {//Stops paddle moving when close to ball
@@ -64,7 +65,7 @@ public class AIController {
         int ballYVelocity = ball.getYVelocity();
         int yDistanceBefore = Math.abs(general.paddle.calcYPos() - (ballYPos+ballYVelocity*5));//Guess where ball will be by looking at current location and velocity
         int XDistanceBefore = Math.abs(general.paddle.calcXPos() - (ballXPos+ballXVelocity*5));
-        return Math.sqrt(Math.pow(XDistanceBefore,2)+Math.pow(yDistanceBefore,2));
+        return Math.sqrt(Math.pow(XDistanceBefore,2)+Math.pow(yDistanceBefore,2));//Use pythagoras to calculate actual distance taking into account both x and y
     }
 
 
@@ -74,11 +75,12 @@ public class AIController {
      * @param powerUps the power ups that can be used
      */
     public void moveMarker(Marker markerIn, ArrayList<PowerUp> powerUps){
+        //First we check if the AI marker is active in this game mode.
         if (Main.gameMode == 99 || (Main.gameMode == 0 && general.getPos() != 2 && general.getPos() != 0) || (Main.gameMode == 2 && general.getPos() != 0)  || (Main.gameMode == 4  && general.getPos() != 0)|| (Main.gameMode == 6  && general.getPos() != 0)) {
             if (movementCounter <= 0) {
-                movementCounter = 15;
+                movementCounter = 15;//Movement continues for 15 ticks
                 resetMovement();
-                int movement = (int) (Math.random() * 4);
+                int movement = (int) (Math.random() * 4);//Decide where the marker will be going
                 if (movement == 0) {
                     markerIn.moveUp();
                     movingUp = true;
@@ -93,13 +95,13 @@ public class AIController {
                     movingLeft = true;
                 }
             } else {
-                movementCounter--;
+                movementCounter--; //Decrease movement counter every tick so it changes direction every 15th tick
                 if (movingUp) markerIn.moveUp();
                 else if (movingRight) markerIn.moveRight();
                 else if (movingDown) markerIn.moveDown();
                 else if (movingLeft) markerIn.moveLeft();
             }
-            checkDeployPowerUp(markerIn, powerUps);
+            checkDeployPowerUp(markerIn, powerUps);//Call hte function to deploy power ups and see if it is ready to deploy
         }
     }
 
@@ -114,12 +116,12 @@ public class AIController {
     }
 
     /**
-     * Checks if a power up has been deployed
+     * Checks if a power up can be deployed
      * @param markerIn the marker this AIController controls
      * @param powerUps the power ups that can be used
      */
     private void checkDeployPowerUp(Marker markerIn, ArrayList<PowerUp> powerUps){
-        if (markerIn.getReady()){
+        if (markerIn.getReady()){//Deploy the power up if it is ready to deploy
             powerUps.add(new SpeedUp());
             powerUps.get(powerUps.size()-1).setPos(markerIn.calcXPos(), markerIn.calcYPos());
             markerIn.resetReadyCounter();
@@ -129,7 +131,7 @@ public class AIController {
     /**
      *
      * @param balls array of all the balls in play
-     * @return the closest ball in play
+     * @return the index of closest ball in play
      */
     private int findClosestBall(Ball[] balls){
         int lowestIndex = 0;

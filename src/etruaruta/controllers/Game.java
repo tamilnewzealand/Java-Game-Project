@@ -20,9 +20,7 @@ public class Game{
     public Ball[] balls;
     private Ball ball;
     public ArrayList<PowerUp> powerUps = new ArrayList<PowerUp>();
-    public SpeedUp speedUp;
     public ArrayList<AIController> AIs = new ArrayList<AIController>();
-    private int ballHoldAngle = 0;
     public ArrayList<Marker> markers = new ArrayList<>();
     private ArrowPointer arrow = new ArrowPointer();
     private boolean heldByFirstPaddle = true;
@@ -43,7 +41,7 @@ public class Game{
      */
     public Game(Ball[] balls, General generalA, General generalB, General generalC, General generalD) {
         this.balls = balls;
-        this.generals = new General[4];
+        this.generals = new General[4];//Initialise the generals in the game
         this.generals[0] = generalA;
         this.generals[1] = generalB;
         this.generals[2] = generalC;
@@ -62,7 +60,7 @@ public class Game{
         this.AIs.add(new AIController());
         this.AIs.get(3).setGeneral(generalD);
 
-        this.deadPos = new int[4];
+        this.deadPos = new int[4]; //Array to keep track of the dead
     }
 
     /**
@@ -95,25 +93,25 @@ public class Game{
         for (int a = 0; a < balls.length; a++) {
             ball = balls[a];
             boolean ballHit = false;
-            if (!ball.getHitLastTick() && ball.getCollisionCounter() <= 0) {
+            if (!ball.getHitLastTick() && ball.getCollisionCounter() <= 0) { // Ensure collisions only happen if ball wasn't hit last tick
                 for (int i = 0; i < powerUps.size(); i++) {
                     if (!ballHit && (!powerUps.get(i).isHit())) {
-                        if (objectCollision(powerUps.get(i), ballHit, false)) {
+                        if (objectCollision(powerUps.get(i), ballHit, false)) {//When a ball passes through the power ups
                             // checking activation a speed up power up
-                            if (powerUps.get(i).getPowerUpName().equals("Speed Up")) {
+                            if (powerUps.get(i).getPowerUpName().equals("Speed Up")) {//If the power up is a speed up
                                 if (!ball.getSpedUp()) {
                                     powerUps.get(i).setHit(true);
-                                    powerUps.get(i).activateEffect(ball, generals);
+                                    powerUps.get(i).activateEffect(ball, generals); //Activate effect of speed up
                                     SoundManager.playSpeedUp();
-                                    ball.setSpedUp(true);
+                                    ball.setSpedUp(true); //Indicate to the ball that it has been sped up
                                 }
                             // checking activation of a paddle size up power up
-                            } else if (powerUps.get(i).getPowerUpName().equals("Paddle Size Up")){
+                            } else if (powerUps.get(i).getPowerUpName().equals("Paddle Size Up")){//If the power up isa paddle size up
                                 boolean activateSizeIncrease = false;
                                 for (int j = 0; j < generals.length;j++){
-                                    if (!generals[j].isDead() && !generals[j].paddle.getSizeIncreased()) activateSizeIncrease = true;
+                                    if (!generals[j].isDead() && !generals[j].paddle.getSizeIncreased()) activateSizeIncrease = true;//Increase the size of all the paddles
                                 }
-                                if (activateSizeIncrease){
+                                if (activateSizeIncrease){//Activate size increase
                                     powerUps.get(i).setHit(true);
                                     powerUps.get(i).activateEffect(ball, generals);
                                 }
@@ -121,25 +119,25 @@ public class Game{
                         }
                     }
                 }
-                outerLoop:
+                outerLoop://Outer loop is identified to break out of completely at a later stage
                 for (int i = 0; i < generals.length; i++) {
                     if (!ballHit && (!generals[i].isDead())){
                         if (ball.getWillBeHeld() && i == 0){
                             //Collision with general 0's first paddle
                             ballHit = objectCollision(generals[i].paddle,ballHit,false);
                             if (ballHit){
-                                holdBall(true);
+                                holdBall(true);//calls holdBall function telling it that first paddle is holding ball
                                 arrowsIndex += 1;
                                 previousAngle = 0;
                             }
-                        } else ballHit = objectCollision(generals[i].paddle, ballHit);
+                        } else ballHit = objectCollision(generals[i].paddle, ballHit);//Otherwise regular collision
                     }
-                    if (!ballHit && (!generals[i].isDead()) && Main.numberOfPaddles == 2){
+                    if (!ballHit && (!generals[i].isDead()) && Main.numberOfPaddles == 2){//Perform the same check for secondary paddle
                         if (ball.getWillBeHeld() && i == 0){
                             //Collision with general 0's second paddle
                             ballHit = objectCollision(generals[i].paddleFollower,ballHit,false);
                             if (ballHit){
-                                holdBall(false);
+                                holdBall(false);//calls holdBall function telling it that second paddle is holding ball
                                 arrowsIndex += 1;
                                 previousAngle = 0;
                             }
@@ -149,7 +147,7 @@ public class Game{
                     if (!ballHit && (!generals[i].isDead())) {
                         ballHit = objectCollision(generals[i], ballHit);
                         if (ballHit){
-                            generals[i].killGeneral();
+                            generals[i].killGeneral();//Upon hit kill the general
                             generalHit = true;
                             SoundManager.playGeneralDeath();
 
@@ -161,7 +159,7 @@ public class Game{
                     if (!ballHit) {
                         for (int j = 0; j < generals[i].wall.length; j++) {
                             for (int k = 0; k < generals[i].wall[j].length; k++) {
-                                if (!generals[i].wall[j][k].isDestroyed()){
+                                if (!generals[i].wall[j][k].isDestroyed()){//Only perform collision checks if wall isn't destroyed
                                     if (!ballHit) ballHit = objectCollision(generals[i].wall[j][k], ballHit);
 
                                     if (ballHit) {
@@ -169,9 +167,9 @@ public class Game{
                                             generals[i].wall[j][k].destroyBrick();
                                         } else{
                                             explosion(i,j,ball); //Cause the explosion.
-                                            checkAllExploded(balls);
+                                            checkAllExploded(balls); //Check if all the balls have exploded
                                         }
-                                        break outerLoop;
+                                        break outerLoop; //End outer loop
                                     }
                                 }
                             }
@@ -181,7 +179,7 @@ public class Game{
                 }
             }
 
-            if (ballHit && !generalHit) SoundManager.playCollision();
+            if (ballHit && !generalHit) SoundManager.playCollision(); //Collision sound
 
             // if no collisions occurred then move the ball as usual
             if (!ballHit) {
@@ -207,20 +205,20 @@ public class Game{
             }
         }
 
-        // if AI general is dead, moves the AI ghost marker
+        // AI general movement
         for (int i = 0; i < AIs.size();i++){
             if (!generals[i].isDead()) {
-                AIs.get(i).movePaddle(balls);
+                AIs.get(i).movePaddle(balls); //Move AI's paddle
             } else {
                 for (int j = 0; j < markers.size();j++){
                     if (markers.get(j).getPos() == i){
-                        AIs.get(i).moveMarker(markers.get(j), powerUps);
+                        AIs.get(i).moveMarker(markers.get(j), powerUps);//Move each of the markers if AI is dead
                     }
                 }
             }
         }
 
-        if (deadCount > 0 && markers.size() < deadCount ){
+        if (deadCount > 0 && markers.size() < deadCount ){ //Keep track of the dead generals and their markers
             for (int i = 0; i < deadPos.length;i++) {
                 if (deadPos[i] != 1 && generals[i].isDead()) {
                     this.markers.add(new Marker());
@@ -237,30 +235,30 @@ public class Game{
         if (timeElapsed % 600 == 0) generatePowerUp();
 
         for (int i = 0; i < generals.length;i++){
-            generals[i].paddle.checkDecreaseWidth();
-            if (Main.numberOfPaddles == 2) generals[i].paddleFollower.checkDecreaseWidth();
+            generals[i].paddle.checkDecreaseWidth();//check reduction of width of primary paddle
+            if (Main.numberOfPaddles == 2) generals[i].paddleFollower.checkDecreaseWidth();//Check reduction of width of secondary paddle
         }
 
         for (int i = 0; i < generals.length;i++){
             if (deadPos[i] == 1 && generals[i].isDead()){
                 for (int j = 0; j < markers.size(); j++){
-                    if (markers.get(j).getPos() == i){
-                        markers.get(j).decrementReadyCounter();
+                    if (markers.get(j).getPos() == i){ //Identify the correct marker that corresponds to the general
+                        markers.get(j).decrementReadyCounter();//Decrement counter of the active markers
                     }
                 }
             }
         }
 
-        if (heldByFirstPaddle) calculateArrowPivots(true);
+        if (heldByFirstPaddle) calculateArrowPivots(true); //Calculate direction of arrow when it is held
         else calculateArrowPivots(false);
 
         boolean ballStillHeld = true;
-        if (heldByFirstPaddle) {
+        if (heldByFirstPaddle) {//If the ball is held to check if it is still held this tick
             if (!generals[0].paddle.checkStillHoldingBall(balls, arrow)) ballStillHeld = false;
         } else {
             if (!generals[0].paddleFollower.checkStillHoldingBall(balls, arrow)) ballStillHeld = false;
         }
-        if (!ballStillHeld) skillsReady = true;
+        if (!ballStillHeld) skillsReady = true; //Once the power has been shot the skills are ready to be reset when an AI dies
 
     }
 
@@ -271,7 +269,7 @@ public class Game{
         isFinished = true;
         hiScore = Math.max(Math.max(generals[0].wallCount(), generals[1].wallCount()), Math.max(generals[2].wallCount(), generals[3].wallCount()));
         for (int i = 0; i < generals.length; i++) {
-            if (hiScore == generals[i].wallCount()) generals[i].setWon();
+            if (hiScore == generals[i].wallCount()) generals[i].setWon(); //Set the person with the highest number of bricks remaining as the winner
         }
     }
 
@@ -282,31 +280,32 @@ public class Game{
      * @return whether the ball has been hit this tick
      */
     private boolean objectCollision (IObject object, boolean ballHit) {
-        for (int x = object.calcXPos(); x <= (object.calcXPos() + object.getWidth()); x++) {
-            for (int y = object.calcYPos(); y <= (object.calcYPos() + object.getHeight()); y++) {
+        for (int x = object.calcXPos(); x <= (object.calcXPos() + object.getWidth()); x++) { //For each pixel in x axis of the object
+            for (int y = object.calcYPos(); y <= (object.calcYPos() + object.getHeight()); y++) {//For every pixel in the y axis of the object
+                //If if the pixels collide
                 if (x == object.calcXPos() || y == object.calcYPos() || x == (object.calcXPos() + object.getWidth()) || y == (object.calcYPos() + object.getHeight())) {
-                    if (inBallPath(x, y)) {
-                        if (x == object.calcXPos()) {
+                    if (inBallPath(x, y)) {//Use the ball in path method to find if the object is in the path of the ball
+                        if (x == object.calcXPos()) { //Handle each of the sides of the object individually to reflect ball accordingly
                             if (ball.getXVelocity() > 0) {
-                                ball.setXVelocity(-ball.getXVelocity());
+                                ball.setXVelocity(-ball.getXVelocity());//Invert x velocity
                                 ball.setHitLastTick(true);
                                 return true;
                             }
                         } else if (y == object.calcYPos()) {
                             if (ball.getYVelocity() > 0) {
-                                ball.setYVelocity(-ball.getYVelocity());
+                                ball.setYVelocity(-ball.getYVelocity());//Invert y velocity
                                 ball.setHitLastTick(true);
                                 return true;
                             }
                         } else if (x == (object.calcXPos() + object.getWidth())) {
                             if (ball.getXVelocity() < 0) {
-                                ball.setXVelocity(-ball.getXVelocity());
+                                ball.setXVelocity(-ball.getXVelocity());//Invert X velocity
                                 ball.setHitLastTick(true);
                                 return true;
                             }
                         } else if (y == (object.calcYPos() + object.getHeight())) {
                             if (ball.getYVelocity() < 0) {
-                                ball.setYVelocity(-ball.getYVelocity());
+                                ball.setYVelocity(-ball.getYVelocity()); //Invert y velocity
                                 ball.setHitLastTick(true);
                                 return true;
                             }
@@ -322,22 +321,24 @@ public class Game{
      * Checks for collision between an object and a ball
      * @param object an object that implements IObject
      * @param ballHit whether the ball has been hit this tick
-     * @param bounce whether the ball has bounced
+     * @param bounce whether the ball will bounce
      * @return whether the ball has been hit this tick
      */
     private boolean objectCollision (IObject object, boolean ballHit, boolean bounce) {
-        for (int x = object.calcXPos(); x < (object.calcXPos() + object.getWidth()); x++) {
-            for (int y = object.calcYPos(); y < (object.calcYPos() + object.getHeight()); y++) {
-                if (x == object.calcXPos() || y == object.calcYPos() || x == (object.calcXPos() + object.getWidth()) || y == (object.calcYPos() + object.getHeight())) {
-                    if (inBallPath(x, y)) {
-                        if (x == object.calcXPos()) {
-                            return true;
-                        } else if (y == object.calcYPos()) {
-                            return true;
-                        } else if (x == (object.calcXPos() + object.getWidth())) {
-                            return true;
-                        } else if (y == (object.calcYPos() + object.getHeight())) {
-                            return true;
+        if (!bounce) {
+            for (int x = object.calcXPos(); x < (object.calcXPos() + object.getWidth()); x++) {
+                for (int y = object.calcYPos(); y < (object.calcYPos() + object.getHeight()); y++) {
+                    if (x == object.calcXPos() || y == object.calcYPos() || x == (object.calcXPos() + object.getWidth()) || y == (object.calcYPos() + object.getHeight())) {
+                        if (inBallPath(x, y)) {
+                            if (x == object.calcXPos()) {
+                                return true;
+                            } else if (y == object.calcYPos()) {
+                                return true;
+                            } else if (x == (object.calcXPos() + object.getWidth())) {
+                                return true;
+                            } else if (y == (object.calcYPos() + object.getHeight())) {
+                                return true;
+                            }
                         }
                     }
                 }
@@ -369,7 +370,7 @@ public class Game{
             y = y1;
             end = x2;
         }
-        if ((x == xCord) && (y == yCord)) return true;
+        if ((x == xCord) && (y == yCord)) return true; //If coordinates match then return true
         while(x < end) {
             x = x + 1;
             if(p < 0) {
@@ -379,7 +380,7 @@ public class Game{
                 y = y + 1;
                 p = p + 2 * (dy - dx);
             }
-            if ((x == xCord) && (y == yCord)) return true;
+            if ((x == xCord) && (y == yCord)) return true; //If coordinates match then return true
         }
         return false;
     }
@@ -399,7 +400,7 @@ public class Game{
     public String getTimeRemaining() {
         int time = (120 - (timeElapsed / 30));
         if (time == 120) return "2:00";
-        if (time > 59) return "1:" + String.format("%02d",time-60);
+        if (time > 59) return "1:" + String.format("%02d",time-60);//String formatting to make time look like a countdown
         else return "0:" + String.format("%02d",time);
     }
 
@@ -409,7 +410,7 @@ public class Game{
      */
     public String getCountdownRemaining() {
         int time = (countDown / 30);
-        return "0:" + String.format("%02d",time);
+        return "0:" + String.format("%02d",time);//Count down before the game starts
     }
 
     /**
@@ -432,7 +433,7 @@ public class Game{
      * @param yPos y position of the power up
      */
     public void generatePowerUp(int xPos, int yPos){
-        int option = (int)(Math.random() * 2);
+        int option = (int)(Math.random() * 2);//Choose between paddle size up and speed up
         if (option == 0) this.powerUps.add(new PaddleSizeUp());
         else if (option == 1) this.powerUps.add(new SpeedUp());
         powerUps.get(powerUps.size()-1).setPos(xPos, yPos);
@@ -443,21 +444,21 @@ public class Game{
      * Flags are set by the keyboard handler
      */
     public void executeActions(){
-        for (int i = 0; i < generalsMovement.length; i++) {
+        for (int i = 0; i < generalsMovement.length; i++) {//For all generals
             switch (generalsMovement[i]) {
                 case "left":
-                    if(!generals[i].isDead()) {
-                        generals[i].paddle.moveLeft();
-                        if (Main.numberOfPaddles > 1.50) generals[i].paddleFollower.moveRight();
+                    if(!generals[i].isDead()) {//If the general is moving left and is not dead
+                        generals[i].paddle.moveLeft();//Move paddle left
+                        if (Main.numberOfPaddles > 1.50) generals[i].paddleFollower.moveRight();//Move paddle follower left
                     }else{
-                        for (int j = 0; j < markers.size();j++){
+                        for (int j = 0; j < markers.size();j++){//If dead identify the marker and move it left
                             if (markers.get(j).getPos() == i){
                                 markers.get(j).moveLeft();
                             }
                         }
                     }
                     break;
-                case "right":
+                case "right"://Same logic as moving left but instead moves right
                     if(!generals[i].isDead()) {
                         generals[i].paddle.moveRight();
                         if (Main.numberOfPaddles > 1.50) generals[i].paddleFollower.moveLeft();
@@ -470,7 +471,7 @@ public class Game{
                     }
                     break;
                 case "up":
-                    if(generals[i].isDead()) {
+                    if(generals[i].isDead()) {//Move marker up if general is dead
                         for (int j = 0; j < markers.size();j++){
                             if (markers.get(j).getPos() == i){
                                 markers.get(j).moveUp();
@@ -479,7 +480,7 @@ public class Game{
                     }
                     break;
                 case "down":
-                    if(generals[i].isDead()) {
+                    if(generals[i].isDead()) {//Move marker down if general is dead
                         for (int j = 0; j < markers.size();j++){
                             if (markers.get(j).getPos() == i){
                                 markers.get(j).moveDown();
@@ -501,9 +502,9 @@ public class Game{
      */
     private void explosion(int i, int j, Ball ball){
         for (int k = 0; k < generals[i].wall[j].length; k++){
-            if (!generals[i].wall[j][k].isDestroyed()) generals[i].wall[j][k].destroyBrick();
+            if (!generals[i].wall[j][k].isDestroyed()) generals[i].wall[j][k].destroyBrick();//Destroy the row of bricks
         }
-        ball.setUnexplosive();
+        ball.setUnexplosive();//Make the ball unexplosive
         SoundManager.playExplosion();
     }
 
@@ -516,7 +517,7 @@ public class Game{
         for (int i = 0; i < balls.length; i ++){
             if (balls[i].isExplosive()) allExploded = false;
         }
-        if (allExploded) skillsReady = true;
+        if (allExploded) skillsReady = true;//If all balls have exploded then indicate that skills are ready to be reset
     }
 
     /**
@@ -525,19 +526,20 @@ public class Game{
      */
     private void holdBall(boolean firstPaddle){
         ball.setBallHeld();
-        if (firstPaddle) {
+        //When the ball is held it needs to be relocated to the bottom of the paddle in the centre
+        if (firstPaddle) {//Relocate it to the centre of the first paddle
             generals[0].paddle.setHoldingBall(true);
             ball.setXPos(generals[0].paddle.calcXPos() + generals[0].paddle.getWidth() / 2 - ball.getWidth() / 2);
             ball.setYPos(generals[0].paddle.calcYPos() + generals[0].paddle.getHeight());
             heldByFirstPaddle = true;
-        }else{
+        }else{//Relocate it to the centre of the second paddle
             generals[0].paddleFollower.setHoldingBall(true);
             ball.setXPos(generals[0].paddleFollower.calcXPos() + generals[0].paddleFollower.getWidth() / 2 - ball.getWidth() / 2);
             ball.setYPos(generals[0].paddleFollower.calcYPos() + generals[0].paddleFollower.getHeight());
             heldByFirstPaddle = false;
         }
         for (int i = 0; i < balls.length; i++){
-            balls[i].setWillBeHeld(false);
+            balls[i].setWillBeHeld(false); //Indicate that the other balls in play will not be held
         }
     }
 
