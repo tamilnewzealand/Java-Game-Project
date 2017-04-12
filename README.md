@@ -22,15 +22,6 @@ gradlew clean
 ```
 #!shell
 
-gradlew copyRes
-```
- to copy the graphics necessary for the game into the correct folder structure
-
-```
-#!shell
-
 gradlew run
 ```
  to build & run the game
-
-NB: the copyRes task must be run before the game GUI can be launched.
