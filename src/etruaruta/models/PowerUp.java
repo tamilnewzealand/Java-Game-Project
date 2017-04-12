@@ -78,12 +78,12 @@ public abstract class PowerUp implements IObject {
      * @param ball the ball to apply the power up to
      * @param generals an array of the generals in the game
      */
-    abstract public void activateEffect(Ball ball, General[] generals);
+    abstract public void activateEffect(Ball ball, General[] generals);//Abstract method for extending class to implement
 
     /**
      *
      * @return string with the name of the power up
      */
-    abstract public String getPowerUpName();
+    abstract public String getPowerUpName();//Abstract method for extending class to implement
 
 }

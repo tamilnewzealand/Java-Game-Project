@@ -56,7 +56,7 @@ public class ArrowPointer {
     }
 
     /**
-     *
+     * Calculates the pivot point of the arrow and sets them
      * @param paddle the paddle that this skill applies to
      * @param ball the ball which the paddle caught
      */
@@ -66,7 +66,7 @@ public class ArrowPointer {
     }
 
     /**
-     *
+     * Calculates the position of the arrow and sets x and y pos.
      * @param paddle the paddle that this skill applies to
      * @param ball the ball which the paddle caught
      */
@@ -89,13 +89,6 @@ public class ArrowPointer {
      */
     public int getyPos(){
         return yPos;
-    }
-
-    /**
-     * Resets the angle to 0
-     */
-    public void resetAngle(){
-        angle = 0;
     }
 
 }

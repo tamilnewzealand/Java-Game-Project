@@ -10,7 +10,6 @@ package etruaruta.models;
 
 public abstract class Skill {
     private int width = 50,height = 50;
-    private boolean executed = false;
 
     /**
      *
@@ -32,12 +31,12 @@ public abstract class Skill {
      *
      * @param balls the balls to apply the skill to
      */
-    abstract public void activateEffect(Ball[] balls);
+    abstract public void activateEffect(Ball[] balls);//Abstract method which will be implemented by the extending class
 
     /**
      *
      * @return string with the name of the skill
      */
-    abstract public String getSkillName();
+    abstract public String getSkillName();//Another abstract method
 
 }

@@ -88,27 +88,27 @@ public class PlayNow implements SceneInterface {
         keyPressHandler = new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent keyEvent) {
-                boolean freezed = paused || game.isCountingDown();
+                boolean freezed = paused || game.isCountingDown(); //Frozen when either game is paused or it is still in initial countdown
                 switch (keyEvent.getCode()) {
                     case LEFT:
-                        if (!freezed && Main.gameMode != 99 ) {
+                        if (!freezed && Main.gameMode != 99 ) { //Only cause movement when not demo mode and it is not frozen
                             if (!game.generals[0].paddle.isHoldingBall()) {
                                 if (Main.numberOfPaddles > 1.50){
                                     if (!game.generals[0].paddleFollower.isHoldingBall()){
-                                        game.generalsMovement[0] = "left";
+                                        game.generalsMovement[0] = "left"; //Set the array to indicate it is moving left
                                     }else{
-                                        game.increaseBallHoldAngle();
+                                        game.increaseBallHoldAngle(); //Otherwise increase ball holding angle when ball is held
                                     }
                                 }else{
                                     game.generalsMovement[0] = "left";
                                 }
                             }else{
-                                game.increaseBallHoldAngle();
+                                game.increaseBallHoldAngle(); //Otherwise increase ball holding angle when ball is held
                             }
                         }
                         break;
                     case RIGHT:
-                        if (!freezed && Main.gameMode != 99) {
+                        if (!freezed && Main.gameMode != 99) {//Similar logic to that of moving left
                             if (!game.generals[0].paddle.isHoldingBall()) {
                                 if (Main.numberOfPaddles > 1.50){
                                     if (!game.generals[0].paddleFollower.isHoldingBall()){
@@ -125,18 +125,18 @@ public class PlayNow implements SceneInterface {
                         }
                         break;
                     case UP:
-                        if (!freezed && Main.gameMode != 99) {
+                        if (!freezed && Main.gameMode != 99) { //Only cause movement when not demo mode and it is not frozen
                             if (game.generals[0].isDead()) {
-                                game.generalsMovement[0] = "up";
+                                game.generalsMovement[0] = "up"; //Set it to indicate upwards movement of marker if dead
                             }else{
                                 if (game.isSinglePlayer()) {
-                                    game.generals[0].increaseSkillsIndex();
+                                    game.generals[0].increaseSkillsIndex(); //Switch to the next skill
                                 }
                             }
                         }
                         break;
                     case DOWN:
-                        if (!freezed && Main.gameMode != 99) {
+                        if (!freezed && Main.gameMode != 99) {//Similar logic to moving up
                             if (game.generals[0].isDead()){
                                 game.generalsMovement[0] = "down";
                             }else{
@@ -149,7 +149,7 @@ public class PlayNow implements SceneInterface {
                     case SHIFT:
                         if (!freezed && Main.gameMode != 99) {
                             if (game.generals[0].isDead()) {
-                                for (int i = 0; i < game.markers.size(); i++) {
+                                for (int i = 0; i < game.markers.size(); i++) {//Identify the correct marker and deploy power up from the location of it
                                     if (game.markers.get(i).getPos() == 0 && game.markers.get(i).getReady()) {
                                         game.generatePowerUp(game.markers.get(i).calcXPos(), game.markers.get(i).calcYPos());
                                         game.markers.get(i).resetReadyCounter();
@@ -176,13 +176,13 @@ public class PlayNow implements SceneInterface {
                         if (paused && escaping) {
                             Main.gameMode = 0;
                             game.endGame();
-                            playNowScene.removeEventHandler(KeyEvent.KEY_PRESSED, keyPressHandler);
+                            playNowScene.removeEventHandler(KeyEvent.KEY_PRESSED, keyPressHandler); //Removing event handlers from scene
                             playNowScene.removeEventHandler(KeyEvent.KEY_RELEASED, keyReleaseHandler);
                             sceneManager.goToMenuScene(sceneManager);
                         }
                         break;
                     case PAGE_DOWN:
-                        endGame();
+                        endGame(); //Skipping to end of level
                         break;
                     case P:
                         if (paused) {
@@ -193,27 +193,27 @@ public class PlayNow implements SceneInterface {
                         break;
                     //The following code is for player at the bottom right (index 2)
                     case A:
-                        if (!freezed && Main.gameMode != 99 && Main.gameMode == 0){
+                        if (!freezed && Main.gameMode == 0){ //Multiplayer mode only and not frozen
                             game.generalsMovement[2] = "left";
                         }
                         break;
                     case D:
-                        if (!freezed && Main.gameMode != 99 && Main.gameMode == 0){
+                        if (!freezed && Main.gameMode == 0){
                             game.generalsMovement[2] = "right";
                         }
                         break;
                     case W:
-                        if (!freezed && Main.gameMode != 99 && Main.gameMode == 0) {
+                        if (!freezed && Main.gameMode == 0) {
                             if (game.generals[2].isDead()) game.generalsMovement[2] = "up";
                         }
                         break;
                     case S:
-                        if (!freezed && Main.gameMode != 99 && Main.gameMode == 0) {
+                        if (!freezed && Main.gameMode == 0) {
                             if (game.generals[2].isDead()) game.generalsMovement[2] = "down";
                         }
                         break;
                     case E:
-                        if (!freezed && Main.gameMode != 99 && Main.gameMode  == 0) {
+                        if (!freezed && Main.gameMode  == 0) { //Allows player two to also deploy power ups
                             if (game.generals[2].isDead()) {
                                 for (int i = 0; i < game.markers.size(); i++) {
                                     if (game.markers.get(i).getPos() == 2 && game.markers.get(i).getReady()) {
@@ -229,6 +229,7 @@ public class PlayNow implements SceneInterface {
 
         };
 
+        //Upon release of keys indicate that no movement is happening
         keyReleaseHandler = new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent keyEvent) {
@@ -504,9 +505,7 @@ public class PlayNow implements SceneInterface {
             balls[a].setYVelocity((int) (Main.speedMultiplier * randomY));
         }
 
-        if (Main.gameMode == 0) game = new Game(balls, generalA, generalB, generalC, generalD);
-        else if (Main.gameMode == 99) game = new Game(balls, generalA, generalB, generalC, generalD);
-        else game = new Game(balls, generalA, generalB, generalC, generalD);
+        game = new Game(balls, generalA, generalB, generalC, generalD);//Initialise the game
     }
 
     /**

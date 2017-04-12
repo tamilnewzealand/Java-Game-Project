@@ -194,6 +194,7 @@ public class Settings implements SceneInterface {
         root.getChildren().add(menuButton);
     }
 
+    //Makes the sliders snap to specified units. E.g can't have 1.5 paddles
     private void configureSliders(){
         ballSpeedSetting.setShowTickLabels(true);
 

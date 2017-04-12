@@ -2,7 +2,7 @@ package etruaruta.models;
 
 /**
  * This class models a ball hold in the game.
- *
+ * It extends the abstract skill class
  * @author Adil Bhayani <abha808@aucklanduni.ac.nz>
  * @author Sakayan Sitsabesan <ssit662@aucklanduni.ac.nz>
  * @version 0.5.0
@@ -16,7 +16,7 @@ public class BallHold extends Skill {
      */
     public void activateEffect(Ball[] balls){
         for (int i = 0; i < balls.length; i ++){
-            balls[i].setWillBeHeld(true);
+            balls[i].setWillBeHeld(true); //Sets all balls as will be held
         }
     }
 

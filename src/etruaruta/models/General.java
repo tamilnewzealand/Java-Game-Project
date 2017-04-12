@@ -230,7 +230,7 @@ public class General implements IObject {
      */
     public void triggerSkill(Ball[] balls){
         if (!skillTriggered) {
-            skillsArray[skillsIndex].activateEffect(balls);
+            skillsArray[skillsIndex].activateEffect(balls); //Activate the skill that is currently selected
             skillTriggered = true;
         }
     }

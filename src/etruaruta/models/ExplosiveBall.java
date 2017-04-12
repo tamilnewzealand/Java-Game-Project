@@ -2,7 +2,7 @@ package etruaruta.models;
 
 /**
  * This class models an explosive ball in the game.
- *
+ * Extends the abstract skill class
  * @author Adil Bhayani <abha808@aucklanduni.ac.nz>
  * @author Sakayan Sitsabesan <ssit662@aucklanduni.ac.nz>
  * @version 0.5.0
@@ -17,7 +17,7 @@ public class ExplosiveBall extends Skill {
     public void activateEffect(Ball[] balls){
         for (int i = 0; i < balls.length; i++){
             if (!balls[i].isExplosive()){
-                balls[i].setExplosive();
+                balls[i].setExplosive(); //Set all the balls as explosive
             }
         }
     }

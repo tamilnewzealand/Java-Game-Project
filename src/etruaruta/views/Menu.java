@@ -77,13 +77,18 @@ public class Menu implements SceneInterface {
         return menuScene;
     }
 
-
+    /**
+     * Adds the title of the game to root
+     */
     private void addTitle() {
         Text titleText = GUIComponent.createText("Freedom to Etruaruta", 256, 90, 54);
 
         root.getChildren().add(titleText);
     }
 
+    /**
+     * Adds the start button for single player
+     */
     private void addStartButton() {
         Button startButton = GUIComponent.createButton("Play Now (1P)", 426, 180);
         startButton.setTextFill(Paint.valueOf("#FF3333"));
@@ -113,6 +118,9 @@ public class Menu implements SceneInterface {
         root.getChildren().add(startButton);
     }
 
+    /**
+     * Adds the multiplayer button
+     */
     private void addMultiplayer2Button() {
         Button multi2Button = GUIComponent.createButton("Multiplayer (2P)", 426, 240);
 
@@ -144,6 +152,9 @@ public class Menu implements SceneInterface {
         root.getChildren().add(multi2Button);
     }
 
+    /**
+     * Adds the instructions button
+     */
     private void addInstructionsButton() {
         Button instructionsButton = GUIComponent.createButton("Instructions", 426, 300);
 
@@ -175,6 +186,9 @@ public class Menu implements SceneInterface {
         root.getChildren().add(instructionsButton);
     }
 
+    /**
+     * Adds the AI demo mode button
+     */
     private void addDemoButton() {
         Button demoButton = GUIComponent.createButton("Demo", 426, 360);
 
@@ -206,6 +220,9 @@ public class Menu implements SceneInterface {
         root.getChildren().add(demoButton);
     }
 
+    /**
+     * Adds the high scores button
+     */
     private void addHighScoresButton() {
         Button highScoresButton = GUIComponent.createButton("High Scores", 426, 420);
 
@@ -237,6 +254,9 @@ public class Menu implements SceneInterface {
         root.getChildren().add(highScoresButton);
     }
 
+    /**
+     * Adds the settings button
+     */
     private void addSettingsButton() {
         Button settingsButton = GUIComponent.createButton("Settings", 426, 480);
 
@@ -268,6 +288,9 @@ public class Menu implements SceneInterface {
         root.getChildren().add(settingsButton);
     }
 
+    /**
+     * Adds the credits button
+     */
     private void addCreditsButton() {
         Button creditsButton = GUIComponent.createButton("Credits", 426, 540);
 
@@ -299,6 +322,9 @@ public class Menu implements SceneInterface {
         root.getChildren().add(creditsButton);
     }
 
+    /**
+     * Adds the exit game button
+     */
     private void addExitButton() {
         Button exitButton = GUIComponent.createButton("Exit", 426, 600);
 
@@ -329,6 +355,10 @@ public class Menu implements SceneInterface {
         root.getChildren().add(exitButton);
     }
 
+    /**
+     * Handles the keyboard inputs and calls functions
+     * to change menu accordingly.
+     */
     private void handleInputs(){
         keyPressHandler = new EventHandler<KeyEvent>() {
             @Override
@@ -340,8 +370,8 @@ public class Menu implements SceneInterface {
                         } else {
                             optionNumber = 7;
                         }
-                        resetColours();
-                        colourText(optionNumber);
+                        resetColours(); //Call the reset colours function
+                        colourText(optionNumber); //Colour the appropriate option
                         break;
                     case DOWN:
                         if (optionNumber < 7) {
@@ -353,7 +383,7 @@ public class Menu implements SceneInterface {
                         colourText(optionNumber);
                         break;
                     case ENTER:
-                        buttonsArray[optionNumber].fire();
+                        buttonsArray[optionNumber].fire(); //Fire the button that is currently selected
                         break;
                     case ESCAPE:
                         Stage stage = (Stage) menuScene.getWindow();
@@ -366,12 +396,12 @@ public class Menu implements SceneInterface {
 
     private void resetColours(){
         for (int i = 0; i < buttonsArray.length; i++){
-            buttonsArray[i].setTextFill(Paint.valueOf("#FFFFFF"));
+            buttonsArray[i].setTextFill(Paint.valueOf("#FFFFFF")); //Set all buttons fill to white
         }
     }
 
     private void colourText(int index){
-        buttonsArray[index].setTextFill(Paint.valueOf("#FF3333"));
+        buttonsArray[index].setTextFill(Paint.valueOf("#FF3333")); //Colour the specified button red
     }
 
 }

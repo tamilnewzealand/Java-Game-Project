@@ -17,7 +17,7 @@ public class SpeedUp extends PowerUp{
      * @param generals an array of the generals in the game
      */
     public void activateEffect(Ball ball, General[] generals){
-        ball.checkIncreaseSpeed(ball.getXVelocity()*2,ball.getYVelocity()*2);
+        ball.checkIncreaseSpeed(ball.getXVelocity()*2,ball.getYVelocity()*2);// Double the x and y velocity
     }
 
     /**

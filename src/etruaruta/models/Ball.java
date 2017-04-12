@@ -68,7 +68,7 @@ public class Ball{
      * @param dX Velocity of ball in X direction per game tick
      */
     public void setXVelocity(int dX) {
-        if (Math.abs(dX) <= maxSpeed){
+        if (Math.abs(dX) <= maxSpeed){//Ensure that velocity isn't more than the maximum
             xSpeed = dX;
         } else {
             if (xSpeed < 0) {
@@ -84,7 +84,7 @@ public class Ball{
      * @param dY Velocity of ball in Y direction per game tick
      */
     public void setYVelocity(int dY) {
-        if (Math.abs(dY) <= maxSpeed){
+        if (Math.abs(dY) <= maxSpeed){//Ensures the y velocity isn't more than the maximum allowed
             ySpeed = dY;
         } else {
             if (ySpeed < 0) {
@@ -145,7 +145,7 @@ public class Ball{
 
     /**
      *
-     * @return the number of collisions that have occurred so far
+     * @return 15 - the number of ticks that have happen after collision
      */
     public int getCollisionCounter(){
         return collisionCounter;
@@ -166,7 +166,7 @@ public class Ball{
     public void setSpedUp(boolean spedUp){
             if (spedUpCounter <= 0) {
                 spedup = spedUp;
-                spedUpCounter = 150;
+                spedUpCounter = 150; //Ensure ball stalls sped up for 150 ticks
             }
     }
 
@@ -200,20 +200,20 @@ public class Ball{
         x += xSpeed;
         y += ySpeed;
 
-        if (x <= (width / 2)) {
+        if (x <= (width / 2)) { //Make sure that the ball doesn't go off the screen's width on the left
             x = width / 2;
             xSpeed = -xSpeed;
         }
-        if (y <= (height / 2)) {
+        if (y <= (height / 2)) { //Make sure that the ball doesn't go off the screen's height at the top
             y = height / 2;
             ySpeed = -ySpeed;
         }
 
-        if (x >= (Main.WIDTH - width / 2)) {
+        if (x >= (Main.WIDTH - width / 2)) { //Make sure that the ball doesn't go off the screen's width on the right
             x = Main.WIDTH - (x - Main.WIDTH) - 2 * width;
             xSpeed = -xSpeed;
         }
-        if (y >= (Main.HEIGHT - height / 2)) {
+        if (y >= (Main.HEIGHT - height / 2)) { //Make sure that the ball doesn't go off the screen's height at the bottom
             y = Main.HEIGHT - (y - Main.HEIGHT) - 2 * height;
             ySpeed = -ySpeed;
         }
@@ -224,7 +224,7 @@ public class Ball{
      */
     public void decrementCounter(){
         if (collisionCounter > 0) {
-            collisionCounter = collisionCounter - 1;
+            collisionCounter = collisionCounter - 1; //Decrease the collision counter each tick when this method is called
         }
     }
 
@@ -235,7 +235,7 @@ public class Ball{
      * @param y new y speed for the ball
      */
     public void checkIncreaseSpeed(int x, int y){
-        if (!spedup) {
+        if (!spedup) {//Make sure it is not already sped up
             if (Math.abs(x) <= (maxSpeed*2 + 1) && Math.abs(y) <= (maxSpeed*2 + 1)) {
                 previousYSpeed = Math.abs(ySpeed);
                 previousXSpeed = Math.abs(xSpeed);
@@ -261,12 +261,12 @@ public class Ball{
                 if (xSpeed > 0) {
                     xSpeed = previousXSpeed;
                 }else{
-                    xSpeed = -1 * previousXSpeed;
+                    xSpeed = -1 * previousXSpeed; //Making sure that the reverting of velocity doesn't change direction of the ball
                 }
                 if (ySpeed > 0) {
                     ySpeed = previousYSpeed;
                 }else{
-                    ySpeed = -1 * previousYSpeed;
+                    ySpeed = -1 * previousYSpeed; //Making sure that the reverting of velocity doesn't change direction of the ball
                 }
             }
         }
@@ -310,9 +310,9 @@ public class Ball{
         if (willBeHeld){
             isHeld = true;
             willBeHeld = false;
-            spedup = false;
+            spedup = false; //Remove the sped up of the ball
             spedUpCounter = 0;
-            xSpeed = 0;
+            xSpeed = 0; //Stop the ball moving
             ySpeed = 0;
         }
     }
@@ -347,8 +347,8 @@ public class Ball{
     public void launch(ArrowPointer arrow){
         int angle = arrow.getAngle();
         int velocity = 15;
-        xSpeed =(int) (-velocity * Math.sin(angle * Math.PI / 180));
-        ySpeed = (int) (velocity * Math.cos(angle * Math.PI / 180));
+        xSpeed =(int) (-velocity * Math.sin(angle * Math.PI / 180));//Calculate x speed
+        ySpeed = (int) (velocity * Math.cos(angle * Math.PI / 180));//Calculate y speed
 
     }
 }
