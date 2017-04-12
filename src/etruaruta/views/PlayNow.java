@@ -288,7 +288,11 @@ public class PlayNow implements SceneInterface {
      */
     public GraphicsContext renderGame(GraphicsContext gc) {
         //Loading the graphics
-        Image space = new Image("space.png");
+        Image background;
+        if (Main.gameMode == 6) background = new Image("nebula.jpg");
+        else if (Main.gameMode == 4) background = new Image("desert.jpg");
+        else if (Main.gameMode == 0) background = new Image("multi.jpg");
+        else background = new Image("space.png");
         Image ballImage = new Image("ball.png");
         Image spedUpBall = new Image("fastBall.png");
         Image brickImage = new Image("brick.png");
@@ -330,7 +334,7 @@ public class PlayNow implements SceneInterface {
                     gc.clearRect(0, 0, Main.WIDTH, Main.WIDTH);
 
                     // background image clears canvas
-                    gc.drawImage(space, 0, 0, Main.WIDTH, Main.HEIGHT);
+                    gc.drawImage(background, 0, 0, Main.WIDTH, Main.HEIGHT);
 
                     // draws out all the powerups that are in play at the moment
                     for (int i = 0; i < game.powerUps.size(); i++) {
